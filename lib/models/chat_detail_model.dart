@@ -95,9 +95,8 @@ Future<Chatdetailmodel> getChatDetailListe(String chatId, int page) async {
     "chat_id": chatId,
     "page": page.toString(),
   };
-  var sonuc = await Httpservices().postMethod("tryt/detail.php", data);
+  var sonuc = await Httpservices().postMethod("chat/detail.php", data);
   var body = json.decode(sonuc);
-  // var deger = body["result"] as List;
   return Chatdetailmodel.fromJson(body["result"]);
 }
 

@@ -85,7 +85,7 @@ Future<List<Chatlistemodel>> getChatListe(int page) async {
     "lang": Config.lang,
     "page": page.toString(),
   };
-  var sonuc = await Httpservices().postMethod("tryt/index.php", data);
+  var sonuc = await Httpservices().postMethod("chat/index.php", data);
   var body = json.decode(sonuc);
   var deger = body["result"] as List;
   return deger.map((e) => Chatlistemodel.fromJson(e)).toList();
