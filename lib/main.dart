@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/controller/theme_controller.dart';

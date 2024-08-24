@@ -1,4 +1,4 @@
-package com.example.tryt
+package ai.joyjoy.app
 
 import io.flutter.embedding.android.FlutterActivity
 
