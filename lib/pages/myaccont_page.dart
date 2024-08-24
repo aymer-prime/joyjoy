@@ -28,7 +28,7 @@ class _MyaccontPageState extends State<MyaccontPage> {
         children: [
           const ProfilImageEdit(
             userNameStatus: true,
-            paddingTop: 32,
+            paddingTop: 16,
           ),
           ListTile(
             onTap: () {
@@ -159,7 +159,7 @@ class _MyaccontPageState extends State<MyaccontPage> {
                     ThemeColors.getColorTheme(Config.themType)["colorprimary"]),
           ),
           const SizedBox(
-            height: 32,
+            height: 16,
           ),
           Text(
             textAlign: TextAlign.center,
@@ -172,9 +172,11 @@ class _MyaccontPageState extends State<MyaccontPage> {
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextButton(
-                onPressed: () {},
+              GestureDetector(
+                onTap: () {},
                 child: Text(
                   "Kullanım Koşulları",
                   style: GoogleFonts.firaSans(
@@ -187,10 +189,19 @@ class _MyaccontPageState extends State<MyaccontPage> {
                   ),
                 ),
               ),
-              TextButton(
-                onPressed: () {},
+              Text(
+                ' - ',
+                style: GoogleFonts.firaSans(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12.8,
+                  height: 1.3,
+                  color: ThemeColors.getColorTheme(Config.themType)["color5"],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {},
                 child: Text(
-                  "K.V.K.K",
+                  "K.V.K.K.",
                   style: GoogleFonts.firaSans(
                     fontWeight: FontWeight.w400,
                     fontSize: 12.8,
@@ -201,8 +212,17 @@ class _MyaccontPageState extends State<MyaccontPage> {
                   ),
                 ),
               ),
-              TextButton(
-                onPressed: () {},
+              Text(
+                ' - ',
+                style: GoogleFonts.firaSans(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12.8,
+                  height: 1.3,
+                  color: ThemeColors.getColorTheme(Config.themType)["color5"],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {},
                 child: Text(
                   "Gizlilik Politikası",
                   style: GoogleFonts.firaSans(
@@ -216,7 +236,7 @@ class _MyaccontPageState extends State<MyaccontPage> {
                 ),
               ),
               const SizedBox(
-                height: 32,
+                height: 16,
               ),
             ],
           )

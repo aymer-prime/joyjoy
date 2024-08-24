@@ -35,13 +35,12 @@ class _ProfilImageEditState extends State<ProfilImageEdit> {
   final ImagePicker picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
+    return Padding(
       padding: EdgeInsets.only(
         top: widget.paddingTop,
-        left: 16,
-        right: 16,
-        bottom: 32,
+        left: 16.0,
+        right: 16.0,
+        bottom: 16.0,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -58,14 +57,14 @@ class _ProfilImageEditState extends State<ProfilImageEdit> {
                         ThemeColors.getColorTheme(Config.themType)["color4"],
                     backgroundImage:
                         const AssetImage('assets/images/user-img.png'),
-                    foregroundImage:
-                        (themeController.userInfo.first.picture != null)
-                            ? NetworkImage(
-                                themeController.userInfo.first.picture.toString(),
-                              )
-                            : null,
+                    foregroundImage: (themeController.userInfo.first.picture !=
+                            null)
+                        ? NetworkImage(
+                            themeController.userInfo.first.picture.toString(),
+                          )
+                        : null,
                   ),
-                  onTap:() {
+                  onTap: () {
                     showBottomMenu(context);
                   },
                 ),
@@ -77,12 +76,13 @@ class _ProfilImageEditState extends State<ProfilImageEdit> {
                       showBottomMenu(context);
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 8),
+                      width: 38,
+                      height: 38,
                       decoration: BoxDecoration(
+                        shape: BoxShape.circle,
                         color: ThemeColors.getColorTheme(
                             Config.themType)["color5"],
-                        borderRadius: BorderRadius.circular(12.8),
+                        //borderRadius: BorderRadius.circular(12.8),
                         border: Border.all(
                             width: 3,
                             color: ThemeColors.getColorTheme(
@@ -90,7 +90,7 @@ class _ProfilImageEditState extends State<ProfilImageEdit> {
                       ),
                       child: const Icon(
                         FontAwesome.edit,
-                        size: 16,
+                        size: 12.8,
                       ),
                     ),
                   ),
