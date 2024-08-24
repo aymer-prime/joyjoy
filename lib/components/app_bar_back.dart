@@ -10,15 +10,24 @@ class AppBarBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: leftPadding),
+      padding: EdgeInsets.only(left: leftPadding, top: 8, bottom: 8),
       child: GestureDetector(
         onTap: () {
           Navigator.pop(context);
         },
-        child: Icon(
-          FontAwesome5.chevron_left,
-          color: ThemeColors.getColorTheme(Config.themType)["color10"],
-          size: 19,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.8),
+            border: Border.all(
+                width: 1,
+                color: ThemeColors.getColorTheme(
+                    Config.themType)["colorborder1"]!),
+          ),
+          child: Icon(
+            FontAwesome5.chevron_left,
+            color: ThemeColors.getColorTheme(Config.themType)["color10"],
+            size: 19,
+          ),
         ),
       ),
     );

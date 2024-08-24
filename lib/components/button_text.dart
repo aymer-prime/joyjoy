@@ -25,7 +25,7 @@ class ButtonText extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: bgColor,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(24),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

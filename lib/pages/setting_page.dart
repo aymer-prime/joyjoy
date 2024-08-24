@@ -67,7 +67,6 @@ class _SettingPageState extends State<SettingPage> {
             : ListView(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
-                  vertical: 0,
                 ),
                 children: [
                   const SizedBox(

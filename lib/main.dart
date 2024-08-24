@@ -91,7 +91,7 @@ class _MyAppState extends State<MyApp> {
             color: ThemeColors.getColorTheme(sysTheme)["color5"],
           ),
           enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.8),
+              borderRadius: BorderRadius.circular(24),
               borderSide: BorderSide(
                   color: ThemeColors.getColorTheme(sysTheme)["colorborder1"]!,
                   width: 1)),
@@ -99,7 +99,7 @@ class _MyAppState extends State<MyApp> {
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 19.2, vertical: 19.2),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.8),
+            borderRadius: BorderRadius.circular(24),
             borderSide: BorderSide(
                 color: ThemeColors.getColorTheme(sysTheme)["colorborder1"]!,
                 width: 1),

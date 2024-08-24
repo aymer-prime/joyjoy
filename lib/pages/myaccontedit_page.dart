@@ -71,7 +71,6 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
         body: ListView(
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
-            vertical: 0,
           ),
           children: [
             const ProfilImageEdit(
@@ -108,7 +107,7 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                   color: ThemeColors.getColorTheme(
                       Config.themType)["colorborder1"]!,
                 ),
-                borderRadius: BorderRadius.circular(12.8),
+                borderRadius: BorderRadius.circular(24),
               ),
               child: ListTile(
                 contentPadding: const EdgeInsets.only(right: 16, left: 16),
@@ -169,7 +168,7 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                   color: ThemeColors.getColorTheme(
                       Config.themType)["colorborder1"]!,
                 ),
-                borderRadius: BorderRadius.circular(12.8),
+                borderRadius: BorderRadius.circular(24),
               ),
               child: ListTile(
                 contentPadding: const EdgeInsets.only(right: 16, left: 16),
@@ -223,9 +222,6 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 0,
-            ),
             Text(
               Config.langFulText.general!.general!,
               style: GoogleFonts.firaSans(
@@ -274,12 +270,6 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                   color: ThemeColors.getColorTheme(Config.themType)["color10"]!,
                   fontWeight: FontWeight.w400,
                 ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color:
-                        ThemeColors.getColorTheme(Config.themType)["color10"]!,
-                  ),
-                ),
               ),
             ),
             const SizedBox(
@@ -297,7 +287,7 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                       color: ThemeColors.getColorTheme(
                           Config.themType)["colorborder1"]!,
                     ),
-                    borderRadius: BorderRadius.circular(12.8),
+                    borderRadius: BorderRadius.circular(24),
                   ),
                   child: Row(
                     children: [
@@ -510,7 +500,7 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                     color: ThemeColors.getColorTheme(
                         Config.themType)["colorborder1"]!,
                     width: 1),
-                borderRadius: BorderRadius.circular(13),
+                borderRadius: BorderRadius.circular(24),
               ),
               title: Text(
                 Config.langFulText.general!.male!,
@@ -547,7 +537,7 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                     color: ThemeColors.getColorTheme(
                         Config.themType)["colorborder1"]!,
                     width: 1),
-                borderRadius: BorderRadius.circular(13),
+                borderRadius: BorderRadius.circular(24),
               ),
               title: Text(
                 Config.langFulText.general!.female!,
@@ -584,7 +574,7 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                     color: ThemeColors.getColorTheme(
                         Config.themType)["colorborder1"]!,
                     width: 1),
-                borderRadius: BorderRadius.circular(13),
+                borderRadius: BorderRadius.circular(24),
               ),
               title: Text(
                 Config.langFulText.info!.dontWant!,

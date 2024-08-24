@@ -184,8 +184,7 @@ class _MyaccontPageState extends State<MyaccontPage> {
                     decoration: TextDecoration.underline,
                     fontSize: 12.8,
                     height: 1.3,
-                    color:
-                        ThemeColors.getColorTheme(Config.themType)["color10"],
+                    color: ThemeColors.getColorTheme(Config.themType)["color10"],
                   ),
                 ),
               ),
@@ -207,8 +206,7 @@ class _MyaccontPageState extends State<MyaccontPage> {
                     fontSize: 12.8,
                     decoration: TextDecoration.underline,
                     height: 1.3,
-                    color:
-                        ThemeColors.getColorTheme(Config.themType)["color10"],
+                    color: ThemeColors.getColorTheme(Config.themType)["color10"],
                   ),
                 ),
               ),
