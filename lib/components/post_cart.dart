@@ -65,25 +65,30 @@ class _PostCartState extends State<PostCart> {
             onTap: widget.onpress,
             child: CircleAvatar(
               radius: 24.0,
-              backgroundColor: Colors.grey[200], // Optional: background color while loading
+              backgroundColor:
+                  Colors.grey[200], // Optional: background color while loading
               child: ClipOval(
                 child: Image.network(
                   widget.profilImageUrl,
                   fit: BoxFit.cover,
                   width: 48.0,
                   height: 48.0,
-                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
                     if (loadingProgress == null) {
                       return child;
                     } else {
                       return Center(
                           child: AnimatedDots(
-                            activeColor: ThemeColors.getColorTheme(Config.themType)["color5"]!,
-                            inactiveColor: ThemeColors.getColorTheme(Config.themType)["color7"]!,
-                          ));
+                        activeColor: ThemeColors.getColorTheme(
+                            Config.themType)["color5"]!,
+                        inactiveColor: ThemeColors.getColorTheme(
+                            Config.themType)["color7"]!,
+                      ));
                     }
                   },
-                  errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                  errorBuilder: (BuildContext context, Object error,
+                      StackTrace? stackTrace) {
                     return const Icon(Icons.error, color: Colors.red);
                   },
                 ),
@@ -99,6 +104,7 @@ class _PostCartState extends State<PostCart> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       widget.username,
@@ -110,16 +116,13 @@ class _PostCartState extends State<PostCart> {
                         fontSize: 16,
                       ),
                     ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Image.asset(
-                      "assets/images/blue-click.png",
-                      width: 14.4,
-                      height: 14.4,
-                    ),
-                    const SizedBox(
-                      width: 8,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                      child: Image.asset(
+                        "assets/images/blue-click.png",
+                        width: 14.4,
+                        height: 14.4,
+                      ),
                     ),
                     Text(
                       widget.postdate,
@@ -135,13 +138,21 @@ class _PostCartState extends State<PostCart> {
                 const SizedBox(
                   height: 1.6,
                 ),
-                Text(
-                  widget.subcategory,
-                  style: GoogleFonts.firaSans(
-                    fontSize: 11.2,
-                    fontWeight: FontWeight.w500,
-                    height: 1.3,
-                    color: ThemeColors.getColorTheme(Config.themType)["color7"],
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 1.6),
+                  decoration: const BoxDecoration(
+                    color: Color(0xff3a3b3e),
+                    borderRadius: BorderRadius.all(Radius.circular(4.8)),
+                  ),
+                  child: Text(
+                    widget.subcategory,
+                    style: GoogleFonts.firaSans(
+                      fontSize: 11.2,
+                      fontWeight: FontWeight.w500,
+                      height: 1.3,
+                      color: ThemeColors.getColorTheme(
+                          Config.themType)["color1fix"],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -176,7 +187,7 @@ class _PostCartState extends State<PostCart> {
                     style: GoogleFonts.firaSans(
                       color:
                           ThemeColors.getColorTheme(Config.themType)["color10"],
-                      height: 1.3,
+                      //height: 1.3,
                       fontSize: 16,
                     ),
                     children: List.generate(widget.postText.length, (index) {
@@ -184,10 +195,10 @@ class _PostCartState extends State<PostCart> {
                         return TextSpan(
                           recognizer: TapGestureRecognizer()
                             ..onTap = () async {},
-                          text: ' #${widget.postText[index]} ',
+                          text: '#${widget.postText[index]}',
                           style: GoogleFonts.firaSans(
                             color: const Color(0xff1d9bf0),
-                            height: 1.3,
+                            //height: 1.3,
                             fontSize: 16,
                           ),
                         );
@@ -206,7 +217,7 @@ class _PostCartState extends State<PostCart> {
                   visible: (widget.mediainfo == null) ? false : true,
                   child: (widget.mediainfo != null)
                       ? ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(24.0),
                           child: (widget.mediainfo!.video == 0)
                               ? Image.network(
                                   widget.mediainfo!.src!,
