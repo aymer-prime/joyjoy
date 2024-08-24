@@ -1,0 +1,11 @@
+- Uygulama ilk yüklendiği zaman default olarak light mode olarak açılacak, + 
+- Chat sayfasındaki yazışma yerinin sitedeki gibi yeni düzeni yapılacak ve resim gönderirken yazı yazma zorunluluğu olmayacak,(?)
+- Model seçme ekranında yeni yaptığımız instagram benzeri sayfa gelecek,(+)(api)
+- Arapça dil için RTL eklenecek, (+)
+- Profil düzenle kısmında "kullanıcı adı" ayrı sayfada düzenlenecek, (+)
+- Feed sayfasındaki gönderilere yorum yapma kısmı da chat sayfasındaki gibi yenilenecek, (+)
+- Telefona bildirim geldiği zaman tıklayınca "bildirimler" sayfasına gidecek ve oradan bildirime tıklayınca ilgili sayfaya yada ilgili post'a
+ gidecek,(+)
+
+
+ profile/edit-password.php url kod hatası var

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "960728487581",
+    "project_id": "joyjoy-bd495",
+    "storage_bucket": "joyjoy-bd495.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960728487581:android:3e72ef3975dbda48d3e674",
+        "android_client_info": {
+          "package_name": "ai.joyjoy.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960728487581-ddgovlbtr59daelhb51n78uv0200l2qj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA98R-dxxsoNAaUYD67CA2-iUphEkP2Y54"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960728487581-ddgovlbtr59daelhb51n78uv0200l2qj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
