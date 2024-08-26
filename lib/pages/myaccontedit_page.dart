@@ -242,45 +242,64 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                   ),
                   child: Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Expanded(
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                              hint: Text(
-                                Config.langFulText.general!.choose!,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                Config.langFulText.general!.day!,
+                                style: GoogleFonts.firaSans(
+                                  fontWeight: FontWeight.w400,
                                   color: ThemeColors.getColorTheme(
-                                      Config.themType)["color10"],
+                                      Config.themType)["color5"]!,
+                                  fontSize: 12.8,
                                 ),
                               ),
-                              items: [
-                                for (int i = 1; i <= 31; i++)
-                                  DropdownMenuItem<String>(
-                                    value: i.toString().padLeft(2, '0'),
-                                    child: Text(i.toString().padLeft(2, '0')),
+                              DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  isDense: true,
+                                  isExpanded: true,
+                                  hint: Text(
+                                    Config.langFulText.general!.choose!,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: ThemeColors.getColorTheme(
+                                          Config.themType)["color10"],
+                                    ),
                                   ),
-                              ],
-                              value: gun,
-                              onChanged: (String? yeniSecim) {
-                                setState(() {
-                                  gun = yeniSecim!;
-                                });
-                              },
-                              style: TextStyle(
-                                color: ThemeColors.getColorTheme(
-                                    Config.themType)["color10"],
-                                fontSize: 16,
+                                  items: [
+                                    for (int i = 1; i <= 31; i++)
+                                      DropdownMenuItem<String>(
+                                        value: i.toString().padLeft(2, '0'),
+                                        child: Text(
+                                            i.toString().padLeft(2, '0')),
+                                      ),
+                                  ],
+                                  value: gun,
+                                  onChanged: (String? yeniSecim) {
+                                    setState(() {
+                                      gun = yeniSecim!;
+                                    });
+                                  },
+                                  style: TextStyle(
+                                    color: ThemeColors.getColorTheme(
+                                        Config.themType)["color10"],
+                                    fontSize: 16,
+                                  ),
+                                  iconEnabledColor: ThemeColors.getColorTheme(
+                                      Config.themType)["color10"],
+                                  iconDisabledColor:
+                                      ThemeColors.getColorTheme(
+                                          Config.themType)["color10"],
+                                  dropdownColor: ThemeColors.getColorTheme(
+                                      Config.themType)["color2"],
+                                ),
                               ),
-                              iconEnabledColor: ThemeColors.getColorTheme(
-                                  Config.themType)["color10"],
-                              iconDisabledColor: ThemeColors.getColorTheme(
-                                  Config.themType)["color10"],
-                              dropdownColor: ThemeColors.getColorTheme(
-                                  Config.themType)["color2"],
-                            ),
+                            ],
                           ),
                         ),
                       ),
@@ -292,45 +311,63 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 16.0),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                              hint: Text(
-                                Config.langFulText.general!.choose!,
-                                style: TextStyle(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                Config.langFulText.general!.month!,
+                                style: GoogleFonts.firaSans(
+                                  fontWeight: FontWeight.w400,
                                   color: ThemeColors.getColorTheme(
-                                      Config.themType)["color10"],
+                                      Config.themType)["color5"]!,
+                                  fontSize: 12.8,
                                 ),
                               ),
-                              items: [
-                                for (int i = 1;
-                                    i <=
-                                        Config.langFulText.general!.months!
-                                            .length;
-                                    i++)
-                                  DropdownMenuItem<String>(
-                                    value: i.toString().padLeft(2, '0'),
-                                    child: Text(Config.langFulText.general!
-                                        .months![(i - 1)].name!),
+                              DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  isDense: true,
+                                  isExpanded: true,
+                                  hint: Text(
+                                    Config.langFulText.general!.choose!,
+                                    style: TextStyle(
+                                      color: ThemeColors.getColorTheme(
+                                          Config.themType)["color10"],
+                                    ),
                                   ),
-                              ],
-                              value: ay,
-                              onChanged: (String? yeniSecim) {
-                                setState(() {
-                                  ay = yeniSecim!;
-                                });
-                              },
-                              style: TextStyle(
-                                color: ThemeColors.getColorTheme(
-                                    Config.themType)["color10"],
-                                fontSize: 16,
+                                  items: [
+                                    for (int i = 1;
+                                        i <=
+                                            Config.langFulText.general!
+                                                .months!.length;
+                                        i++)
+                                      DropdownMenuItem<String>(
+                                        value: i.toString().padLeft(2, '0'),
+                                        child: Text(Config.langFulText
+                                            .general!.months![(i - 1)].name!),
+                                      ),
+                                  ],
+                                  value: ay,
+                                  onChanged: (String? yeniSecim) {
+                                    setState(() {
+                                      ay = yeniSecim!;
+                                    });
+                                  },
+                                  style: TextStyle(
+                                    color: ThemeColors.getColorTheme(
+                                        Config.themType)["color10"],
+                                    fontSize: 16,
+                                  ),
+                                  iconEnabledColor: ThemeColors.getColorTheme(
+                                      Config.themType)["color10"],
+                                  iconDisabledColor:
+                                      ThemeColors.getColorTheme(
+                                          Config.themType)["color10"],
+                                  dropdownColor: ThemeColors.getColorTheme(
+                                      Config.themType)["color2"],
+                                ),
                               ),
-                              iconEnabledColor: ThemeColors.getColorTheme(
-                                  Config.themType)["color10"],
-                              iconDisabledColor: ThemeColors.getColorTheme(
-                                  Config.themType)["color10"],
-                              dropdownColor: ThemeColors.getColorTheme(
-                                  Config.themType)["color2"],
-                            ),
+                            ],
                           ),
                         ),
                       ),
@@ -339,24 +376,27 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                         color: ThemeColors.getColorTheme(
                             Config.themType)["color4"],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              Config.langFulText.general!.year!,
-                              style: GoogleFonts.firaSans(
-                                fontWeight: FontWeight.w400,
-                                color: ThemeColors.getColorTheme(
-                                    Config.themType)["color5"]!,
-                                fontSize: 12.8,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                Config.langFulText.general!.year!,
+                                style: GoogleFonts.firaSans(
+                                  fontWeight: FontWeight.w400,
+                                  color: ThemeColors.getColorTheme(
+                                      Config.themType)["color5"]!,
+                                  fontSize: 12.8,
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              child: DropdownButtonHideUnderline(
+                              DropdownButtonHideUnderline(
                                 child: DropdownButton<String>(
+                                  isDense: true,
+                                  isExpanded: true,
+                                  padding: EdgeInsets.zero,
                                   hint: Text(
                                     Config.langFulText.general!.choose!,
                                     style: TextStyle(
@@ -385,68 +425,54 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                                   ),
                                   iconEnabledColor: ThemeColors.getColorTheme(
                                       Config.themType)["color10"],
-                                  iconDisabledColor: ThemeColors.getColorTheme(
-                                      Config.themType)["color10"],
+                                  iconDisabledColor:
+                                      ThemeColors.getColorTheme(
+                                          Config.themType)["color10"],
                                   dropdownColor: ThemeColors.getColorTheme(
                                       Config.themType)["color2"],
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        transform: Matrix4.translationValues(10.0, -68.0, 10.0),
-                        child: Text(
-                          Config.langFulText.general!.day!,
-                          style: GoogleFonts.firaSans(
-                            fontWeight: FontWeight.w400,
-                            color: ThemeColors.getColorTheme(
-                                Config.themType)["color10"]!,
-                            fontSize: 12.8,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        transform: Matrix4.translationValues(10.0, -68.0, 10.0),
-                        child: Text(
-                          Config.langFulText.general!.month!,
-                          style: GoogleFonts.firaSans(
-                            fontWeight: FontWeight.w400,
-                            color: ThemeColors.getColorTheme(
-                                Config.themType)["color10"]!,
-                            fontSize: 12.8,
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Expanded(
-                    //   flex: 1,
-                    //   child: Container(
-                    //     transform: Matrix4.translationValues(0.0, -68.0, 0.0),
-                    //     child: Text(
-                    //       Config.langFulText.general!.year!,
-                    //       style: GoogleFonts.firaSans(
-                    //         fontWeight: FontWeight.w400,
-                    //         color: ThemeColors.getColorTheme(
-                    //             Config.themType)["color10"]!,
-                    //         fontSize: 12.8,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     // Expanded(
+                //     //   flex: 1,
+                //     //   child: Container(
+                //     //     transform: Matrix4.translationValues(10.0, -68.0, 10.0),
+                //     //     child: Text(
+                //     //       Config.langFulText.general!.day!,
+                //     //       style: GoogleFonts.firaSans(
+                //     //         fontWeight: FontWeight.w400,
+                //     //         color: ThemeColors.getColorTheme(
+                //     //             Config.themType)["color10"]!,
+                //     //         fontSize: 12.8,
+                //     //       ),
+                //     //     ),
+                //     //   ),
+                //     // ),
+                //     Expanded(
+                //       flex: 1,
+                //       child: Container(
+                //         transform: Matrix4.translationValues(10.0, -68.0, 10.0),
+                //         child: Text(
+                //           Config.langFulText.general!.month!,
+                //           style: GoogleFonts.firaSans(
+                //             fontWeight: FontWeight.w400,
+                //             color: ThemeColors.getColorTheme(
+                //                 Config.themType)["color10"]!,
+                //             fontSize: 12.8,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
             const SizedBox(

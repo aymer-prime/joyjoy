@@ -118,6 +118,7 @@ Future<List<Commentsmodel>> getCommentsList(String page, feedId) async {
     "feed_id": feedId,
     "page": page,
   };
+  print(data);
   var sonuc = await Httpservices().postMethod("feed/comments.php", data);
   var body = json.decode(sonuc);
   var deger = body["result"]["comments"] as List;

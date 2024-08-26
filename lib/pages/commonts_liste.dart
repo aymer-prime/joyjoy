@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:tryt/components/alert_box.dart';
+import 'package:tryt/components/button_text.dart';
 import 'package:tryt/components/comments_user.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
@@ -8,6 +10,7 @@ import 'package:tryt/models/comments_model.dart';
 import 'package:tryt/services/httpservices.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tryt/services/prefservice.dart';
 
 class CommentsListe extends StatefulWidget {
   final String feedId;
@@ -26,6 +29,7 @@ class _CommentsListeState extends State<CommentsListe> {
   List<Commentsmodel> commentsListe = [];
   final TextEditingController commentController = TextEditingController();
   bool isLoading = false;
+  bool hasError = false;
   String comment = "", commentId = "";
   int page = 1;
 
@@ -53,11 +57,19 @@ class _CommentsListeState extends State<CommentsListe> {
     setState(() {
       isLoading = true;
     });
-    final commets = await getCommentsList(page.toString(), widget.feedId);
-    setState(() {
-      commentsListe.addAll(commets);
-      isLoading = false;
-    });
+    try {
+      final commets = await getCommentsList(page.toString(), widget.feedId);
+      setState(() {
+        commentsListe.addAll(commets);
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+        hasError = true;
+      });
+      print('error:$e');
+    }
   }
 
   Future<void> _postComment() async {
@@ -66,20 +78,20 @@ class _CommentsListeState extends State<CommentsListe> {
     });
     final body = commentId.isNotEmpty
         ? {
-      "user_id": Config.userBilgi.userId,
-      "token": Config.userBilgi.token,
-      "feed_id": widget.feedId,
-      "comment_id": commentId,
-      "lang": Config.lang,
-      "comment": commentController.text,
-    }
+            "user_id": Config.userBilgi.userId,
+            "token": Config.userBilgi.token,
+            "feed_id": widget.feedId,
+            "comment_id": commentId,
+            "lang": Config.lang,
+            "comment": commentController.text,
+          }
         : {
-      "user_id": Config.userBilgi.userId,
-      "token": Config.userBilgi.token,
-      "feed_id": widget.feedId,
-      "lang": Config.lang,
-      "comment": commentController.text,
-    };
+            "user_id": Config.userBilgi.userId,
+            "token": Config.userBilgi.token,
+            "feed_id": widget.feedId,
+            "lang": Config.lang,
+            "comment": commentController.text,
+          };
 
     final result = await Httpservices().postMethod(
       commentId.isNotEmpty
@@ -106,7 +118,8 @@ class _CommentsListeState extends State<CommentsListe> {
         context,
         AlertBox(
           alertIcon: Icons.priority_high,
-          alertColor: ThemeColors.getColorTheme(Config.themType)["colordanger"]!,
+          alertColor:
+              ThemeColors.getColorTheme(Config.themType)["colordanger"]!,
           title: Config.langFulText.general!.error!,
           content: response["message"],
           btnText: Config.langFulText.general!.okay!,
@@ -142,64 +155,118 @@ class _CommentsListeState extends State<CommentsListe> {
         child: Column(
           children: [
             Expanded(
-              child: SizedBox(
-                child: isLoading
-                    ? Center(
-                  child: CircularProgressIndicator(color: ThemeColors.getColorTheme(
-                      Config.themType)["colorprimary"]),
-                )
-                    : commentsListe.isNotEmpty
-                    ? ListView.builder(
-                  controller: widget.scrollController,
-                  itemBuilder: (context, index) {
-                    return CommentsUser(
-                      onReply: () {
-                        commentId = commentsListe[index].id!;
-                        commentController.text =
-                        "@${commentsListe[index].user!.username} ";
-                      },
-                      userImage: commentsListe[index].user!.img ?? "",
-                      userName: commentsListe[index].user!.username ?? "guest",
-                      commentId: commentsListe[index].id ?? "0",
-                      commentsText: commentsListe[index].comment ?? "",
-                      totalLike: commentsListe[index].totalLike ?? "0",
-                      totalReply: commentsListe[index].totalReply ?? "0",
-                      addDate: commentsListe[index].date ?? "",
-                      userLike: commentsListe[index].user!.userLike ?? false,
-                    );
-                  },
-                  itemCount: commentsListe.length,
-                )
-                    : Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        Config.langFulText.feed!.comment!.noComment!.title!,
-                        style: GoogleFonts.firaSans(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 19.2,
-                          color: ThemeColors.getColorTheme(Config.themType)["color7"],
-                          height: 1.26,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        Config.langFulText.feed!.comment!.noComment!.subtitle!,
-                        style: GoogleFonts.firaSans(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12.8,
-                          color: ThemeColors.getColorTheme(Config.themType)["color6"],
-                          height: 1.26,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ),
+                child: SizedBox(
+              child: isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                          color: ThemeColors.getColorTheme(
+                              Config.themType)["colorprimary"]),
+                    )
+                  : hasError
+                      ? Column(
+                          children: [
+                            Text(
+                              'Error: ${Config.langFulText.feed!.comment!.noComment!.title!}',
+                              style: GoogleFonts.firaSans(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 19.2,
+                                color: ThemeColors.getColorTheme(
+                                    Config.themType)["color7"],
+                                height: 1.26,
+                              ),
+                            ),
+                            const SizedBox(height: 32),
+                            ButtonText(
+                              onpress: () async {
+                                _loadComments();
+                              },
+                              btnText: 'Retry',
+                              bgColor: ThemeColors.getColorTheme(
+                                  Config.themType)["colorprimary"]!,
+                              textColor: Colors.white,
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            ButtonText(
+                              onpress: () async {
+                                await PrefService().setString("email", "");
+                                await PrefService().setString("password", "");
+                                // ignore: use_build_context_synchronously
+                                Navigator.of(context, rootNavigator: true)
+                                    .pushNamedAndRemoveUntil(
+                                        '/', (Route<dynamic> route) => false);
+                              },
+                              btnText: 'Log Out',
+                              bgColor: Colors.transparent,
+                              textColor: ThemeColors.getColorTheme(
+                                  Config.themType)["colorprimary"]!,
+                            )
+                          ],
+                        )
+                      : commentsListe.isNotEmpty
+                          ? ListView.builder(
+                              controller: widget.scrollController,
+                              itemBuilder: (context, index) {
+                                return CommentsUser(
+                                  onReply: () {
+                                    commentId = commentsListe[index].id!;
+                                    commentController.text =
+                                        "@${commentsListe[index].user!.username} ";
+                                  },
+                                  userImage:
+                                      commentsListe[index].user!.img ?? "",
+                                  userName:
+                                      commentsListe[index].user!.username ??
+                                          "guest",
+                                  commentId: commentsListe[index].id ?? "0",
+                                  commentsText:
+                                      commentsListe[index].comment ?? "",
+                                  totalLike:
+                                      commentsListe[index].totalLike ?? "0",
+                                  totalReply:
+                                      commentsListe[index].totalReply ?? "0",
+                                  addDate: commentsListe[index].date ?? "",
+                                  userLike:
+                                      commentsListe[index].user!.userLike ??
+                                          false,
+                                );
+                              },
+                              itemCount: commentsListe.length,
+                            )
+                          : Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    Config.langFulText.feed!.comment!.noComment!
+                                        .title!,
+                                    style: GoogleFonts.firaSans(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 19.2,
+                                      color: ThemeColors.getColorTheme(
+                                          Config.themType)["color7"],
+                                      height: 1.26,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    Config.langFulText.feed!.comment!.noComment!
+                                        .subtitle!,
+                                    style: GoogleFonts.firaSans(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12.8,
+                                      color: ThemeColors.getColorTheme(
+                                          Config.themType)["color6"],
+                                      height: 1.26,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+            )),
             Padding(
               padding: const EdgeInsets.only(top: 16, bottom: 16),
               child: Row(
@@ -219,7 +286,7 @@ class _CommentsListeState extends State<CommentsListe> {
                           controller: commentController,
                           decoration: InputDecoration(
                             hintText:
-                            Config.langFulText.feed!.comment!.textbox!,
+                                Config.langFulText.feed!.comment!.textbox!,
                             filled: true,
                             suffixIcon: Container(
                               margin: const EdgeInsets.only(right: 8),
@@ -227,9 +294,9 @@ class _CommentsListeState extends State<CommentsListe> {
                                 borderRadius: BorderRadius.circular(24),
                                 color: (commentController.text == "")
                                     ? ThemeColors.getColorTheme(
-                                    Config.themType)["color4"]
+                                        Config.themType)["color4"]
                                     : ThemeColors.getColorTheme(
-                                    Config.themType)["color10"],
+                                        Config.themType)["color10"],
                               ),
                               child: IconButton(
                                 onPressed: isLoading ? null : _postComment,

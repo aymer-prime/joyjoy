@@ -140,8 +140,9 @@ class _PostCartState extends State<PostCart> {
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 1.6),
-                  decoration: const BoxDecoration(
-                    color: Color(0xff3a3b3e),
+                  decoration:  BoxDecoration(
+                    color: ThemeColors.getColorTheme(
+                          Config.themType)["color3"],
                     borderRadius: BorderRadius.all(Radius.circular(4.8)),
                   ),
                   child: Text(
@@ -151,7 +152,7 @@ class _PostCartState extends State<PostCart> {
                       fontWeight: FontWeight.w500,
                       height: 1.3,
                       color: ThemeColors.getColorTheme(
-                          Config.themType)["color1fix"],
+                          Config.themType)["color10"],
                     ),
                   ),
                 ),

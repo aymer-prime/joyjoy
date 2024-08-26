@@ -12,12 +12,15 @@ class Httpservices {
             'Authorization': 'Basic ${Config.basetoken}',
           },
           body: data);
+      //print('responseCode:${sonuc.statusCode}');
+      //print('responseBody:${sonuc.body}');
       if (sonuc.statusCode == 200) {
         return sonuc.body;
       } else {
         return false;
       }
     } catch (error) {
+      //print('responceError:$error');
       return false;
     }
   }
