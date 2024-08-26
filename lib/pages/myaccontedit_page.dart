@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:tryt/components/alert_box.dart';
 import 'package:tryt/components/app_bar_back.dart';
 import 'package:tryt/components/button_text.dart';
+import 'package:tryt/components/custom_outlin_boreder.dart';
 import 'package:tryt/components/profil_image_edit.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
@@ -109,55 +110,16 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                 ),
                 borderRadius: BorderRadius.circular(24),
               ),
-              child: ListTile(
-                contentPadding: const EdgeInsets.only(right: 16, left: 16),
-                dense: true,
-                title: Obx(() => Text(
-                      themeController.userInfo.first.username!,
-                      style: GoogleFonts.firaSans(
-                        color: ThemeColors.getColorTheme(
-                            Config.themType)["color7"]!,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                        height: 1.25,
-                      ),
-                    )),
-                trailing: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const UserNameEditPage()));
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color:
-                          ThemeColors.getColorTheme(Config.themType)["color3"]!,
-                    ),
-                    child: Text(
-                      Config.langFulText.general!.edit!,
-                      style: GoogleFonts.firaSans(
-                        fontWeight: FontWeight.w500,
-                        color: ThemeColors.getColorTheme(
-                            Config.themType)["color10"]!,
-                        fontSize: 12.8,
-                      ),
-                    ),
-                  ),
-                ),
+              child: accountCredintialField(
+                title: Config.langFulText.general!.username!,
+                subtitle: themeController.userInfo.first.username!,
+                onPress: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const UserNameEditPage()));
+                },
               ),
             ),
-            Container(
-              transform: Matrix4.translationValues(16.0, -68.0, 10.0),
-              child: Text(
-                Config.langFulText.general!.username!,
-                style: GoogleFonts.firaSans(
-                  fontWeight: FontWeight.w400,
-                  color: ThemeColors.getColorTheme(Config.themType)["color10"]!,
-                  fontSize: 12.8,
-                ),
-              ),
-            ),
+            const SizedBox(height: 8.0),
             Container(
               height: 60,
               alignment: Alignment.center,
@@ -170,57 +132,17 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                 ),
                 borderRadius: BorderRadius.circular(24),
               ),
-              child: ListTile(
-                contentPadding: const EdgeInsets.only(right: 16, left: 16),
-                dense: true,
-                title: Text(
-                  "******",
-                  style: GoogleFonts.firaSans(
-                    color:
-                        ThemeColors.getColorTheme(Config.themType)["color7"]!,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                    height: 1.25,
-                  ),
-                ),
-                trailing: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const PasswordEditPage()));
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color:
-                          ThemeColors.getColorTheme(Config.themType)["color3"]!,
-                    ),
-                    child: Text(
-                      Config.langFulText.general!.edit!,
-                      style: GoogleFonts.firaSans(
-                        fontWeight: FontWeight.w500,
-                        color: ThemeColors.getColorTheme(
-                            Config.themType)["color10"]!,
-                        fontSize: 12.8,
-                      ),
-                    ),
-                  ),
-                ),
+              child: accountCredintialField(
+                title: Config.langFulText.general!.password!,
+                subtitle: "******",
+                onPress: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const PasswordEditPage()));
+                },
               ),
             ),
             const SizedBox(
               height: 8,
-            ),
-            Container(
-              transform: Matrix4.translationValues(16.0, -74.0, 10.0),
-              child: Text(
-                Config.langFulText.general!.password!,
-                style: GoogleFonts.firaSans(
-                  fontWeight: FontWeight.w400,
-                  color: ThemeColors.getColorTheme(Config.themType)["color10"]!,
-                  fontSize: 12.8,
-                ),
-              ),
             ),
             Text(
               Config.langFulText.general!.general!,
@@ -233,23 +155,36 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
             const SizedBox(
               height: 8,
             ),
-            TextFormField(
-              controller: ad,
-              style: GoogleFonts.firaSans(
-                fontSize: 16,
-                color: ThemeColors.getColorTheme(Config.themType)["color10"],
-              ),
-              decoration: InputDecoration(
-                labelText: Config.langFulText.general!.name!,
-                labelStyle: GoogleFonts.firaSans(
-                  fontSize: 12.8,
-                  color: ThemeColors.getColorTheme(Config.themType)["color10"]!,
-                  fontWeight: FontWeight.w400,
+            SizedBox(
+              child: TextFormField(
+                controller: ad,
+                style: GoogleFonts.firaSans(
+                  fontSize: 16,
+                  color: ThemeColors.getColorTheme(Config.themType)["color10"],
                 ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
+                decoration: InputDecoration(
+                  floatingLabelStyle: TextStyle(
+                    color: ThemeColors.getColorTheme(Config.themType)["color5"],
+                  ),
+                  labelText: Config.langFulText.general!.name!,
+                  labelStyle: GoogleFonts.firaSans(
+                    fontSize: 12.8,
                     color:
                         ThemeColors.getColorTheme(Config.themType)["color10"]!,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  border: CustomOutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: ThemeColors.getColorTheme(
+                          Config.themType)["color10"]!,
+                    ),
+                  ),
+                  enabledBorder: CustomOutlineInputBorder(
+                    borderRadius: BorderRadius.circular(24.0),
+                    borderSide: BorderSide(
+                      color:
+                          ThemeColors.getColorTheme(Config.themType)["color4"]!,
+                    ),
                   ),
                 ),
               ),
@@ -264,11 +199,27 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                 color: ThemeColors.getColorTheme(Config.themType)["color10"],
               ),
               decoration: InputDecoration(
+                floatingLabelStyle: TextStyle(
+                  color: ThemeColors.getColorTheme(Config.themType)["color5"],
+                ),
                 labelText: Config.langFulText.general!.surname!,
                 labelStyle: GoogleFonts.firaSans(
                   fontSize: 12.8,
                   color: ThemeColors.getColorTheme(Config.themType)["color10"]!,
                   fontWeight: FontWeight.w400,
+                ),
+                border: CustomOutlineInputBorder(
+                  borderSide: BorderSide(
+                    color:
+                        ThemeColors.getColorTheme(Config.themType)["color10"]!,
+                  ),
+                ),
+                enabledBorder: CustomOutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24.0),
+                  borderSide: BorderSide(
+                    color:
+                        ThemeColors.getColorTheme(Config.themType)["color4"]!,
+                  ),
                 ),
               ),
             ),
@@ -291,15 +242,16 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                   ),
                   child: Row(
                     children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: Expanded(
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
-                              isExpanded: true,
                               hint: Text(
                                 Config.langFulText.general!.choose!,
                                 style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                   color: ThemeColors.getColorTheme(
                                       Config.themType)["color10"],
                                 ),
@@ -332,12 +284,16 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                           ),
                         ),
                       ),
+                      VerticalDivider(
+                        width: 0.0,
+                        color: ThemeColors.getColorTheme(
+                            Config.themType)["color4"],
+                      ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.only(left: 16.0),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
-                              isExpanded: true,
                               hint: Text(
                                 Config.langFulText.general!.choose!,
                                 style: TextStyle(
@@ -378,46 +334,65 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                              isExpanded: true,
-                              hint: Text(
-                                Config.langFulText.general!.choose!,
-                                style: TextStyle(
-                                  color: ThemeColors.getColorTheme(
+                      VerticalDivider(
+                        width: 0.0,
+                        color: ThemeColors.getColorTheme(
+                            Config.themType)["color4"],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              Config.langFulText.general!.year!,
+                              style: GoogleFonts.firaSans(
+                                fontWeight: FontWeight.w400,
+                                color: ThemeColors.getColorTheme(
+                                    Config.themType)["color5"]!,
+                                fontSize: 12.8,
+                              ),
+                            ),
+                            Expanded(
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  hint: Text(
+                                    Config.langFulText.general!.choose!,
+                                    style: TextStyle(
+                                      color: ThemeColors.getColorTheme(
+                                          Config.themType)["color10"],
+                                    ),
+                                  ),
+                                  items: [
+                                    for (int i = DateTime.now().year - 18;
+                                        i > DateTime.now().year - 90;
+                                        i--)
+                                      DropdownMenuItem<String>(
+                                        value: i.toString(),
+                                        child: Text(i.toString()),
+                                      ),
+                                  ],
+                                  value: yil,
+                                  onChanged: (String? yeniSecim) {
+                                    setState(() {
+                                      yil = yeniSecim!;
+                                    });
+                                  },
+                                  style: TextStyle(
+                                    color: ThemeColors.getColorTheme(
+                                        Config.themType)["color10"],
+                                  ),
+                                  iconEnabledColor: ThemeColors.getColorTheme(
                                       Config.themType)["color10"],
+                                  iconDisabledColor: ThemeColors.getColorTheme(
+                                      Config.themType)["color10"],
+                                  dropdownColor: ThemeColors.getColorTheme(
+                                      Config.themType)["color2"],
                                 ),
                               ),
-                              items: [
-                                for (int i = DateTime.now().year - 18;
-                                    i > DateTime.now().year - 90;
-                                    i--)
-                                  DropdownMenuItem<String>(
-                                    value: i.toString(),
-                                    child: Text(i.toString()),
-                                  ),
-                              ],
-                              value: yil,
-                              onChanged: (String? yeniSecim) {
-                                setState(() {
-                                  yil = yeniSecim!;
-                                });
-                              },
-                              style: TextStyle(
-                                color: ThemeColors.getColorTheme(
-                                    Config.themType)["color10"],
-                              ),
-                              iconEnabledColor: ThemeColors.getColorTheme(
-                                  Config.themType)["color10"],
-                              iconDisabledColor: ThemeColors.getColorTheme(
-                                  Config.themType)["color10"],
-                              dropdownColor: ThemeColors.getColorTheme(
-                                  Config.themType)["color2"],
                             ),
-                          ),
+                          ],
                         ),
                       ),
                     ],
@@ -455,21 +430,21 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        transform: Matrix4.translationValues(0.0, -68.0, 0.0),
-                        child: Text(
-                          Config.langFulText.general!.year!,
-                          style: GoogleFonts.firaSans(
-                            fontWeight: FontWeight.w400,
-                            color: ThemeColors.getColorTheme(
-                                Config.themType)["color10"]!,
-                            fontSize: 12.8,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Expanded(
+                    //   flex: 1,
+                    //   child: Container(
+                    //     transform: Matrix4.translationValues(0.0, -68.0, 0.0),
+                    //     child: Text(
+                    //       Config.langFulText.general!.year!,
+                    //       style: GoogleFonts.firaSans(
+                    //         fontWeight: FontWeight.w400,
+                    //         color: ThemeColors.getColorTheme(
+                    //             Config.themType)["color10"]!,
+                    //         fontSize: 12.8,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ],
@@ -660,6 +635,72 @@ class _MyacconteditPageState extends State<MyacconteditPage> {
               : Config.langFulText.general!.error!,
           content: body["message"],
           btnText: Config.langFulText.general!.okay!),
+    );
+  }
+}
+
+class accountCredintialField extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final VoidCallback onPress;
+  const accountCredintialField({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.onPress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: GoogleFonts.firaSans(
+                  fontWeight: FontWeight.w400,
+                  color: ThemeColors.getColorTheme(Config.themType)["color5"]!,
+                  fontSize: 12.8,
+                ),
+              ),
+              const SizedBox(height: 4.0),
+              Text(
+                subtitle,
+                style: GoogleFonts.firaSans(
+                  color: ThemeColors.getColorTheme(Config.themType)["color7"]!,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                  height: 1.25,
+                ),
+              ),
+            ],
+          ),
+          GestureDetector(
+            onTap: onPress,
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: ThemeColors.getColorTheme(Config.themType)["color3"]!,
+              ),
+              child: Text(
+                Config.langFulText.general!.edit!,
+                style: GoogleFonts.firaSans(
+                  fontWeight: FontWeight.w500,
+                  color: ThemeColors.getColorTheme(Config.themType)["color10"]!,
+                  fontSize: 12.8,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
