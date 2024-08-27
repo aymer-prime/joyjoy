@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                                 MaterialPageRoute(
                                   builder: (context) => StoryDetail(
                                     storyPage: index,
-                                    stoyrlist: themeController.stoyrlist,
+                                    storyList: themeController.stoyrlist,
                                   ),
                                 ),
                               );
@@ -136,10 +136,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   }),
                 ),
-                Divider(
-                  color: ThemeColors.getColorTheme(
-                      Config.themType)["colorborder1"],
-                ),
+                const SizedBox(height: 16.0),
                 Obx(() {
                   return (themeController.feedmodel.isNotEmpty)
                       ? ListView.separated(
