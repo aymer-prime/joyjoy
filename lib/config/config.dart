@@ -82,9 +82,9 @@ class Config {
       );
     } else {
       return const FirebaseOptions(
-        appId: '1:29752322975:ios:5a327c98ee59e49f276baa',
-        apiKey: 'AIzaSyA73JwfGdAogp_rMe6RxfoPO68kkdVmVm0',
-        projectId: 'shopexi-sistem',
+        appId: '1:960728487581:ios:b309a6dd27688463d3e674',
+        apiKey: 'AIzaSyBubgCi2PBD8O6F1jMH50ifImz5gGhL8jk',
+        projectId: 'joyjoy-bd495',
         messagingSenderId: '29752322975',
       );
     }
