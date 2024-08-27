@@ -193,6 +193,7 @@ class _HomePageState extends State<HomePage> {
                           },
                           separatorBuilder: (BuildContext context, int index) {
                             return Divider(
+                              height: 22.4,
                               color: ThemeColors.getColorTheme(
                                   Config.themType)["colorborder1"],
                             );
