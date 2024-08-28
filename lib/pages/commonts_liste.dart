@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:tryt/components/alert_box.dart';
 import 'package:tryt/components/button_text.dart';
 import 'package:tryt/components/comments_user.dart';
@@ -102,7 +103,7 @@ class _CommentsListeState extends State<CommentsListe> {
     final response = json.decode(result);
 
     // ignore: use_build_context_synchronously
-    Navigator.pop(context);
+   // Navigator.pop(context);
 
     if (response["success"] == true) {
       commentController.text = "";
@@ -296,14 +297,14 @@ class _CommentsListeState extends State<CommentsListe> {
                                     ? ThemeColors.getColorTheme(
                                         Config.themType)["color4"]
                                     : ThemeColors.getColorTheme(
-                                        Config.themType)["color10"],
+                                        Config.themType)["colorprimary"],
                               ),
                               child: IconButton(
                                 onPressed: isLoading ? null : _postComment,
                                 icon: Icon(
-                                  Icons.arrow_upward,
+                                  FontAwesome.paper_plane,
                                   color: ThemeColors.getColorTheme(
-                                      Config.themType)["color1"],
+                                      Config.themType)["color1fix"],
                                 ),
                               ),
                             ),
