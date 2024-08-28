@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:tryt/components/app_bar_back.dart';
+import 'package:tryt/components/loading_modal.dart';
 import 'package:tryt/components/video_player.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
@@ -43,14 +44,14 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
     return Scaffold(
       appBar: AppBar(
         leading: const AppBarBack(
-          leftPadding: 0,
+          //leftPadding: 0,
         ),
         surfaceTintColor: ThemeColors.getColorTheme(Config.themType)["color1"],
         backgroundColor: ThemeColors.getColorTheme(Config.themType)["color1"],
       ),
       body: isLoading
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: LoadingModal(),
             )
           : ListView(
               padding: const EdgeInsets.symmetric(horizontal: 16),

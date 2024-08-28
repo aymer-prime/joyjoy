@@ -10,7 +10,7 @@ class AppBarBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: leftPadding, top: 8, bottom: 8),
+      padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
       child: GestureDetector(
         onTap: () {
           Navigator.pop(context);
