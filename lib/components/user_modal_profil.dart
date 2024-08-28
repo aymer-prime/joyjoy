@@ -50,10 +50,10 @@ class _UserModalProfilState extends State<UserModalProfil> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 UserlisteCard(
-                  title: modelbilgi[0].name!,
-                  yas: modelbilgi[0].age!,
-                  subTitle: modelbilgi[0].shortDescription!,
-                  imageUrl: modelbilgi[0].img!,
+                  title: modelbilgi[0].name ?? '',
+                  yas: modelbilgi[0].age ?? '',
+                  subTitle: modelbilgi[0].shortDescription ?? '',
+                  imageUrl: modelbilgi[0].img ?? '',
                   onpress: () {},
                 ),
                 const SizedBox(
