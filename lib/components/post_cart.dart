@@ -209,7 +209,7 @@ class _PostCartState extends State<PostCart> {
                             context: context,
                             useRootNavigator: true,
                             isScrollControlled: true,
-                            isDismissible: true,
+                            isDismissible: false,
                             backgroundColor: Colors.transparent,
                             builder: (BuildContext context) {
                               return DraggableScrollableSheet(
@@ -321,16 +321,19 @@ class _PostCartState extends State<PostCart> {
                         return GestureDetector(
                           behavior: HitTestBehavior.opaque,
                           onTap: () {
-                            Navigator.pop(context);
+                            Navigator.of(context).pop(); // Closes the bottom sheet
                           },
                           child: DraggableScrollableSheet(
                             maxChildSize: 0.97,
                             initialChildSize: 0.7,
-                            builder: (BuildContext context,
-                                ScrollController scroll) {
-                              return CommentsListe(
-                                feedId: widget.feedId,
-                                scrollController: scroll,
+                            builder: (BuildContext context, ScrollController scroll) {
+                              return GestureDetector(
+                                behavior: HitTestBehavior.translucent, // Ensures inner taps are ignored for closing
+                                onTap: () {}, // Absorbs the tap event inside the sheet
+                                child: CommentsListe(
+                                  feedId: widget.feedId,
+                                  scrollController: scroll,
+                                ),
                               );
                             },
                           ),

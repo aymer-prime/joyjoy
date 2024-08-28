@@ -95,7 +95,7 @@ class CommentsUserState extends State<CommentsUser> {
                     ),
                   ),
                   const Expanded(child: Text("")),
-                  GestureDetector(
+                  InkWell(
                     onTap: () async {
                       var data = {
                         "user_id": Config.userBilgi.userId,
@@ -116,16 +116,19 @@ class CommentsUserState extends State<CommentsUser> {
                     },
                     child: Column(
                       children: [
-                        Icon(
-                          (userLike)
-                              ? FontAwesome.heart
-                              : FontAwesome.heart_empty,
-                          color: (userLike)
-                              ? ThemeColors.getColorTheme(
-                                  Config.themType)["colorprimary"]
-                              : ThemeColors.getColorTheme(
-                                  Config.themType)["color7"],
-                          size: 16,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            (userLike)
+                                ? FontAwesome.heart
+                                : FontAwesome.heart_empty,
+                            color: (userLike)
+                                ? ThemeColors.getColorTheme(
+                                    Config.themType)["colorprimary"]
+                                : ThemeColors.getColorTheme(
+                                    Config.themType)["color7"],
+                            size: 16,
+                          ),
                         ),
                         Text(
                           totalLike,

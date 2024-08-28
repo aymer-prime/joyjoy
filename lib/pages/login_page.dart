@@ -39,187 +39,192 @@ class _LoginPageState extends State<LoginPage> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         minimum: const EdgeInsets.all(24),
-        child: ListView(
-          children: [
-            const SizedBox(
-              height: 75,
-            ),
-            Text(
-              Config.langFulText.login!.title!,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.mukta(
-                fontSize: 32,
-                height: 1.1,
-                color: ThemeColors.getColorTheme(Config.themType)["color10"],
-                fontWeight: FontWeight.w800,
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: ListView(
+            children: [
+              const SizedBox(
+                height: 75,
               ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              textAlign: TextAlign.center,
-              Config.langFulText.login!.subtitle!,
-              style: GoogleFonts.firaSans(
-                fontSize: 16,
-                color: ThemeColors.getColorTheme(Config.themType)["color7"],
+              Text(
+                Config.langFulText.login!.title!,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.mukta(
+                  fontSize: 32,
+                  height: 1.1,
+                  color: ThemeColors.getColorTheme(Config.themType)["color10"],
+                  fontWeight: FontWeight.w800,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextFormField(
-                    controller: userEmail,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return Config.langFulText.login!.errorMessage!
-                            .emailUsername!.wrong
-                            .toString();
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      filled: true,
-                      hintText: Config.langFulText.login!.emailUsername!,
-                    ),
-                    style: GoogleFonts.firaSans(
-                      fontSize: 16,
-                      color:
-                          ThemeColors.getColorTheme(Config.themType)["color10"],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextFormField(
-                    controller: userPassword,
-                    obscureText: obscureTextStatus,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.text,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return Config
-                            .langFulText.login!.errorMessage!.password!.wrong
-                            .toString();
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: Config.langFulText.login!.password,
-                      filled: true,
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            obscureTextStatus = !obscureTextStatus;
-                          });
-                        },
-                        icon: Icon(
-                          (obscureTextStatus)
-                              ? FontAwesome5.eye_slash
-                              : FontAwesome5.eye,
-                          color: ThemeColors.getColorTheme(
-                              Config.themType)["color10"],
-                        ),
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
+                textAlign: TextAlign.center,
+                Config.langFulText.login!.subtitle!,
+                style: GoogleFonts.firaSans(
+                  fontSize: 16,
+                  color: ThemeColors.getColorTheme(Config.themType)["color7"],
+                ),
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextFormField(
+                      controller: userEmail,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return Config.langFulText.login!.errorMessage!
+                              .emailUsername!.wrong
+                              .toString();
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        hintText: Config.langFulText.login!.emailUsername!,
+                      ),
+                      style: GoogleFonts.firaSans(
+                        fontSize: 16,
+                        color:
+                            ThemeColors.getColorTheme(Config.themType)["color10"],
                       ),
                     ),
-                    style: GoogleFonts.firaSans(
-                      fontSize: 16,
-                      color:
-                          ThemeColors.getColorTheme(Config.themType)["color10"],
+                    const SizedBox(
+                      height: 8,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  ButtonText(
-                    onpress: () async {
-                      if (_formKey.currentState!.validate()) {
-                        getLogin();
-                      }
-                    },
-                    btnText: Config.langFulText.login!.button!,
-                    bgColor: ThemeColors.getColorTheme(
-                        Config.themType)["colorprimary"]!,
-                    textColor: Colors.white,
-                  ),
-                ],
+                    TextFormField(
+                      controller: userPassword,
+                      obscureText: obscureTextStatus,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.text,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return Config
+                              .langFulText.login!.errorMessage!.password!.wrong
+                              .toString();
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        hintText: Config.langFulText.login!.password,
+                        filled: true,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              obscureTextStatus = !obscureTextStatus;
+                            });
+                          },
+                          icon: Icon(
+                            (obscureTextStatus)
+                                ? FontAwesome5.eye_slash
+                                : FontAwesome5.eye,
+                            color: ThemeColors.getColorTheme(
+                                Config.themType)["color10"],
+                          ),
+                        ),
+                      ),
+                      style: GoogleFonts.firaSans(
+                        fontSize: 16,
+                        color:
+                            ThemeColors.getColorTheme(Config.themType)["color10"],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    ButtonText(
+                      onpress: () async {
+                        if (_formKey.currentState!.validate()) {
+                          getLogin();
+                        }
+                      },
+                      btnText: Config.langFulText.login!.button!,
+                      bgColor: ThemeColors.getColorTheme(
+                          Config.themType)["colorprimary"]!,
+                      textColor: Colors.white,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            ButtonIcon(
-              colorborder1:
-                  ThemeColors.getColorTheme(Config.themType)["colorborder1"]!,
-              btnText: Config.langFulText.login!.googleButton!,
-              bgColor: ThemeColors.getColorTheme(Config.themType)["color1"]!,
-              textColor: ThemeColors.getColorTheme(Config.themType)["color10"]!,
-              onpress: () async {
-                _googleLogin();
-              },
-              btnIcon: Image.asset(
-                "assets/images/google-g-icon.png",
-                width: 24,
-                height: 24,
+              const SizedBox(
+                height: 8,
               ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            ButtonIcon(
-              colorborder1:
-                  ThemeColors.getColorTheme(Config.themType)["colorborder1"]!,
-              btnText: Config.langFulText.login!.emailButton!,
-              bgColor: ThemeColors.getColorTheme(Config.themType)["color1"]!,
-              textColor: ThemeColors.getColorTheme(Config.themType)["color10"]!,
-              onpress: () {
-                Navigator.of(context).pushNamed("/loginpage");
-              },
-              btnIcon: Icon(
-                Icons.mail,
-                color: ThemeColors.getColorTheme(Config.themType)["color10"],
+              ButtonIcon(
+                colorborder1:
+                    ThemeColors.getColorTheme(Config.themType)["colorborder1"]!,
+                btnText: Config.langFulText.login!.googleButton!,
+                bgColor: ThemeColors.getColorTheme(Config.themType)["color1"]!,
+                textColor: ThemeColors.getColorTheme(Config.themType)["color10"]!,
+                onpress: () async {
+                  _googleLogin();
+                },
+                btnIcon: Image.asset(
+                  "assets/images/google-g-icon.png",
+                  width: 24,
+                  height: 24,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const PasswordResetPage()));
-              },
-              child: Text(
-                Config.langFulText.login!.forgotPassword!,
-                style: GoogleFonts.firaSans(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
+              const SizedBox(
+                height: 8,
+              ),
+              ButtonIcon(
+                colorborder1:
+                    ThemeColors.getColorTheme(Config.themType)["colorborder1"]!,
+                btnText: Config.langFulText.login!.emailButton!,
+                bgColor: ThemeColors.getColorTheme(Config.themType)["color1"]!,
+                textColor: ThemeColors.getColorTheme(Config.themType)["color10"]!,
+                onpress: () {
+                  Navigator.of(context).pushNamed("/loginpage");
+                },
+                btnIcon: Icon(
+                  Icons.mail,
                   color: ThemeColors.getColorTheme(Config.themType)["color10"],
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                style: GoogleFonts.firaSans(
-                  color: ThemeColors.getColorTheme(Config.themType)["color5"],
-                  fontSize: 12.8,
-                  fontWeight: FontWeight.w400,
-                ),
-                children: spans,
+              const SizedBox(
+                height: 8,
               ),
-            ),
-          ],
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const PasswordResetPage()));
+                },
+                child: Text(
+                  Config.langFulText.login!.forgotPassword!,
+                  style: GoogleFonts.firaSans(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    color: ThemeColors.getColorTheme(Config.themType)["color10"],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: GoogleFonts.firaSans(
+                    color: ThemeColors.getColorTheme(Config.themType)["color5"],
+                    fontSize: 12.8,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  children: spans,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
