@@ -97,7 +97,7 @@ class _SettingPageState extends State<SettingPage> {
                         color: ThemeColors.getColorTheme(
                             Config.themType)["colorborder1"]!,
                       ),
-                      borderRadius: BorderRadius.circular(12.8),
+                      borderRadius: BorderRadius.circular(25),
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
@@ -164,7 +164,7 @@ class _SettingPageState extends State<SettingPage> {
                           color: ThemeColors.getColorTheme(
                               Config.themType)["colorborder1"]!,
                           width: 1),
-                      borderRadius: BorderRadius.circular(13),
+                      borderRadius: BorderRadius.circular(25),
                     ),
                     title: Text(
                       Config.langFulText.settings!.theme!.auto!,
@@ -204,7 +204,7 @@ class _SettingPageState extends State<SettingPage> {
                           color: ThemeColors.getColorTheme(
                               Config.themType)["colorborder1"]!,
                           width: 1),
-                      borderRadius: BorderRadius.circular(13),
+                      borderRadius: BorderRadius.circular(25),
                     ),
                     title: Text(
                       Config.langFulText.settings!.theme!.light!,
@@ -244,7 +244,7 @@ class _SettingPageState extends State<SettingPage> {
                           color: ThemeColors.getColorTheme(
                               Config.themType)["colorborder1"]!,
                           width: 1),
-                      borderRadius: BorderRadius.circular(13),
+                      borderRadius: BorderRadius.circular(25),
                     ),
                     title: Text(
                       Config.langFulText.settings!.theme!.dark!,

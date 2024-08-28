@@ -50,6 +50,7 @@ class ChooseButton extends StatelessWidget {
                   colors: [
                     Color.fromARGB(1, 0, 0, 0),
                     Color.fromARGB(100, 0, 0, 0),
+                    Color.fromARGB(100, 0, 0, 0),
                   ],
                 ),
               ),
