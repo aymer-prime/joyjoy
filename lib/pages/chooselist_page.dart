@@ -126,10 +126,11 @@ class _ChooselistPageState extends State<ChooselistPage> {
                 bottom: 16,
               ),
               child: UserlisteCard(
-                title: modelListe[index].name!,
-                yas: modelListe[index].age!,
-                subTitle: modelListe[index].shortDescription!,
-                imageUrl: modelListe[index].img!,
+                title: modelListe[index].name ?? '',
+                yas: modelListe[index].age ?? '',
+                //todo null check operator
+                subTitle: modelListe[index].shortDescription ?? '',
+                imageUrl: modelListe[index].img ?? '',
                 onpress: () {
                   Navigator.of(
                     context,

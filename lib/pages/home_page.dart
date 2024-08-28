@@ -169,13 +169,18 @@ class _HomePageState extends State<HomePage> {
                                 mediainfo:
                                     themeController.feedmodel[index].media,
                                 onpress: () async {
-                                  Config.modalCenter(
+                                  Navigator.of(
                                     context,
-                                    UserModalProfil(
-                                      modelId: themeController
-                                          .feedmodel[index].model!.modelId!,
-                                    ),
-                                  );
+                                    rootNavigator: true,
+                                  ).pushNamed(
+                                      "/model-detail/${themeController.feedmodel[index].model!.modelId!}");
+                                  // Config.modalCenter(
+                                  //   context,
+                                  //   UserModalProfil(
+                                  //     modelId: themeController
+                                  //         .feedmodel[index].model!.modelId!,
+                                  //   ),
+                                  // );
                                 },
                               );
                             } else {
