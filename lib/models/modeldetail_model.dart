@@ -14,15 +14,26 @@ class Modeldetailmodel {
   String? category;
   String? subcategory;
   String? img;
+  String? totalLike;
+  String? totalPost;
+  String? totalFollower;
+  String? totalFollow;
+  bool? userLike;
 
-  Modeldetailmodel(
-      {this.modelId,
-      this.name,
-      this.age,
-      this.shortDescription,
-      this.category,
-      this.subcategory,
-      this.img});
+  Modeldetailmodel({
+    this.modelId,
+    this.name,
+    this.age,
+    this.shortDescription,
+    this.category,
+    this.subcategory,
+    this.img,
+    this.totalFollow,
+    this.totalFollower,
+    this.totalPost,
+    this.totalLike,
+    this.userLike,
+  });
 
   Modeldetailmodel.fromJson(Map<String, dynamic> json) {
     modelId = json['model_id'];
@@ -32,6 +43,11 @@ class Modeldetailmodel {
     category = json['category'];
     subcategory = json['subcategory'];
     img = json['img'];
+    totalLike = json['total_like'];
+    totalPost = json['total_post'];
+    totalFollower = json['total_follower'];
+    totalFollow = json['total_follow'];
+    userLike = json['user_like'];
   }
 
   Map<String, dynamic> toJson() {

@@ -10,16 +10,20 @@ class Modelsmodel {
   String? shortDescription;
   String? subcategory;
   String? img;
+  String? totalLike;
+  bool? userLike;
   int? purchased;
-
-  Modelsmodel(
-      {this.modelId,
-      this.name,
-      this.age,
-      this.shortDescription,
-      this.subcategory,
-      this.img,
-      this.purchased});
+  Modelsmodel({
+    this.modelId,
+    this.name,
+    this.age,
+    this.shortDescription,
+    this.subcategory,
+    this.img,
+    this.purchased,
+    this.totalLike,
+    this.userLike,
+  });
 
   Modelsmodel.fromJson(Map<String, dynamic> json) {
     modelId = json['model_id'];
@@ -29,6 +33,8 @@ class Modelsmodel {
     subcategory = json['subcategory'];
     img = json['img'];
     purchased = json['purchased'];
+    totalLike = json['total_like'];
+    userLike = json['user_like'];
   }
 
   Map<String, dynamic> toJson() {
@@ -40,6 +46,8 @@ class Modelsmodel {
     data['subcategory'] = subcategory;
     data['img'] = img;
     data['purchased'] = purchased;
+    data['total_like'] = totalLike;
+    data['user_like'] = userLike;
     return data;
   }
 }

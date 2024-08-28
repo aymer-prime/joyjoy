@@ -46,49 +46,54 @@ class _UserModalProfilState extends State<UserModalProfil> {
                   color: ThemeColors.getColorTheme(Config.themType)["color1"]!),
               borderRadius: BorderRadius.circular(12.8),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                UserlisteCard(
-                  title: modelbilgi[0].name ?? '',
-                  yas: modelbilgi[0].age ?? '',
-                  subTitle: modelbilgi[0].shortDescription ?? '',
-                  imageUrl: modelbilgi[0].img ?? '',
-                  onpress: () {},
-                ),
-                const SizedBox(
-                  height: 12.8,
-                ),
-                ButtonText(
-                  onpress: (clickStatus == true)
-                      ? () async {
-                          setState(() {
-                            clickStatus = false;
-                          });
-                          var data = {
-                            "user_id": Config.userBilgi.userId,
-                            "token": Config.userBilgi.token,
-                            "lang": Config.lang,
-                            "model_id": modelbilgi[0].modelId,
-                          };
-                          var sonuc = await Httpservices()
-                              .postMethod("models/select-model.php", data);
-                          var body = json.decode(sonuc);
-                          if (body["success"]) {
-                            var data = body["result"]["page"].split("/");
-                            Navigator.of(context, rootNavigator: true)
-                                .pushNamed("/chatDetail/${data[1]}");
-                          } else {
-                            print("Satın alma Ekranı Açılacak galiba");
+            child: Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  UserlisteCard(
+                    title: modelbilgi[0].name ?? '',
+                    yas: modelbilgi[0].age ?? '',
+                    subTitle: modelbilgi[0].shortDescription ?? '',
+                    imageUrl: modelbilgi[0].img ?? '',
+                    subcategory: modelbilgi[0].subcategory ?? '',
+                    liked: modelbilgi[0].userLike ?? false,
+                    numLikes: modelbilgi[0].totalLike ?? '',
+                    onpress: () {},
+                  ),
+                  const SizedBox(
+                    height: 12.8,
+                  ),
+                  ButtonText(
+                    onpress: (clickStatus == true)
+                        ? () async {
+                            setState(() {
+                              clickStatus = false;
+                            });
+                            var data = {
+                              "user_id": Config.userBilgi.userId,
+                              "token": Config.userBilgi.token,
+                              "lang": Config.lang,
+                              "model_id": modelbilgi[0].modelId,
+                            };
+                            var sonuc = await Httpservices()
+                                .postMethod("models/select-model.php", data);
+                            var body = json.decode(sonuc);
+                            if (body["success"]) {
+                              var data = body["result"]["page"].split("/");
+                              Navigator.of(context, rootNavigator: true)
+                                  .pushNamed("/chatDetail/${data[1]}");
+                            } else {
+                              print("Satın alma Ekranı Açılacak galiba");
+                            }
                           }
-                        }
-                      : null,
-                  btnText: Config.langFulText.general!.startTalking!,
-                  bgColor: ThemeColors.getColorTheme(
-                      Config.themType)["colorprimary"]!,
-                  textColor: Colors.white,
-                ),
-              ],
+                        : null,
+                    btnText: Config.langFulText.general!.startTalking!,
+                    bgColor: ThemeColors.getColorTheme(
+                        Config.themType)["colorprimary"]!,
+                    textColor: Colors.white,
+                  ),
+                ],
+              ),
             ),
           )
         : const LoadingModal();

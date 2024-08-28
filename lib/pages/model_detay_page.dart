@@ -44,8 +44,8 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
     return Scaffold(
       appBar: AppBar(
         leading: const AppBarBack(
-          //leftPadding: 0,
-        ),
+            //leftPadding: 0,
+            ),
         surfaceTintColor: ThemeColors.getColorTheme(Config.themType)["color1"],
         backgroundColor: ThemeColors.getColorTheme(Config.themType)["color1"],
       ),
@@ -76,7 +76,7 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
                       child: Column(
                         children: [
                           Text(
-                            "0",
+                            modelbilgi.first.totalPost ?? "0",
                             style: GoogleFonts.firaSans(
                               height: 1.25,
                               fontSize: 17.6,
@@ -102,7 +102,7 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
                       child: Column(
                         children: [
                           Text(
-                            "0",
+                            modelbilgi.first.totalFollower ?? "0",
                             style: GoogleFonts.firaSans(
                               height: 1.25,
                               fontSize: 17.6,
@@ -128,7 +128,7 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
                       child: Column(
                         children: [
                           Text(
-                            "0",
+                            modelbilgi.first.totalFollow ?? "0",
                             style: GoogleFonts.firaSans(
                               height: 1.25,
                               fontSize: 17.6,

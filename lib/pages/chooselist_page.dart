@@ -1,9 +1,11 @@
+import 'package:get/get.dart';
 import 'package:tryt/components/userliste_card.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/models/models_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tryt/pages/model_detay_page.dart';
 
 class ChooselistPage extends StatefulWidget {
   final String genderId, genderCatId, gendeCatDis, genderCatTitle;
@@ -127,15 +129,23 @@ class _ChooselistPageState extends State<ChooselistPage> {
               ),
               child: UserlisteCard(
                 title: modelListe[index].name ?? '',
+                subcategory: modelListe[index].subcategory ?? '',
                 yas: modelListe[index].age ?? '',
                 //todo null check operator
                 subTitle: modelListe[index].shortDescription ?? '',
                 imageUrl: modelListe[index].img ?? '',
+                liked: modelListe[index].userLike ?? false,
+                numLikes: modelListe[index].totalLike ?? '',
                 onpress: () {
-                  Navigator.of(
-                    context,
-                    rootNavigator: true,
-                  ).pushNamed("/model-detail/${modelListe[index].modelId}");
+                  Get.to(
+                    ModelDetayPage(
+                      modelId: modelListe[index].modelId!,
+                    ),
+                  );
+                  // Navigator.of(
+                  //   context,
+                  //   rootNavigator: true,
+                  // ).pushNamed("/model-detail/${modelListe[index].modelId}");
                   // Config.modalCenter(
                   //   context,
                   //   UserModalProfil(

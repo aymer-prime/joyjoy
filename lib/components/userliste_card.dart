@@ -3,22 +3,45 @@ import 'package:tryt/config/themecolors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tryt/models/models_model.dart';
 
-class UserlisteCard extends StatelessWidget {
-  final String title, imageUrl, yas, subTitle;
+class UserlisteCard extends StatefulWidget {
+  final String title, imageUrl, yas, subTitle, subcategory, numLikes;
+  final bool liked;
   final VoidCallback onpress;
-  const UserlisteCard(
-      {super.key,
-      required this.title,
-      required this.imageUrl,
-      required this.onpress,
-      required this.yas,
-      required this.subTitle});
+  const UserlisteCard({
+    super.key,
+    required this.title,
+    required this.subcategory,
+    required this.imageUrl,
+    required this.onpress,
+    required this.yas,
+    required this.subTitle,
+    required this.numLikes,
+    required this.liked,
+  });
+
+  @override
+  State<UserlisteCard> createState() => _UserlisteCardState();
+}
+
+class _UserlisteCardState extends State<UserlisteCard> {
+  late bool isLiked;
+  void toggleLike() {
+    isLiked = !isLiked;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    isLiked = widget.liked;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onpress,
+      onTap: widget.onpress,
       child: Stack(
         children: [
           Container(
@@ -27,7 +50,7 @@ class UserlisteCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.8),
               image: DecorationImage(
-                image: NetworkImage(imageUrl),
+                image: NetworkImage(widget.imageUrl),
                 fit: BoxFit.cover,
               ),
             ),
@@ -59,7 +82,7 @@ class UserlisteCard extends StatelessWidget {
                 children: [
                   RichText(
                     text: TextSpan(
-                      text: "$title,",
+                      text: "${widget.title},",
                       style: GoogleFonts.firaSans(
                         fontSize: 28.8,
                         height: 1.3,
@@ -70,7 +93,7 @@ class UserlisteCard extends StatelessWidget {
                       children: [
                         const TextSpan(text: " "),
                         TextSpan(
-                          text: yas,
+                          text: widget.yas,
                           style: GoogleFonts.firaSans(
                             fontSize: 28.8,
                             height: 1.3,
@@ -85,21 +108,31 @@ class UserlisteCard extends StatelessWidget {
                   const SizedBox(
                     height: 3.2,
                   ),
-                  Text(
-                    "Sevigli Adayı",
-                    style: GoogleFonts.firaSans(
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w600,
-                      color: ThemeColors.getColorTheme(
-                          Config.themType)["color3fix"],
-                      fontSize: 17.6,
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 6.4,
+                      horizontal: 12.8,
+                    ),
+                    decoration: BoxDecoration(
+                        color: ThemeColors.getColorTheme(
+                            Config.themType)["color1"],
+                        borderRadius: BorderRadius.circular(8.0)),
+                    child: Text(
+                      widget.subcategory ?? "Sevigli Adayı",
+                      style: GoogleFonts.firaSans(
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w600,
+                        color: ThemeColors.getColorTheme(
+                            Config.themType)["color10"],
+                        fontSize: 12.8,
+                      ),
                     ),
                   ),
                   const SizedBox(
                     height: 4.8,
                   ),
                   Text(
-                    subTitle,
+                    widget.subTitle,
                     style: GoogleFonts.firaSans(
                       fontWeight: FontWeight.w300,
                       color: ThemeColors.getColorTheme(
@@ -114,32 +147,44 @@ class UserlisteCard extends StatelessWidget {
           Positioned(
             top: 16,
             right: 16,
-            child: CircleAvatar(
-              radius: 17.6,
-              backgroundColor:
-                  ThemeColors.getColorTheme(Config.themType)["color1opacity2"],
-              child: Padding(
-                padding: const EdgeInsets.only(top: 2.2),
+            child: GestureDetector(
+              onTap: toggleLike,
+              child: Container(
+                height: 40,
+                width: 32,
+                padding: EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                    color: ThemeColors.getColorTheme(Config.themType)["color1"],
+                    borderRadius: BorderRadius.circular(8.0)),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      FontAwesome.heart_empty,
-                      color: ThemeColors.getColorTheme(
-                          Config.themType)["color1fix"],
-                      size: 16,
-                    ),
-                    Text(
-                      "105",
-                      style: GoogleFonts.mukta(
-                        fontSize: 11.2,
-                        height: 1,
-                        color: ThemeColors.getColorTheme(
-                            Config.themType)["color1fix"],
+                    isLiked
+                        ? Icon(
+                            FontAwesome.heart,
+                            color: ThemeColors.getColorTheme(
+                                Config.themType)["colorprimary"],
+                            size: 16,
+                          )
+                        : Icon(
+                            FontAwesome.heart_empty,
+                            color: ThemeColors.getColorTheme(
+                                Config.themType)["color10"],
+                            size: 16,
+                          ),
+                    const SizedBox(height: 2.0),
+                    if (isLiked)
+                      Text(
+                        widget.numLikes ?? "105",
+                        style: GoogleFonts.mukta(
+                          fontSize: 11.2,
+                          height: 1,
+                          color: ThemeColors.getColorTheme(
+                              Config.themType)["color10"],
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),
