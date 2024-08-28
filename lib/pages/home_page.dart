@@ -4,6 +4,7 @@ import 'package:tryt/components/user_modal_profil.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/controller/theme_controller.dart';
+import 'package:tryt/pages/model_detay_page.dart';
 import 'package:tryt/pages/story_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
@@ -169,11 +170,11 @@ class _HomePageState extends State<HomePage> {
                                 mediainfo:
                                     themeController.feedmodel[index].media,
                                 onpress: () async {
-                                  Navigator.of(
-                                    context,
-                                    rootNavigator: true,
-                                  ).pushNamed(
-                                      "/model-detail/${themeController.feedmodel[index].model!.modelId!}");
+                                  Get.to(
+                                    ModelDetayPage(
+                                        modelId: themeController
+                                            .feedmodel[index].model!.modelId!),
+                                  );
                                   // Config.modalCenter(
                                   //   context,
                                   //   UserModalProfil(

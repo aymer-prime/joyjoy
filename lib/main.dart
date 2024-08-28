@@ -150,14 +150,15 @@ class _MyAppState extends State<MyApp> {
               builder: (context) => ChatDetailPage(
                     chatId: veri[2].toString(),
                   ));
-        } else if (veri[1] == "model-detail") {
-          return MaterialPageRoute(
-              builder: (context) => Directionality(
-                  textDirection: (themeController.themeLang == "ar")
-                      ? TextDirection.rtl
-                      : TextDirection.ltr,
-                  child: const ModelDetayPage()));
         }
+        //  else if (veri[1] == "model-detail") {
+        //   return MaterialPageRoute(
+        //       builder: (context) => Directionality(
+        //           textDirection: (themeController.themeLang == "ar")
+        //               ? TextDirection.rtl
+        //               : TextDirection.ltr,
+        //           child: const ModelDetayPage()));
+        // }
 
         return MaterialPageRoute(
             builder: (context) => Directionality(

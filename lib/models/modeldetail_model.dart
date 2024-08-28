@@ -28,7 +28,7 @@ class Modeldetailmodel {
     modelId = json['model_id'];
     name = json['name'];
     age = json['age'];
-    shortDescription = json['short_description'];
+    shortDescription = json['description'];
     category = json['category'];
     subcategory = json['subcategory'];
     img = json['img'];
