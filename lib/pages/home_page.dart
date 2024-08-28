@@ -171,6 +171,7 @@ class _HomePageState extends State<HomePage> {
                                     themeController.feedmodel[index].media,
                                 onpress: () async {
                                   Get.to(
+                                    transition: Transition.rightToLeft,
                                     ModelDetayPage(
                                         modelId: themeController
                                             .feedmodel[index].model!.modelId!),

@@ -8,6 +8,7 @@ import 'package:tryt/pages/choose_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tryt/pages/model_detay_page.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -49,7 +50,6 @@ class _ChatPageState extends State<ChatPage> {
       loadinBar = false;
     });
   }
-
 
   nextpage(int page) async {
     await themeController.getChatListeAdd(page);
@@ -142,36 +142,45 @@ class _ChatPageState extends State<ChatPage> {
                 height: 94.6,
                 child: Obx(() {
                   if (themeController.suggestionlist.isEmpty) {
-                   return Center(
-                        child: CircularProgressIndicator(color: ThemeColors.getColorTheme(Config.themType)["colorprimary"],)
+                    return Center(
+                        child: CircularProgressIndicator(
+                      color: ThemeColors.getColorTheme(
+                          Config.themType)["colorprimary"],
+                    ));
+                  } else {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.only(left: 16),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 12.8),
+                          child: ChatStroy(
+                            onpress: () async {
+                              Get.to(
+                                transition: Transition.rightToLeft,
+                                ModelDetayPage(
+                                    modelId: themeController
+                                        .feedmodel[index].model!.modelId!),
+                              );
+                              // Config.modalCenter(
+                              //   context,
+                              //   UserModalProfil(
+                              //     modelId: themeController
+                              //         .suggestionlist[index].modelId!,
+                              //   ),
+                              // );
+                            },
+                            userImage:
+                                themeController.suggestionlist[index].img!,
+                            userTitle:
+                                themeController.suggestionlist[index].name!,
+                          ),
+                        );
+                      },
+                      itemCount: themeController.suggestionlist.length,
                     );
                   }
-                  else{
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.only(left: 16),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 12.8),
-                        child: ChatStroy(
-                          onpress: () async {
-                            Config.modalCenter(
-                              context,
-                              UserModalProfil(
-                                modelId: themeController
-                                    .suggestionlist[index].modelId!,
-                              ),
-                            );
-                          },
-                          userImage: themeController.suggestionlist[index].img!,
-                          userTitle:
-                              themeController.suggestionlist[index].name!,
-                        ),
-                      );
-                    },
-                    itemCount: themeController.suggestionlist.length,
-                  );}
                 }),
               ),
               const SizedBox(
@@ -203,28 +212,40 @@ class _ChatPageState extends State<ChatPage> {
                   if (themeController.chatListe.isEmpty) {
                     // Display a message or placeholder when the chatListe is empty
                     return Center(
-                      child: CircularProgressIndicator(color: ThemeColors.getColorTheme(Config.themType)["colorprimary"],)
-                    );
+                        child: CircularProgressIndicator(
+                      color: ThemeColors.getColorTheme(
+                          Config.themType)["colorprimary"],
+                    ));
                   } else {
                     // Display the ListView.builder when the chatListe has items
                     return ListView.builder(
                       shrinkWrap: true,
                       primary: false,
                       controller: _scrollController,
-                      itemCount: themeController.chatListe.length + (loadinBar ? 1 : 0),
+                      itemCount: themeController.chatListe.length +
+                          (loadinBar ? 1 : 0),
                       padding: const EdgeInsets.all(0),
                       itemBuilder: (context, index) {
                         if (index < themeController.chatListe.length) {
                           return Chatlist(
-                            userName: themeController.chatListe[index].model!.name!,
-                            userImage: themeController.chatListe[index].model!.img!,
-                            subcategory: themeController.chatListe[index].model!.subcategory!,
-                            mesajtext: themeController.chatListe[index].lastMessage != null
-                                ? themeController.chatListe[index].lastMessage!.message!
-                                : "",
-                            sendate: themeController.chatListe[index].lastMessage != null
-                                ? themeController.chatListe[index].lastMessage!.date!
-                                : "",
+                            userName:
+                                themeController.chatListe[index].model!.name!,
+                            userImage:
+                                themeController.chatListe[index].model!.img!,
+                            subcategory: themeController
+                                .chatListe[index].model!.subcategory!,
+                            mesajtext:
+                                themeController.chatListe[index].lastMessage !=
+                                        null
+                                    ? themeController
+                                        .chatListe[index].lastMessage!.message!
+                                    : "",
+                            sendate:
+                                themeController.chatListe[index].lastMessage !=
+                                        null
+                                    ? themeController
+                                        .chatListe[index].lastMessage!.date!
+                                    : "",
                             onpress: () {
                               Navigator.of(context, rootNavigator: true).pushNamed(
                                   "/chatDetail/${themeController.chatListe[index].chatId!}");
@@ -248,7 +269,6 @@ class _ChatPageState extends State<ChatPage> {
                   }
                 }),
               )
-
             ],
           ),
         ),
