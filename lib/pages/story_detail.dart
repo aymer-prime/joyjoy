@@ -23,7 +23,7 @@ class _StoryDetailState extends State<StoryDetail> {
     super.initState();
     storyList = widget.storyList;
     indicatorAnimationController = ValueNotifier<IndicatorAnimationCommand>(
-        IndicatorAnimationCommand.pause);
+        IndicatorAnimationCommand.resume);
     print(
         '1----------------------------- ${indicatorAnimationController.value}');
   }
@@ -40,7 +40,8 @@ class _StoryDetailState extends State<StoryDetail> {
         '2----------------------------- ${indicatorAnimationController.value}');
     return Scaffold(
       body: SafeArea(
-        child: StoryPageView(
+        child: 
+        StoryPageView(
           indicatorAnimationController: indicatorAnimationController,
           initialPage: widget.storyPage,
           indicatorDuration: const Duration(seconds: 15),
