@@ -27,7 +27,7 @@ class Feedmodel {
 
   Feedmodel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    text = json['text'];
+    text = json['text'] ?? " ";
     totalLike = json['total_like'];
     totalComment = json['total_comment'];
     totalShare = json['total_share'];
