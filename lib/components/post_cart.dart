@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:tryt/components/video_player.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/models/feeed_model.dart';
@@ -26,7 +27,7 @@ class PostCart extends StatefulWidget {
   final VoidCallback onpress;
   final List<String> postText;
   bool userLiked;
-  final Media? mediainfo;
+  final List<Media>? mediainfo;
   PostCart(
       {super.key,
       required this.username,
@@ -48,6 +49,7 @@ class PostCart extends StatefulWidget {
 
 class _PostCartState extends State<PostCart> {
   bool playderStatus = false;
+  int _currentIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -174,19 +176,65 @@ class _PostCartState extends State<PostCart> {
             visible: (widget.mediainfo == null) ? false : true,
             child: (widget.mediainfo != null)
                 ? ClipRRect(
-                    child: (widget.mediainfo!.video == 0)
-                        ? SizedBox(
-                            width: double.infinity,
-                            child: Image.network(
-                              widget.mediainfo!.src!,
-                              fit: BoxFit.cover,
+                    child: (widget.mediainfo![0].video == 0)
+                        ? Column(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: CarouselSlider(
+                            options: CarouselOptions(
+                              height: 450.0,
+                              enlargeCenterPage: true,
+                              aspectRatio: 2.0,
+                              enableInfiniteScroll: false,
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                              viewportFraction: 1.0,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _currentIndex = index;
+                                });
+                              },
                             ),
-                          )
+                            items: widget.mediainfo?.map((media) {
+                              return Builder(
+                                builder: (BuildContext context) {
+                                  return SizedBox(
+                                    width: double.infinity,
+                                    child: Image.network(
+                                      media.src!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  );
+                                },
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                        const SizedBox(height: 16), // Spacing between the carousel and dots
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: widget.mediainfo!.map((media) {
+                            int index = widget.mediainfo!.indexOf(media);
+                            return Container(
+                              width: 8.0,
+                              height: 8.0,
+                              margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: _currentIndex == index
+                                    ? Colors.blue
+                                    : Colors.grey, // Change colors as needed
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    )
                         : SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 450,
                             child: VideoPlayer(
-                              url: widget.mediainfo!.src!,
+                              url: widget.mediainfo![0].src!,
                               autoPlay: playderStatus,
                             ),
                           ),
