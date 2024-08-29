@@ -26,7 +26,7 @@ class PostCart extends StatefulWidget {
   final VoidCallback onpress;
   final List<String> postText;
   bool userLiked;
-  final List<Media>? mediainfo;
+  final Media? mediainfo;
   PostCart(
       {super.key,
       required this.username,
@@ -174,26 +174,19 @@ class _PostCartState extends State<PostCart> {
             visible: (widget.mediainfo == null) ? false : true,
             child: (widget.mediainfo != null)
                 ? ClipRRect(
-                    child: (widget.mediainfo?[0].video == 0)
+                    child: (widget.mediainfo!.video == 0)
                         ? SizedBox(
-                      width: double.infinity, // Maintains full width
-                      height: 450,
-                      child: PageView.builder(
-                        itemCount: widget.mediainfo!.length,
-                        itemBuilder: (context, index) {
-                          return Image.network(
-                            widget.mediainfo![index].src!,
-                            fit: BoxFit.cover, // Ensures the image covers the entire box
-                            width: double.infinity, // Ensures the image fills the width
-                          );
-                        },
-                      ),
-                    )
+                            width: double.infinity,
+                            child: Image.network(
+                              widget.mediainfo!.src!,
+                              fit: BoxFit.cover,
+                            ),
+                          )
                         : SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 450,
                             child: VideoPlayer(
-                              url: widget.mediainfo?[0].src ?? "",
+                              url: widget.mediainfo!.src!,
                               autoPlay: playderStatus,
                             ),
                           ),
