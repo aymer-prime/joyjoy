@@ -33,6 +33,7 @@ class _UserlisteCardState extends State<UserlisteCard> {
   Future<void> onLikePressed(String modelId) async {
     var getmodeller = await toggleModelLike(modelId: modelId);
     print('${getmodeller.totalLike},${getmodeller.userLike}');
+    print('local1 $numLiked,$isLiked');
     setState(() {
       isLiked = getmodeller.userLike ?? false;
       numLiked = '${getmodeller.totalLike}' ?? '0';
@@ -48,6 +49,7 @@ class _UserlisteCardState extends State<UserlisteCard> {
 
   @override
   Widget build(BuildContext context) {
+    print('local2 $numLiked,$isLiked');
     return GestureDetector(
       onTap: widget.onpress,
       child: Stack(
@@ -185,9 +187,9 @@ class _UserlisteCardState extends State<UserlisteCard> {
                             size: 16,
                           ),
                     const SizedBox(height: 2.0),
-                    if (isLiked)
+                    if (isLiked || numLiked != '0')
                       Text(
-                        widget.numLikes ?? "105",
+                        numLiked ?? "105",
                         style: GoogleFonts.mukta(
                           fontSize: 11.2,
                           height: 1,
