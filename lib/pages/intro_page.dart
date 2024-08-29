@@ -1,3 +1,5 @@
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:tryt/components/button_text.dart';
 import 'package:tryt/components/marquee_img.dart';
 import 'package:tryt/config/config.dart';
@@ -7,6 +9,10 @@ import 'package:fluttericon/entypo_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marqueer/marqueer.dart';
 
+import '../models/lang_string_model.dart' as lang;
+import '../models/languages_model.dart';
+import '../services/prefservice.dart';
+
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
 
@@ -15,6 +21,9 @@ class IntroPage extends StatefulWidget {
 }
 
 class _IntroPageState extends State<IntroPage> {
+  // language code like en tr ar
+  String _selectedLanguage = Config.lang;
+  List<Languagesmodel> _languagesList = [];
   List resimler = [
     "https://w0.peakpx.com/wallpaper/774/394/HD-wallpaper-rashmika-mandana-kannada-actress.jpg",
     "https://w0.peakpx.com/wallpaper/438/908/HD-wallpaper-anime-anime-girls-short-hair-simple-dark-hair.jpg",
@@ -31,9 +40,16 @@ class _IntroPageState extends State<IntroPage> {
     "https://w0.peakpx.com/wallpaper/993/372/HD-wallpaper-anime-anime-girls-digital-art-artwork-2d-portrait-display-vertical-mossi-artist-ichinose-shiki-blue-eyes-brunette-long-hair-barefoot.jpg",
     "https://w0.peakpx.com/wallpaper/638/643/HD-wallpaper-babasaheb-ambedkar-painting-babasaheb-ambedkar-painting-art-work-constitution-doctor.jpg",
   ];
+
+
   @override
-  void initState() {
+  initState()  {
+    getLang();
     super.initState();
+  }
+
+  Future<void> getLang() async {
+    _languagesList = await getLanguagesList();
   }
 
   @override
@@ -195,8 +211,67 @@ class _IntroPageState extends State<IntroPage> {
               ),
             ),
           ),
+          Positioned(
+            top: MediaQuery.paddingOf(context).top + 5,
+            right: 10,
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  highlightColor: ThemeColors.getColorTheme(Config.themType)["colorprimary"],
+                ),
+                child: PopupMenuButton<String>(
+                  initialValue: _selectedLanguage,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      color: Colors.black.withOpacity(0.9),
+                      padding: const EdgeInsets.all(8),
+                      child: const Icon(FontAwesome5.globe, size: 16),
+                    ),
+                  ),
+                  onSelected: (value) async {
+                    _selectedLanguage = value;
+                    await PrefService().setString("systhemLang", _selectedLanguage);
+                    var data = await lang.getLangFulTextApi(_selectedLanguage);
+                    setState(() {
+                        Config.lang = _selectedLanguage;
+                        Config.langFulText = data;
+                    });
+                    Phoenix.rebirth(context);
+                  },
+                  itemBuilder: (BuildContext context) => _buildMenuItems(),
+                ),
+              ),
+            ),
+
         ],
       ),
     );
+  }
+
+  List<PopupMenuEntry<String>> _buildMenuItems() {
+    return _languagesList.map((Languagesmodel language) {
+      return PopupMenuItem<String>(
+        value: language.shortName,
+        child: Row(
+          children: [
+            if (_selectedLanguage == language.shortName)
+              const Icon(
+                Icons.check,
+                color: Colors.white,
+              ),
+            SizedBox(width: 8),
+            Text(
+              language.name ?? " ",
+              style: TextStyle(
+                fontSize: 15,
+                color: _selectedLanguage == language.shortName ? Colors.white : ThemeColors.getColorTheme(Config.themType)["color5"],
+              ),
+            ),
+          ],
+        ),
+      );
+    }).toList();
   }
 }

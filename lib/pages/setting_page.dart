@@ -282,9 +282,6 @@ class _SettingPageState extends State<SettingPage> {
                       });
 
                       Phoenix.rebirth(context);
-                      // Navigator.of(context, rootNavigator: true)
-                      //     .pushNamedAndRemoveUntil(
-                      //         '/', (Route<dynamic> route) => false);
                     },
                     btnText: Config.langFulText.general!.save!,
                     bgColor: ThemeColors.getColorTheme(
