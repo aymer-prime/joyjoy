@@ -1,6 +1,5 @@
 import 'package:tryt/components/post_cart.dart';
 import 'package:tryt/components/story_avatar.dart';
-import 'package:tryt/components/user_modal_profil.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/controller/theme_controller.dart';

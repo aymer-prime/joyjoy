@@ -29,9 +29,11 @@ class CommentsListe extends StatefulWidget {
 class _CommentsListeState extends State<CommentsListe> {
   List<Commentsmodel> commentsListe = [];
   final TextEditingController commentController = TextEditingController();
+  final FocusNode commentFocusNode = FocusNode();
   bool isLoading = false;
+  bool isReplaying = false;
   bool hasError = false;
-  String comment = "", commentId = "";
+  String comment = "", commentId = "", commentTo = '';
   int page = 1;
 
   @override
@@ -103,7 +105,7 @@ class _CommentsListeState extends State<CommentsListe> {
     final response = json.decode(result);
 
     // ignore: use_build_context_synchronously
-   // Navigator.pop(context);
+    // Navigator.pop(context);
 
     if (response["success"] == true) {
       commentController.text = "";
@@ -152,168 +154,249 @@ class _CommentsListeState extends State<CommentsListe> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
             Expanded(
-                child: SizedBox(
-              child: isLoading
-                  ? Center(
-                      child: CircularProgressIndicator(
-                          color: ThemeColors.getColorTheme(
-                              Config.themType)["colorprimary"]),
-                    )
-                  : hasError
-                      ? Column(
-                          children: [
-                            Text(
-                              'Error: ${Config.langFulText.feed!.comment!.noComment!.title!}',
-                              style: GoogleFonts.firaSans(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 19.2,
-                                color: ThemeColors.getColorTheme(
-                                    Config.themType)["color7"],
-                                height: 1.26,
-                              ),
-                            ),
-                            const SizedBox(height: 32),
-                            ButtonText(
-                              onpress: () async {
-                                _loadComments();
-                              },
-                              btnText: 'Retry',
-                              bgColor: ThemeColors.getColorTheme(
-                                  Config.themType)["colorprimary"]!,
-                              textColor: Colors.white,
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            ButtonText(
-                              onpress: () async {
-                                await PrefService().setString("email", "");
-                                await PrefService().setString("password", "");
-                                // ignore: use_build_context_synchronously
-                                Navigator.of(context, rootNavigator: true)
-                                    .pushNamedAndRemoveUntil(
-                                        '/', (Route<dynamic> route) => false);
-                              },
-                              btnText: 'Log Out',
-                              bgColor: Colors.transparent,
-                              textColor: ThemeColors.getColorTheme(
-                                  Config.themType)["colorprimary"]!,
-                            )
-                          ],
-                        )
-                      : commentsListe.isNotEmpty
-                          ? ListView.builder(
-                              controller: widget.scrollController,
-                              itemBuilder: (context, index) {
-                                return CommentsUser(
-                                  onReply: () {
-                                    commentId = commentsListe[index].id!;
-                                    commentController.text =
-                                        "@${commentsListe[index].user!.username} ";
-                                  },
-                                  userImage:
-                                      commentsListe[index].user!.img ?? "",
-                                  userName:
-                                      commentsListe[index].user!.username ??
-                                          "guest",
-                                  commentId: commentsListe[index].id ?? "0",
-                                  commentsText:
-                                      commentsListe[index].comment ?? "",
-                                  totalLike:
-                                      commentsListe[index].totalLike ?? "0",
-                                  totalReply:
-                                      commentsListe[index].totalReply ?? "0",
-                                  addDate: commentsListe[index].date ?? "",
-                                  userLike:
-                                      commentsListe[index].user!.userLike ??
-                                          false,
-                                );
-                              },
-                              itemCount: commentsListe.length,
-                            )
-                          : Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    Config.langFulText.feed!.comment!.noComment!
-                                        .title!,
-                                    style: GoogleFonts.firaSans(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 19.2,
-                                      color: ThemeColors.getColorTheme(
-                                          Config.themType)["color7"],
-                                      height: 1.26,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    Config.langFulText.feed!.comment!.noComment!
-                                        .subtitle!,
-                                    style: GoogleFonts.firaSans(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12.8,
-                                      color: ThemeColors.getColorTheme(
-                                          Config.themType)["color6"],
-                                      height: 1.26,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-            )),
-            Padding(
-              padding: const EdgeInsets.only(top: 16, bottom: 16),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: ValueListenableBuilder<TextEditingValue>(
-                      valueListenable: commentController,
-                      builder: (context, value, child) {
-                        return TextFormField(
-                          keyboardType: TextInputType.multiline,
-                          style: TextStyle(
+              child: SizedBox(
+                child: isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(
                             color: ThemeColors.getColorTheme(
-                                Config.themType)["color10"],
-                          ),
-                          maxLines: 5,
-                          minLines: 1,
-                          controller: commentController,
-                          decoration: InputDecoration(
-                            hintText:
-                                Config.langFulText.feed!.comment!.textbox!,
-                            filled: true,
-                            suffixIcon: Container(
-                              margin: const EdgeInsets.only(right: 8),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(24),
-                                color: (commentController.text == "")
-                                    ? ThemeColors.getColorTheme(
-                                        Config.themType)["color4"]
-                                    : ThemeColors.getColorTheme(
-                                        Config.themType)["colorprimary"],
-                              ),
-                              child: IconButton(
-                                onPressed: isLoading ? null : _postComment,
-                                icon: Icon(
-                                  FontAwesome.paper_plane,
+                                Config.themType)["colorprimary"]),
+                      )
+                    : hasError
+                        ? Column(
+                            children: [
+                              Text(
+                                'Error: ${Config.langFulText.feed!.comment!.noComment!.title!}',
+                                style: GoogleFonts.firaSans(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 19.2,
                                   color: ThemeColors.getColorTheme(
-                                      Config.themType)["color1fix"],
+                                      Config.themType)["color7"],
+                                  height: 1.26,
                                 ),
                               ),
+                              const SizedBox(height: 32),
+                              ButtonText(
+                                onpress: () async {
+                                  _loadComments();
+                                },
+                                btnText: 'Retry',
+                                bgColor: ThemeColors.getColorTheme(
+                                    Config.themType)["colorprimary"]!,
+                                textColor: Colors.white,
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              ButtonText(
+                                onpress: () async {
+                                  await PrefService().setString("email", "");
+                                  await PrefService().setString("password", "");
+                                  // ignore: use_build_context_synchronously
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pushNamedAndRemoveUntil(
+                                          '/', (Route<dynamic> route) => false);
+                                },
+                                btnText: 'Log Out',
+                                bgColor: Colors.transparent,
+                                textColor: ThemeColors.getColorTheme(
+                                    Config.themType)["colorprimary"]!,
+                              )
+                            ],
+                          )
+                        : commentsListe.isNotEmpty
+                            ? ListView.builder(
+                                controller: widget.scrollController,
+                                itemBuilder: (context, index) {
+                                  return CommentsUser(
+                                    onReply: () {
+                                      isReplaying = true;
+                                      commentFocusNode.requestFocus();
+                                      commentId = commentsListe[index].id!;
+                                      commentTo =
+                                          '@${commentsListe[index].user!.username}';
+                                      commentController.text = "$commentTo ";
+                                    },
+                                    userImage:
+                                        commentsListe[index].user!.img ?? "",
+                                    userName:
+                                        commentsListe[index].user!.username ??
+                                            "guest",
+                                    commentId: commentsListe[index].id ?? "0",
+                                    commentsText:
+                                        commentsListe[index].comment ?? "",
+                                    totalLike:
+                                        commentsListe[index].totalLike ?? "0",
+                                    totalReply:
+                                        commentsListe[index].totalReply ?? "0",
+                                    addDate: commentsListe[index].date ?? "",
+                                    userLike:
+                                        commentsListe[index].user!.userLike ??
+                                            false,
+                                  );
+                                },
+                                itemCount: commentsListe.length,
+                              )
+                            : Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      Config.langFulText.feed!.comment!
+                                          .noComment!.title!,
+                                      style: GoogleFonts.firaSans(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 19.2,
+                                        color: ThemeColors.getColorTheme(
+                                            Config.themType)["color7"],
+                                        height: 1.26,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      Config.langFulText.feed!.comment!
+                                          .noComment!.subtitle!,
+                                      style: GoogleFonts.firaSans(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12.8,
+                                        color: ThemeColors.getColorTheme(
+                                            Config.themType)["color6"],
+                                        height: 1.26,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: SingleChildScrollView(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ValueListenableBuilder<TextEditingValue>(
+                        valueListenable: commentController,
+                        builder: (context, value, child) {
+                          return Theme(
+                            data: ThemeData(
+                                inputDecorationTheme: Theme.of(context)
+                                    .inputDecorationTheme
+                                    .copyWith(
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: isReplaying
+                                            ? const BorderRadius.only(
+                                                bottomLeft: Radius.circular(24),
+                                                bottomRight:
+                                                    Radius.circular(24),
+                                              )
+                                            : BorderRadius.circular(24.0),
+                                        borderSide: BorderSide(
+                                          color: ThemeColors.getColorTheme(
+                                              Config.themType)["colorborder1"]!,
+                                          width: 1,
+                                        ),
+                                      ),
+                                    )),
+                            child: Column(
+                              children: [
+                                if (isReplaying)
+                                  Container(
+                                    //width: double.infinity,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0,
+                                      vertical: 8.0,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: ThemeColors.getColorTheme(
+                                          Config.themType)["color2"],
+                                      border: Border.all(
+                                          color: ThemeColors.getColorTheme(
+                                              Config.themType)["colorborder1"]!,
+                                          width: 1),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(24),
+                                        topRight: Radius.circular(24),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '$commentTo profiline yanıt veriyorsun.',
+                                          style: TextStyle(
+                                            fontSize: 11.2,
+                                            color: ThemeColors.getColorTheme(
+                                                Config.themType)["color7"],
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            commentController.clear();
+                                            commentFocusNode.unfocus();
+                                            setState(() {
+                                              isReplaying = false;
+                                            });
+                                          },
+                                          child: const Icon(
+                                            Icons.close,
+                                            size: 15,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                TextFormField(
+                                  focusNode: commentFocusNode,
+                                  keyboardType: TextInputType.multiline,
+                                  style: TextStyle(
+                                    color: ThemeColors.getColorTheme(
+                                        Config.themType)["color10"],
+                                  ),
+                                  maxLines: 5,
+                                  minLines: 1,
+                                  controller: commentController,
+                                  decoration: InputDecoration(
+                                    hintText: Config
+                                        .langFulText.feed!.comment!.textbox!,
+                                    filled: true,
+                                    suffixIcon: Container(
+                                      margin: const EdgeInsets.only(right: 8),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(24),
+                                        color: (commentController.text == "")
+                                            ? ThemeColors.getColorTheme(
+                                                Config.themType)["color4"]
+                                            : ThemeColors.getColorTheme(Config
+                                                .themType)["colorprimary"],
+                                      ),
+                                      child: IconButton(
+                                        onPressed:
+                                            isLoading ? null : _postComment,
+                                        icon: Icon(
+                                          FontAwesome.paper_plane,
+                                          color: ThemeColors.getColorTheme(
+                                              Config.themType)["color1fix"],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 16.0),
+                              ],
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

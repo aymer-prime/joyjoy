@@ -317,19 +317,28 @@ class _PostCartState extends State<PostCart> {
                       isDismissible: true,
                       backgroundColor: Colors.transparent,
                       barrierColor: Colors.black.withOpacity(0.5),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(24.0),
+                        ),
+                      ),
                       builder: (BuildContext context) {
                         return GestureDetector(
                           behavior: HitTestBehavior.opaque,
                           onTap: () {
-                            Navigator.of(context).pop(); // Closes the bottom sheet
+                            Navigator.of(context)
+                                .pop(); // Closes the bottom sheet
                           },
                           child: DraggableScrollableSheet(
                             maxChildSize: 0.97,
-                            initialChildSize: 0.7,
-                            builder: (BuildContext context, ScrollController scroll) {
+                            initialChildSize: 0.8,
+                            builder: (BuildContext context,
+                                ScrollController scroll) {
                               return GestureDetector(
-                                behavior: HitTestBehavior.translucent, // Ensures inner taps are ignored for closing
-                                onTap: () {}, // Absorbs the tap event inside the sheet
+                                behavior: HitTestBehavior
+                                    .translucent, // Ensures inner taps are ignored for closing
+                                onTap:
+                                    () {}, // Absorbs the tap event inside the sheet
                                 child: CommentsListe(
                                   feedId: widget.feedId,
                                   scrollController: scroll,
