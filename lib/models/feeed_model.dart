@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:tryt/config/config.dart';
 import 'package:tryt/services/httpservices.dart';
 
@@ -10,7 +9,7 @@ class Feedmodel {
   String? totalComment;
   String? totalShare;
   String? date;
-  Media? media;
+  List<Media>? media;
   bool? userLike;
   Model? model;
 
@@ -32,7 +31,9 @@ class Feedmodel {
     totalComment = json['total_comment'];
     totalShare = json['total_share'];
     date = json['date'];
-    media = json['media'] != null ? Media.fromJson(json['media']) : null;
+    if (json['media'] != null) {
+      media = (json['media'] as List).map((i) => Media.fromJson(i)).toList();
+    }
     userLike = json['user_like'];
     model = json['model'] != null ? Model.fromJson(json['model']) : null;
   }
@@ -46,7 +47,7 @@ class Feedmodel {
     data['total_share'] = totalShare;
     data['date'] = date;
     if (media != null) {
-      data['media'] = media!.toJson();
+      data['media'] = media!.map((e) => e.toJson()).toList();
     }
     data['user_like'] = userLike;
     if (model != null) {
