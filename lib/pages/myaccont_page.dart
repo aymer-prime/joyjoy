@@ -32,7 +32,7 @@ class _MyaccontPageState extends State<MyaccontPage> {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
+              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
                   builder: (context) => const MyacconteditPage()));
             },
             leading: Icon(
@@ -54,7 +54,7 @@ class _MyaccontPageState extends State<MyaccontPage> {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).push(
+              Navigator.of(context, rootNavigator: true).push(
                   MaterialPageRoute(builder: (conter) => const SettingPage()));
             },
             leading: Icon(
@@ -76,7 +76,7 @@ class _MyaccontPageState extends State<MyaccontPage> {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
+              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
                   builder: (contex) => const NotificationsPage()));
             },
             leading: Icon(
@@ -184,7 +184,8 @@ class _MyaccontPageState extends State<MyaccontPage> {
                     decoration: TextDecoration.underline,
                     fontSize: 12.8,
                     height: 1.3,
-                    color: ThemeColors.getColorTheme(Config.themType)["color10"],
+                    color:
+                        ThemeColors.getColorTheme(Config.themType)["color10"],
                   ),
                 ),
               ),
@@ -206,7 +207,8 @@ class _MyaccontPageState extends State<MyaccontPage> {
                     fontSize: 12.8,
                     decoration: TextDecoration.underline,
                     height: 1.3,
-                    color: ThemeColors.getColorTheme(Config.themType)["color10"],
+                    color:
+                        ThemeColors.getColorTheme(Config.themType)["color10"],
                   ),
                 ),
               ),

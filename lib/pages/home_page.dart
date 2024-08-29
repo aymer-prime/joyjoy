@@ -24,6 +24,9 @@ class _HomePageState extends State<HomePage> {
   bool loadinBar = false;
   @override
   void initState() {
+    print(
+      '******************************Home****************************************',
+    );
     super.initState();
     getPageLoadin(page);
     _scrollController.addListener(() {

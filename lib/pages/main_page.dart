@@ -41,15 +41,32 @@ class _MainPageState extends State<MainPage> {
     themeController.getMyuser();
   }
 
+  Widget getPage(int index) {
+    switch (index) {
+      case 0:
+        return HomePage(key: UniqueKey());
+      case 1:
+        return ChatPage(key: UniqueKey());
+      case 2:
+        return ChoosePage(key: UniqueKey());
+      case 3:
+        return NotificationPage(key: UniqueKey());
+      case 4:
+        return MyaccontPage(key: UniqueKey());
+      default:
+        return HomePage(key: UniqueKey());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final listOfKeys = [sayfa1, sayfa2, sayfa3, sayfa4, sayfa5];
     List<Widget> sayfalar = [
-      const HomePage(),
-      const ChatPage(),
-      const ChoosePage(),
-      const NotificationPage(),
-      const MyaccontPage(),
+      HomePage(key: UniqueKey()),
+      ChatPage(key: UniqueKey()),
+      ChoosePage(key: UniqueKey()),
+      NotificationPage(key: UniqueKey()),
+      MyaccontPage(key: UniqueKey()),
     ];
     return WillPopScope(
       onWillPop: () async {
@@ -177,7 +194,7 @@ class _MainPageState extends State<MainPage> {
           return CupertinoTabView(
             navigatorKey: listOfKeys[index],
             builder: (context) {
-              return sayfalar[index];
+              return getPage(index); //sayfalar[index];
             },
           );
         },

@@ -128,10 +128,10 @@ class _ChooselistPageState extends State<ChooselistPage> {
                 bottom: 16,
               ),
               child: UserlisteCard(
+                modelId: modelListe[index].modelId ?? '',
                 title: modelListe[index].name ?? '',
                 subcategory: modelListe[index].subcategory ?? '',
                 yas: modelListe[index].age ?? '',
-                //todo null check operator
                 subTitle: modelListe[index].shortDescription ?? '',
                 imageUrl: modelListe[index].img ?? '',
                 liked: modelListe[index].userLike ?? false,

@@ -51,6 +51,7 @@ class _UserModalProfilState extends State<UserModalProfil> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   UserlisteCard(
+                    modelId: modelbilgi[0].modelId ?? '',
                     title: modelbilgi[0].name ?? '',
                     yas: modelbilgi[0].age ?? '',
                     subTitle: modelbilgi[0].shortDescription ?? '',

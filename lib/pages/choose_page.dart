@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:tryt/components/choose_button.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
@@ -18,7 +19,8 @@ class _ChoosePageState extends State<ChoosePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    print(
+        '${Get.currentRoute}******************************choose****************************************');
     super.initState();
     getGender();
   }
@@ -63,7 +65,7 @@ class _ChoosePageState extends State<ChoosePage> {
                     Expanded(
                       child: ChooseButton(
                         onpress: () {
-                          Navigator.of(context).push(
+                          Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
                               builder: (context) => ChoosecatPage(
                                 genderId: genderliste[0].id.toString(),
@@ -84,10 +86,13 @@ class _ChoosePageState extends State<ChoosePage> {
                     Expanded(
                       child: ChooseButton(
                         onpress: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ChoosecatPage(
-                                    genderId: genderliste[1].id.toString(),
-                                  )));
+                          Get.to(ChoosecatPage(
+                            genderId: genderliste[1].id.toString(),
+                          ));
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //     builder: (context) => ChoosecatPage(
+                          //           genderId: genderliste[1].id.toString(),
+                          //         )));
                         },
                         title: genderliste[1].name.toString(),
                         imageUrl: genderliste[1].img.toString(),

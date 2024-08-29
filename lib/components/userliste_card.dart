@@ -6,11 +6,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tryt/models/models_model.dart';
 
 class UserlisteCard extends StatefulWidget {
-  final String title, imageUrl, yas, subTitle, subcategory, numLikes;
+  final String modelId, title, imageUrl, yas, subTitle, subcategory, numLikes;
   final bool liked;
   final VoidCallback onpress;
   const UserlisteCard({
     super.key,
+    required this.modelId,
     required this.title,
     required this.subcategory,
     required this.imageUrl,
@@ -27,14 +28,21 @@ class UserlisteCard extends StatefulWidget {
 
 class _UserlisteCardState extends State<UserlisteCard> {
   late bool isLiked;
-  void toggleLike() {
-    isLiked = !isLiked;
-    setState(() {});
+  late String numLiked;
+
+  Future<void> onLikePressed(String modelId) async {
+    var getmodeller = await toggleModelLike(modelId: modelId);
+    print('${getmodeller.totalLike},${getmodeller.userLike}');
+    setState(() {
+      isLiked = getmodeller.userLike ?? false;
+      numLiked = '${getmodeller.totalLike}' ?? '0';
+    });
   }
 
   @override
   void initState() {
     isLiked = widget.liked;
+    numLiked = widget.numLikes;
     super.initState();
   }
 
@@ -148,7 +156,9 @@ class _UserlisteCardState extends State<UserlisteCard> {
             top: 16,
             right: 16,
             child: GestureDetector(
-              onTap: toggleLike,
+              onTap: () async {
+                await onLikePressed(widget.modelId);
+              },
               child: Container(
                 height: 40,
                 width: 32,

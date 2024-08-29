@@ -3,6 +3,20 @@ import 'dart:convert';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/services/httpservices.dart';
 
+class ModelLikesModel {
+  int? totalLike;
+  bool? userLike;
+  ModelLikesModel({
+    this.totalLike,
+    this.userLike,
+  });
+
+  ModelLikesModel.fromJson(Map<String, dynamic> json) {
+    totalLike = json['total_like'];
+    userLike = json['like'];
+  }
+}
+
 class Modelsmodel {
   String? modelId;
   String? name;
@@ -66,4 +80,18 @@ Future<List<Modelsmodel>> getGenderCatList(
   var body = json.decode(sonuc);
   var deger = body["result"] as List;
   return deger.map((e) => Modelsmodel.fromJson(e)).toList();
+}
+
+Future<ModelLikesModel> toggleModelLike({required String modelId}) async {
+  var data = {
+    "user_id": Config.userBilgi.userId,
+    "token": Config.userBilgi.token,
+    "lang": Config.lang,
+    "model_id": modelId,
+  };
+  var result = await Httpservices().postMethod("models/model-like.php", data);
+  var body = json.decode(result);
+  print(body);
+  var deger = body["result"] as Map<String, dynamic>;
+  return ModelLikesModel.fromJson(deger);
 }
