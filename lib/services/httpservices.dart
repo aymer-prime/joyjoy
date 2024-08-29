@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tryt/config/config.dart';
 import 'package:http/http.dart' as http;
+import 'package:tryt/services/prefservice.dart';
 
 class Httpservices {
   String serverUrl = Config.siteUrl;
@@ -15,7 +18,7 @@ class Httpservices {
       //print('responseCode:${sonuc.statusCode}');
       //print('responseBody:${sonuc.body}');
       if (sonuc.statusCode == 200) {
-        return sonuc.body;
+        return  await _handleResponse(sonuc);
       } else {
         return false;
       }
@@ -35,7 +38,7 @@ class Httpservices {
           },
           body: json.encode(data));
       if (sonuc.statusCode == 200) {
-        return sonuc.body;
+        return  await _handleResponse(sonuc);
       } else {
         return false;
       }
@@ -52,7 +55,7 @@ class Httpservices {
       if (sonuc.statusCode == 200) {
         return sonuc.body;
       } else {
-        return false;
+        return  await _handleResponse(sonuc);
       }
     } catch (error) {
       return false;
@@ -65,11 +68,29 @@ class Httpservices {
         'Authorization': 'Basic ${Config.basetoken}',
       });
       if (sonuc.statusCode == 200) {
-        return sonuc.body;
+        return  await _handleResponse(sonuc);
       } else {
         return "";
       }
     } catch (error) {
+      return false;
+    }
+  }
+
+  // Private method to handle responses and check for logout
+  Future<dynamic> _handleResponse(http.Response response) async {
+    if (response.statusCode == 200) {
+      var body = json.decode(response.body);
+
+      if (body['logout'] == true) {
+        await PrefService().setString("email", "");
+        await PrefService().setString("password", "");
+        Get.offAllNamed('/');
+        return true;
+      }
+
+      return response.body;
+    } else {
       return false;
     }
   }
