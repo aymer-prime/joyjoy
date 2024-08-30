@@ -26,13 +26,15 @@ class Feedmodel {
 
   Feedmodel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    text = json['text'] ?? " ";
+    text = json['text'] ?? '';
     totalLike = json['total_like'];
     totalComment = json['total_comment'];
     totalShare = json['total_share'];
     date = json['date'];
     if (json['media'] != null) {
       media = (json['media'] as List).map((i) => Media.fromJson(i)).toList();
+    } else {
+      media = [];
     }
     userLike = json['user_like'];
     model = json['model'] != null ? Model.fromJson(json['model']) : null;

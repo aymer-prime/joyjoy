@@ -21,11 +21,12 @@ class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
   final ThemeController themeController = Get.put(ThemeController());
   int page = 1;
-  bool loadinBar = false;
+  bool loadingBar = false;
+
   @override
   void initState() {
     super.initState();
-    getPageLoadin(page);
+    getPageLoading(page);
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent ==
           _scrollController.position.pixels) {
@@ -33,15 +34,16 @@ class _HomePageState extends State<HomePage> {
             themeController.feedmodel.length) {
           page = page + 1;
           setState(() {
-            loadinBar = true;
+            loadingBar = true;
           });
           nextPage(page);
+          print('nextPage');
         }
       }
     });
   }
 
-  getPageLoadin(int page) async {
+  getPageLoading(int page) async {
     themeController.feedmodel.value = [];
     themeController.getStoryAdd();
     nextPage(page);
@@ -50,7 +52,7 @@ class _HomePageState extends State<HomePage> {
   nextPage(int page) async {
     await themeController.getFeedAdd(page);
     setState(() {
-      loadinBar = false;
+      loadingBar = false;
     });
   }
 
@@ -94,7 +96,7 @@ class _HomePageState extends State<HomePage> {
           body: RefreshIndicator(
             onRefresh: () {
               page = 1;
-              return getPageLoadin(page);
+              return getPageLoading(page);
             },
             child: ListView(
               padding: const EdgeInsets.symmetric(
@@ -169,7 +171,8 @@ class _HomePageState extends State<HomePage> {
                                 userLiked:
                                     themeController.feedmodel[index].userLike!,
                                 mediainfo:
-                                    themeController.feedmodel[index].media,
+                                    themeController.feedmodel[index].media ??
+                                        [],
                                 onpress: () async {
                                   Get.to(
                                     transition: Transition.rightToLeft,
@@ -188,8 +191,8 @@ class _HomePageState extends State<HomePage> {
                               );
                             } else {
                               return Visibility(
-                                visible: loadinBar,
-                                child: (loadinBar)
+                                visible: loadingBar,
+                                child: (loadingBar)
                                     ? const CircleAvatar(
                                         radius: 16,
                                         backgroundColor: Colors.transparent,

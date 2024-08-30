@@ -10,15 +10,17 @@ class Httpservices {
 
   postMethod(String urlm, Object data) async {
     try {
-      http.Response sonuc = await http.post(Uri.parse(serverUrl + urlm),
-          headers: {
-            'Authorization': 'Basic ${Config.basetoken}',
-          },
-          body: data);
+      http.Response sonuc = await http.post(
+        Uri.parse(serverUrl + urlm),
+        headers: {
+          'Authorization': 'Basic ${Config.basetoken}',
+        },
+        body: data,
+      );
       //print('responseCode:${sonuc.statusCode}');
       //print('responseBody:${sonuc.body}');
       if (sonuc.statusCode == 200) {
-        return  await _handleResponse(sonuc);
+        return await _handleResponse(sonuc);
       } else {
         return false;
       }
@@ -38,7 +40,7 @@ class Httpservices {
           },
           body: json.encode(data));
       if (sonuc.statusCode == 200) {
-        return  await _handleResponse(sonuc);
+        return await _handleResponse(sonuc);
       } else {
         return false;
       }
@@ -55,7 +57,7 @@ class Httpservices {
       if (sonuc.statusCode == 200) {
         return sonuc.body;
       } else {
-        return  await _handleResponse(sonuc);
+        return await _handleResponse(sonuc);
       }
     } catch (error) {
       return false;
@@ -68,7 +70,7 @@ class Httpservices {
         'Authorization': 'Basic ${Config.basetoken}',
       });
       if (sonuc.statusCode == 200) {
-        return  await _handleResponse(sonuc);
+        return await _handleResponse(sonuc);
       } else {
         return "";
       }

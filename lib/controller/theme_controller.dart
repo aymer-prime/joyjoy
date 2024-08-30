@@ -21,10 +21,10 @@ class ThemeController extends GetxController {
   RxInt activeIndex = 0.obs;
   var clickHistory = <int>[].obs;
 
-
   getFeedAdd(int page) async {
     var data = await getFeedListe(page);
     feedmodel.addAll(data);
+    print('feed Date: $data');
     update();
   }
 
