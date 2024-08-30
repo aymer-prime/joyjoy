@@ -9,6 +9,7 @@ import 'package:tryt/pages/activation_page.dart';
 import 'package:tryt/services/httpservices.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tryt/services/prefservice.dart';
 
 import '../language_pop_menu.dart';
 
@@ -45,7 +46,8 @@ class _SingupPageState extends State<SingupPage> {
                   Config.langFulText.register!.title!,
                   style: GoogleFonts.mukta(
                     fontSize: 32,
-                    color: ThemeColors.getColorTheme(Config.themType)["color10"],
+                    color:
+                        ThemeColors.getColorTheme(Config.themType)["color10"],
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -80,10 +82,10 @@ class _SingupPageState extends State<SingupPage> {
                           return null;
                         },
                         decoration: InputDecoration(
-                          focusColor:
-                              ThemeColors.getColorTheme(Config.themType)["color2"],
-                          fillColor:
-                              ThemeColors.getColorTheme(Config.themType)["color2"],
+                          focusColor: ThemeColors.getColorTheme(
+                              Config.themType)["color2"],
+                          fillColor: ThemeColors.getColorTheme(
+                              Config.themType)["color2"],
                           filled: true,
                           hintText: Config.langFulText.register!.username!,
                         ),
@@ -97,16 +99,16 @@ class _SingupPageState extends State<SingupPage> {
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return Config
-                                .langFulText.register!.errorMessage!.email!.wrong!;
+                            return Config.langFulText.register!.errorMessage!
+                                .email!.wrong!;
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          focusColor:
-                              ThemeColors.getColorTheme(Config.themType)["color2"],
-                          fillColor:
-                              ThemeColors.getColorTheme(Config.themType)["color2"],
+                          focusColor: ThemeColors.getColorTheme(
+                              Config.themType)["color2"],
+                          fillColor: ThemeColors.getColorTheme(
+                              Config.themType)["color2"],
                           filled: true,
                           hintText: Config.langFulText.register!.email!,
                         ),
@@ -128,10 +130,10 @@ class _SingupPageState extends State<SingupPage> {
                         obscureText: obscureTextStatus,
                         decoration: InputDecoration(
                           hintText: Config.langFulText.register!.password!,
-                          focusColor:
-                              ThemeColors.getColorTheme(Config.themType)["color2"],
-                          fillColor:
-                              ThemeColors.getColorTheme(Config.themType)["color2"],
+                          focusColor: ThemeColors.getColorTheme(
+                              Config.themType)["color2"],
+                          fillColor: ThemeColors.getColorTheme(
+                              Config.themType)["color2"],
                           filled: true,
                           suffixIcon: IconButton(
                             onPressed: () {
@@ -176,7 +178,8 @@ class _SingupPageState extends State<SingupPage> {
                     style: GoogleFonts.firaSans(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
-                      color: ThemeColors.getColorTheme(Config.themType)["color10"],
+                      color:
+                          ThemeColors.getColorTheme(Config.themType)["color10"],
                     ),
                   ),
                 ),
@@ -187,7 +190,8 @@ class _SingupPageState extends State<SingupPage> {
                   textAlign: TextAlign.center,
                   text: TextSpan(
                     style: GoogleFonts.firaSans(
-                      color: ThemeColors.getColorTheme(Config.themType)["color5"],
+                      color:
+                          ThemeColors.getColorTheme(Config.themType)["color5"],
                       fontSize: 12.8,
                       fontWeight: FontWeight.w400,
                     ),
@@ -205,11 +209,13 @@ class _SingupPageState extends State<SingupPage> {
 
   getCreateUser() async {
     Config.genelModal(context, const LoadingModal());
+    var token = await PrefService().getString("fcm");
     var data = {
       "email": userEmail.text,
       "password": userPassword.text,
       "username": userName.text,
-      "lang": "tr"
+      "lang": "tr",
+      'firebase_token': token,
     };
     var sonuc = await Httpservices().postMethod("login/register.php", data);
     var body = json.decode(sonuc);

@@ -22,6 +22,7 @@ class NotificationHandler {
 
   strintoken() async {
     var token = await FirebaseMessaging.instance.getToken();
+    await PrefService().setString("fcm", token ?? "");
     print("FCM token $token");
     print("user token ${Config.userBilgi.token}}");
   }

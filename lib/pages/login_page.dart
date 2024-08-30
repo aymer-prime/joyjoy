@@ -58,7 +58,8 @@ class _LoginPageState extends State<LoginPage> {
                     style: GoogleFonts.mukta(
                       fontSize: 32,
                       height: 1.1,
-                      color: ThemeColors.getColorTheme(Config.themType)["color10"],
+                      color:
+                          ThemeColors.getColorTheme(Config.themType)["color10"],
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -70,7 +71,8 @@ class _LoginPageState extends State<LoginPage> {
                     Config.langFulText.login!.subtitle!,
                     style: GoogleFonts.firaSans(
                       fontSize: 16,
-                      color: ThemeColors.getColorTheme(Config.themType)["color7"],
+                      color:
+                          ThemeColors.getColorTheme(Config.themType)["color7"],
                     ),
                   ),
                   const SizedBox(
@@ -100,8 +102,8 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           style: GoogleFonts.firaSans(
                             fontSize: 16,
-                            color:
-                                ThemeColors.getColorTheme(Config.themType)["color10"],
+                            color: ThemeColors.getColorTheme(
+                                Config.themType)["color10"],
                           ),
                         ),
                         const SizedBox(
@@ -114,8 +116,8 @@ class _LoginPageState extends State<LoginPage> {
                           keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return Config
-                                  .langFulText.login!.errorMessage!.password!.wrong
+                              return Config.langFulText.login!.errorMessage!
+                                  .password!.wrong
                                   .toString();
                             }
                             return null;
@@ -140,8 +142,8 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           style: GoogleFonts.firaSans(
                             fontSize: 16,
-                            color:
-                                ThemeColors.getColorTheme(Config.themType)["color10"],
+                            color: ThemeColors.getColorTheme(
+                                Config.themType)["color10"],
                           ),
                         ),
                         const SizedBox(
@@ -165,11 +167,13 @@ class _LoginPageState extends State<LoginPage> {
                     height: 8,
                   ),
                   ButtonIcon(
-                    colorborder1:
-                        ThemeColors.getColorTheme(Config.themType)["colorborder1"]!,
+                    colorborder1: ThemeColors.getColorTheme(
+                        Config.themType)["colorborder1"]!,
                     btnText: Config.langFulText.login!.googleButton!,
-                    bgColor: ThemeColors.getColorTheme(Config.themType)["color1"]!,
-                    textColor: ThemeColors.getColorTheme(Config.themType)["color10"]!,
+                    bgColor:
+                        ThemeColors.getColorTheme(Config.themType)["color1"]!,
+                    textColor:
+                        ThemeColors.getColorTheme(Config.themType)["color10"]!,
                     onpress: () async {
                       _googleLogin();
                     },
@@ -183,17 +187,20 @@ class _LoginPageState extends State<LoginPage> {
                     height: 8,
                   ),
                   ButtonIcon(
-                    colorborder1:
-                        ThemeColors.getColorTheme(Config.themType)["colorborder1"]!,
+                    colorborder1: ThemeColors.getColorTheme(
+                        Config.themType)["colorborder1"]!,
                     btnText: Config.langFulText.login!.emailButton!,
-                    bgColor: ThemeColors.getColorTheme(Config.themType)["color1"]!,
-                    textColor: ThemeColors.getColorTheme(Config.themType)["color10"]!,
+                    bgColor:
+                        ThemeColors.getColorTheme(Config.themType)["color1"]!,
+                    textColor:
+                        ThemeColors.getColorTheme(Config.themType)["color10"]!,
                     onpress: () {
                       Navigator.of(context).pushNamed("/loginpage");
                     },
                     btnIcon: Icon(
                       Icons.mail,
-                      color: ThemeColors.getColorTheme(Config.themType)["color10"],
+                      color:
+                          ThemeColors.getColorTheme(Config.themType)["color10"],
                     ),
                   ),
                   const SizedBox(
@@ -209,7 +216,8 @@ class _LoginPageState extends State<LoginPage> {
                       style: GoogleFonts.firaSans(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
-                        color: ThemeColors.getColorTheme(Config.themType)["color10"],
+                        color: ThemeColors.getColorTheme(
+                            Config.themType)["color10"],
                       ),
                     ),
                   ),
@@ -220,7 +228,8 @@ class _LoginPageState extends State<LoginPage> {
                     textAlign: TextAlign.center,
                     text: TextSpan(
                       style: GoogleFonts.firaSans(
-                        color: ThemeColors.getColorTheme(Config.themType)["color5"],
+                        color: ThemeColors.getColorTheme(
+                            Config.themType)["color5"],
                         fontSize: 12.8,
                         fontWeight: FontWeight.w400,
                       ),
@@ -239,11 +248,14 @@ class _LoginPageState extends State<LoginPage> {
 
   getLogin() async {
     Config.genelModal(context, const LoadingModal());
+    var token = await PrefService().getString("fcm");
     var data = {
       "email_username": userEmail.text,
       "password": userPassword.text,
-      "lang": "tr"
+      "lang": "tr",
+      'firebase_token': token,
     };
+    print('data: $data');
     var sonuc = await Httpservices().postMethod("login/index.php", data);
     var body = json.decode(sonuc);
     var deger = body["result"];

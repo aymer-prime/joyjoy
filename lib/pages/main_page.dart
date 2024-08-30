@@ -36,7 +36,6 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    NotificationHandler().insertlistin(context);
     tabController = CupertinoTabController(initialIndex: 0);
     themeController.getMyuser();
   }
