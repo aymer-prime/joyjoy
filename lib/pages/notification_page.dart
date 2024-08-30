@@ -60,13 +60,12 @@ class _NotificationPageState extends State<NotificationPage> {
                 ? ListView.builder(
                     padding: const EdgeInsets.only(
                       top: 15,
-                      left: 0,
-                      right: 0,
+                      left: 16,
+                      right: 16,
                     ),
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 10, right: 0, left: 0),
+                        padding: const EdgeInsets.only(bottom: 8),
                         child: CustomListile(
                           userImg: bildimler[index].user!.img!,
                           userName: bildimler[index].user!.username!,

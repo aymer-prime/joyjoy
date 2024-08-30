@@ -4,7 +4,7 @@ import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/controller/theme_controller.dart';
 import 'package:tryt/pages/chat_page.dart';
-import 'package:tryt/pages/choose_page.dart';
+import 'package:tryt/pages/choose_pages/choose_page.dart';
 import 'package:tryt/pages/home_page.dart';
 import 'package:tryt/pages/myaccont_page.dart';
 import 'package:tryt/pages/notification_page.dart';
@@ -194,7 +194,9 @@ class _MainPageState extends State<MainPage> {
           return CupertinoTabView(
             navigatorKey: listOfKeys[index],
             builder: (context) {
-              return getPage(index); //sayfalar[index];
+              return (index == 2 || index == 4)
+                  ? getPage(index)
+                  : sayfalar[index];
             },
           );
         },

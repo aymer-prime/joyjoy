@@ -29,15 +29,19 @@ class CustomListile extends StatelessWidget {
           Expanded(
             child: RichText(
               text: TextSpan(
-                text: "$userName ",
-                style: GoogleFonts.mukta(
-                  fontSize: 16,
-                  color: ThemeColors.getColorTheme(Config.themType)["color10"],
-                  fontWeight: FontWeight.w800,
-                ),
                 children: [
                   TextSpan(
-                    text: notificationText,
+                    text: "${notificationText.split(' ')[0]} ",
+                    style: GoogleFonts.firaSans(
+                      fontSize: 14.4,
+                      fontWeight: FontWeight.w800,
+                      color:
+                          ThemeColors.getColorTheme(Config.themType)["color10"],
+                    ),
+                  ),
+                  TextSpan(
+                    text: notificationText.replaceAll(
+                        notificationText.split(' ')[0], ''),
                     style: GoogleFonts.firaSans(
                       fontSize: 14.4,
                       fontWeight: FontWeight.w400,
@@ -46,7 +50,7 @@ class CustomListile extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: " $notificationDate",
+                    text: "\n$notificationDate",
                     style: GoogleFonts.firaSans(
                       fontSize: 12.8,
                       color:

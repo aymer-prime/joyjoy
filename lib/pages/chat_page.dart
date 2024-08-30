@@ -4,7 +4,7 @@ import 'package:tryt/components/user_modal_profil.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/controller/theme_controller.dart';
-import 'package:tryt/pages/choose_page.dart';
+import 'package:tryt/pages/choose_pages/choose_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';

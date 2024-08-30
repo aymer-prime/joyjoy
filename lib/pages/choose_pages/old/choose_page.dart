@@ -3,7 +3,7 @@ import 'package:tryt/components/choose_button.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/models/gender_model.dart';
-import 'package:tryt/pages/choosecat_page.dart';
+import 'package:tryt/pages/choose_pages/old/choosecat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,8 +19,6 @@ class _ChoosePageState extends State<ChoosePage> {
 
   @override
   void initState() {
-    print(
-        '${Get.currentRoute}******************************choose****************************************');
     super.initState();
     getGender();
   }

@@ -32,7 +32,7 @@ class _MyaccontPageState extends State<MyaccontPage> {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+              Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const MyacconteditPage()));
             },
             leading: Icon(
@@ -54,7 +54,7 @@ class _MyaccontPageState extends State<MyaccontPage> {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context, rootNavigator: true).push(
+              Navigator.of(context).push(
                   MaterialPageRoute(builder: (conter) => const SettingPage()));
             },
             leading: Icon(
@@ -76,7 +76,7 @@ class _MyaccontPageState extends State<MyaccontPage> {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+              Navigator.of(context).push(MaterialPageRoute(
                   builder: (contex) => const NotificationsPage()));
             },
             leading: Icon(
@@ -137,9 +137,9 @@ class _MyaccontPageState extends State<MyaccontPage> {
               await PrefService().setString("email", "");
               await PrefService().setString("password", "");
               // ignore: use_build_context_synchronously
-              Navigator.of(context, rootNavigator: true)
-                  .pushNamedAndRemoveUntil(
-                      '/', (Route<dynamic> route) => false);
+              Navigator.of(
+                context,
+              ).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
             },
             leading: Icon(
               FontAwesome.logout,

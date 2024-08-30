@@ -4,8 +4,8 @@ import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/controller/theme_controller.dart';
 import 'package:tryt/pages/model_detay_page.dart';
-import 'package:tryt/pages/new_story_detail.dart';
-import 'package:tryt/pages/story_detail.dart';
+import 'package:tryt/pages/story/new_story_detail.dart';
+import 'package:tryt/pages/story/story_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
@@ -82,7 +82,8 @@ class _HomePageState extends State<HomePage> {
                 IconButton(
                   onPressed: () {},
                   icon: Icon(
-                    FontAwesome.ellipsis_vert,
+                    Icons.more_vert,
+                    size: 32,
                     color:
                         ThemeColors.getColorTheme(Config.themType)["color10"],
                   ),

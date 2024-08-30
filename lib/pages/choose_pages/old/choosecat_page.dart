@@ -2,7 +2,7 @@ import 'package:tryt/components/choose_button.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/models/category_model.dart';
-import 'package:tryt/pages/chooselist_page.dart';
+import 'package:tryt/pages/choose_pages/old/chooselist_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

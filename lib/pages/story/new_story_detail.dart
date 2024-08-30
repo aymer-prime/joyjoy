@@ -83,14 +83,21 @@ class _NewStoryDetailState extends State<NewStoryDetail> {
                   Container(
                     padding: const EdgeInsets.only(
                       top: 12,
-                      left: 16,
-                      right: 16,
                     ),
                     child: SizedBox(
                       height: 64,
                       width: MediaQuery.of(context).size.width,
                       child: Row(
                         children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(
+                              Icons.arrow_back_ios_new_rounded,
+                              color: Colors.white,
+                            ),
+                          ),
                           CircleAvatar(
                             radius: 16,
                             backgroundImage: NetworkImage(
@@ -100,7 +107,13 @@ class _NewStoryDetailState extends State<NewStoryDetail> {
                           const SizedBox(
                             width: 8,
                           ),
-                          Text(widget.storyList[index].model!.name!),
+                          Text(
+                            widget.storyList[index].model!.name!,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ],
                       ),
                     ),
