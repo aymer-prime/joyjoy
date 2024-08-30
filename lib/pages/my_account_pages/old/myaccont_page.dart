@@ -1,9 +1,9 @@
 import 'package:tryt/components/profil_image_edit.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
-import 'package:tryt/pages/myaccontedit_page.dart';
-import 'package:tryt/pages/notifications_page.dart';
-import 'package:tryt/pages/setting_page.dart';
+import 'package:tryt/pages/my_account_pages/old/myaccontedit_page.dart';
+import 'package:tryt/pages/my_account_pages/old/notifications_page.dart';
+import 'package:tryt/pages/my_account_pages/old/setting_page.dart';
 import 'package:tryt/services/prefservice.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';

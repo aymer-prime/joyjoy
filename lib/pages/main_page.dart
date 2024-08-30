@@ -6,7 +6,7 @@ import 'package:tryt/controller/theme_controller.dart';
 import 'package:tryt/pages/chat_page.dart';
 import 'package:tryt/pages/choose_pages/choose_page.dart';
 import 'package:tryt/pages/home_page.dart';
-import 'package:tryt/pages/myaccont_page.dart';
+import 'package:tryt/pages/my_account_pages/myaccont_page.dart';
 import 'package:tryt/pages/notification_page.dart';
 import 'package:tryt/services/notificationhanler.dart';
 import 'package:flutter/cupertino.dart';
