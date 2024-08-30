@@ -37,12 +37,12 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        minimum: const EdgeInsets.all(24),
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus(); // Close the keyboard on tap outside
+        },
+        child: SafeArea(
+          minimum: const EdgeInsets.all(24),
           child: ListView(
             children: [
               const SizedBox(

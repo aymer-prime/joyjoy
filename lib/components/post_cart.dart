@@ -210,24 +210,7 @@ class _PostCartState extends State<PostCart> {
                             }).toList(),
                           ),
                         ),
-                        const SizedBox(height: 16), // Spacing between the carousel and dots
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: widget.mediainfo!.map((media) {
-                            int index = widget.mediainfo!.indexOf(media);
-                            return Container(
-                              width: 8.0,
-                              height: 8.0,
-                              margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: _currentIndex == index
-                                    ? Colors.blue
-                                    : Colors.grey, // Change colors as needed
-                              ),
-                            );
-                          }).toList(),
-                        ),
+
                       ],
                     )
                         : SizedBox(
@@ -240,9 +223,6 @@ class _PostCartState extends State<PostCart> {
                           ),
                   )
                 : const Text(""),
-          ),
-          const SizedBox(
-            height: 6.4,
           ),
           widget.postText.isEmpty
               ? SizedBox()
@@ -301,7 +281,23 @@ class _PostCartState extends State<PostCart> {
                     ),
                   ),
                 ),
-          const SizedBox(height: 11.2),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: widget.mediainfo!.map((media) {
+              int index = widget.mediainfo!.indexOf(media);
+              return Container(
+                width: 8.0,
+                height: 8.0,
+                margin: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 2.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: _currentIndex == index
+                      ? Colors.blue
+                      : Colors.grey, // Change colors as needed
+                ),
+              );
+            }).toList(),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 16,
