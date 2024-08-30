@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tryt/config/config.dart';
 import 'package:http/http.dart' as http;
@@ -8,6 +6,8 @@ import 'package:tryt/services/prefservice.dart';
 
 class Httpservices {
   String serverUrl = Config.siteUrl;
+  static bool _logoutCalled = false;
+
   postMethod(String urlm, Object data) async {
     try {
       http.Response sonuc = await http.post(Uri.parse(serverUrl + urlm),
@@ -81,11 +81,15 @@ class Httpservices {
   Future<dynamic> _handleResponse(http.Response response) async {
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
-
-      if (body['logout'] == true) {
+      if (body['logout'] == true && !_logoutCalled) {
+        _logoutCalled = true;
         await PrefService().setString("email", "");
         await PrefService().setString("password", "");
         Get.offAllNamed('/');
+        // reset logout
+        Future.delayed(Duration(seconds: 5), () {
+          _logoutCalled = false;
+        });
         return true;
       }
 
