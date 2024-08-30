@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:tryt/components/EmojiRow.dart';
 import 'package:tryt/components/alert_box.dart';
 import 'package:tryt/components/app_bar_back.dart';
 import 'package:tryt/components/chat_icon_input.dart';
@@ -237,82 +238,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ChatIconInput(
-                            onpress: (val) {
-                              chatMessage.text = chatMessage.text + val;
-                            },
-                            iconText: "😂",
-                          ),
-                        ),
-                        Expanded(
-                          child: ChatIconInput(
-                            onpress: (val) {
-                              chatMessage.text = chatMessage.text + val;
-                            },
-                            iconText: "❤️",
-                          ),
-                        ),
-                        Expanded(
-                          child: ChatIconInput(
-                            onpress: (val) {
-                              chatMessage.text = chatMessage.text + val;
-                            },
-                            iconText: "😍",
-                          ),
-                        ),
-                        Expanded(
-                          child: ChatIconInput(
-                            onpress: (val) {
-                              chatMessage.text = chatMessage.text + val;
-                            },
-                            iconText: "😊",
-                          ),
-                        ),
-                        Expanded(
-                          child: ChatIconInput(
-                            onpress: (val) {
-                              chatMessage.text = chatMessage.text + val;
-                            },
-                            iconText: "😢",
-                          ),
-                        ),
-                        Expanded(
-                          child: ChatIconInput(
-                            onpress: (val) {
-                              chatMessage.text = chatMessage.text + val;
-                            },
-                            iconText: "😲",
-                          ),
-                        ),
-                        Expanded(
-                          child: ChatIconInput(
-                            onpress: (val) {
-                              chatMessage.text = chatMessage.text + val;
-                            },
-                            iconText: "👍🏼",
-                          ),
-                        ),
-                        Expanded(
-                          child: ChatIconInput(
-                            onpress: (val) {
-                              chatMessage.text = chatMessage.text + val;
-                            },
-                            iconText: "👏🏼",
-                          ),
-                        ),
-                        Expanded(
-                          child: ChatIconInput(
-                            onpress: (val) {
-                              chatMessage.text = chatMessage.text + val;
-                            },
-                            iconText: "🔥",
-                          ),
-                        ),
-                      ],
-                    ),
+                    EmojiRow(chatMessage: chatMessage),
                     Visibility(
                       visible: isWriting,
                       child: Text((themeController.chatDetayListe.isEmpty)

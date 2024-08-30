@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:tryt/components/EmojiRow.dart';
 import 'package:tryt/components/alert_box.dart';
 import 'package:tryt/components/button_text.dart';
 import 'package:tryt/components/comments_user.dart';
@@ -305,6 +306,7 @@ class _CommentsListeState extends State<CommentsListe> {
                                     )),
                             child: Column(
                               children: [
+                               EmojiRow(chatMessage: commentController),
                                 if (isReplaying)
                                   Container(
                                     //width: double.infinity,
