@@ -32,8 +32,6 @@ class _UserlisteCardState extends State<UserlisteCard> {
 
   Future<void> onLikePressed(String modelId) async {
     var getmodeller = await toggleModelLike(modelId: modelId);
-    print('${getmodeller.totalLike},${getmodeller.userLike}');
-    print('local1 $numLiked,$isLiked');
     setState(() {
       isLiked = getmodeller.userLike ?? false;
       numLiked = '${getmodeller.totalLike}' ?? '0';
@@ -49,7 +47,6 @@ class _UserlisteCardState extends State<UserlisteCard> {
 
   @override
   Widget build(BuildContext context) {
-    print('local2 $numLiked,$isLiked');
     return GestureDetector(
       onTap: widget.onpress,
       child: Stack(
@@ -70,8 +67,7 @@ class _UserlisteCardState extends State<UserlisteCard> {
             left: 0,
             right: 0,
             child: Container(
-              padding: const EdgeInsets.only(
-                  top: 16, bottom: 16, left: 16, right: 16),
+              padding: const EdgeInsets.all(16),
               width: double.infinity,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -141,15 +137,16 @@ class _UserlisteCardState extends State<UserlisteCard> {
                   const SizedBox(
                     height: 4.8,
                   ),
-                  Text(
-                    widget.subTitle,
-                    style: GoogleFonts.firaSans(
-                      fontWeight: FontWeight.w300,
-                      color: ThemeColors.getColorTheme(
-                          Config.themType)["color3fix"],
-                      fontSize: 14.4,
+                  if (widget.subTitle != null && widget.subTitle.isNotEmpty)
+                    Text(
+                      widget.subTitle,
+                      style: GoogleFonts.firaSans(
+                        fontWeight: FontWeight.w300,
+                        color: ThemeColors.getColorTheme(
+                            Config.themType)["color3fix"],
+                        fontSize: 14.4,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
