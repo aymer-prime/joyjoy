@@ -18,6 +18,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:http/http.dart' as http;
 
+import '../config/config.dart';
+
 class ChatDetailPage extends StatefulWidget {
   final String chatId;
   const ChatDetailPage({super.key, required this.chatId});
@@ -320,6 +322,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                                     filled: true,
                                     prefixIcon: IconButton(
                                       onPressed: () async {
+                                        print("kkkkkk");
                                         try {
                                           var returnData =
                                               await showModalBottomSheet(
@@ -389,7 +392,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   }
 
   sendeMessage() async {
-    var url = Uri.parse("${Config.siteUrl}tryt/send-message.php");
+    var url = Uri.parse("${Config.siteUrl}chat/send-message.php");
     var request = http.MultipartRequest('post', url);
     request.fields['message'] = chatMessage.text;
     request.fields['user_id'] = Config.userBilgi.userId!;
@@ -456,7 +459,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
       "chat_id": chatId,
     };
     var sonuc =
-        await Httpservices().postMethod("tryt/send-message-model.php", data);
+        await Httpservices().postMethod("chat/send-message-model.php", data);
     var body = json.decode(sonuc);
     if (body["success"]) {
       themeController.getChatDetayAddData(
