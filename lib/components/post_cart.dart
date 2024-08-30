@@ -178,143 +178,153 @@ class _PostCartState extends State<PostCart> {
               child: (widget.mediainfo != null)
                   ? ClipRRect(
                       child: Column(
-                      children: [
-                        SizedBox(
-                          width: double.infinity,
-                          child: Stack(
-                            children: [
-                              CarouselSlider(
-                                options: CarouselOptions(
-                                  height: 450.0,
-                                  enlargeCenterPage: true,
-                                  aspectRatio: 2.0,
-                                  enableInfiniteScroll: false,
-                                  autoPlayCurve: Curves.fastOutSlowIn,
-                                  viewportFraction: 1.0,
-                                  onPageChanged: (index, reason) {
-                                    setState(() {
-                                      _currentIndex = index;
-                                    });
-                                  },
-                                ),
-                                items: widget.mediainfo?.map((media) {
-                                  return Builder(
-                                    builder: (BuildContext context) {
-                                      return (media.video == 0)
-                                          ? SizedBox(
-                                              width: double.infinity,
-                                              child: Image.network(
-                                                media.src!,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            )
-                                          : SizedBox(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              height: 450,
-                                              child: VideoPlayer(
-                                                url: widget.mediainfo![0].src!,
-                                                autoPlay: playderStatus,
-                                              ),
-                                            );
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            child: Stack(
+                              children: [
+                                CarouselSlider(
+                                  options: CarouselOptions(
+                                    height: 450.0,
+                                    enlargeCenterPage: true,
+                                    aspectRatio: 2.0,
+                                    enableInfiniteScroll: false,
+                                    autoPlayCurve: Curves.fastOutSlowIn,
+                                    viewportFraction: 1.0,
+                                    onPageChanged: (index, reason) {
+                                      setState(() {
+                                        _currentIndex = index;
+                                      });
                                     },
-                                  );
-                                }).toList(),
-                              ),
-                              Positioned.fill(
-                                child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: widget.mediainfo!.map((media) {
-                                        int index =
-                                            widget.mediainfo!.indexOf(media);
-                                        return Container(
-                                          width: 8.0,
-                                          height: 8.0,
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 0.0, horizontal: 2.0),
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: _currentIndex == index
-                                                ? Colors.blue
-                                                : Colors
-                                                    .grey, // Change colors as needed
-                                          ),
-                                        );
-                                      }).toList(),
+                                  ),
+                                  items: widget.mediainfo?.map((media) {
+                                    return Builder(
+                                      builder: (BuildContext context) {
+                                        return (media.video == 0)
+                                            ? SizedBox(
+                                                width: double.infinity,
+                                                child: Image.network(
+                                                  media.src!,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              )
+                                            : SizedBox(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                height: 450,
+                                                child: VideoPlayer(
+                                                  url:
+                                                      widget.mediainfo![0].src!,
+                                                  autoPlay: playderStatus,
+                                                ),
+                                              );
+                                      },
+                                    );
+                                  }).toList(),
+                                ),
+                                Positioned.fill(
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children:
+                                            widget.mediainfo!.map((media) {
+                                          int index =
+                                              widget.mediainfo!.indexOf(media);
+                                          return Container(
+                                            width: 8.0,
+                                            height: 8.0,
+                                            margin: const EdgeInsets.symmetric(
+                                                vertical: 0.0, horizontal: 2.0),
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: _currentIndex == index
+                                                  ? Colors.blue
+                                                  : Colors
+                                                      .grey, // Change colors as needed
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ))
+                          const SizedBox(height: 11.2),
+                        ],
+                      ),
+                    )
                   : const Text(""),
             ),
           widget.postText.isEmpty
               ? SizedBox()
               : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: RichText(
-                    text: TextSpan(
-                      text: widget.postText[0],
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () async {
-                          showModalBottomSheet(
-                            context: context,
-                            useRootNavigator: true,
-                            isScrollControlled: true,
-                            isDismissible: false,
-                            backgroundColor: Colors.transparent,
-                            builder: (BuildContext context) {
-                              return DraggableScrollableSheet(
-                                maxChildSize: 0.97,
-                                initialChildSize: 0.7,
-                                builder: (BuildContext context,
-                                    ScrollController scroll) {
-                                  return CommentsListe(
-                                    feedId: widget.feedId,
-                                    scrollController: scroll,
+                  child: Column(
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          text: widget.postText[0],
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () async {
+                              showModalBottomSheet(
+                                context: context,
+                                useRootNavigator: true,
+                                isScrollControlled: true,
+                                isDismissible: false,
+                                backgroundColor: Colors.transparent,
+                                builder: (BuildContext context) {
+                                  return DraggableScrollableSheet(
+                                    maxChildSize: 0.97,
+                                    initialChildSize: 0.7,
+                                    builder: (BuildContext context,
+                                        ScrollController scroll) {
+                                      return CommentsListe(
+                                        feedId: widget.feedId,
+                                        scrollController: scroll,
+                                      );
+                                    },
                                   );
                                 },
                               );
                             },
-                          );
-                        },
-                      style: GoogleFonts.firaSans(
-                        color: ThemeColors.getColorTheme(
-                            Config.themType)["color10"],
-                        //height: 1.3,
-                        fontSize: 16,
+                          style: GoogleFonts.firaSans(
+                            color: ThemeColors.getColorTheme(
+                                Config.themType)["color10"],
+                            //height: 1.3,
+                            fontSize: 16,
+                          ),
+                          children: List.generate(
+                            widget.postText.length,
+                            (index) {
+                              if (index > 0) {
+                                return TextSpan(
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () async {},
+                                  text: '#${widget.postText[index]}',
+                                  style: GoogleFonts.firaSans(
+                                    color: const Color(0xff1d9bf0),
+                                    //height: 1.3,
+                                    fontSize: 16,
+                                  ),
+                                );
+                              }
+                              return const TextSpan(text: "");
+                            },
+                          ),
+                        ),
                       ),
-                      children: List.generate(
-                        widget.postText.length,
-                        (index) {
-                          if (index > 0) {
-                            return TextSpan(
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () async {},
-                              text: '#${widget.postText[index]}',
-                              style: GoogleFonts.firaSans(
-                                color: const Color(0xff1d9bf0),
-                                //height: 1.3,
-                                fontSize: 16,
-                              ),
-                            );
-                          }
-                          return const TextSpan(text: "");
-                        },
-                      ),
-                    ),
+                      const SizedBox(height: 11.2),
+                    ],
                   ),
                 ),
           Padding(
