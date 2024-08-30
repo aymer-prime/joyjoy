@@ -1,3 +1,4 @@
+import 'package:tryt/config/config.dart';
 import 'package:tryt/pages/notification_page.dart';
 import 'package:tryt/services/prefservice.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,7 +22,8 @@ class NotificationHandler {
 
   strintoken() async {
     var token = await FirebaseMessaging.instance.getToken();
-    print("token $token");
+    print("FCM token $token");
+    print("user token ${Config.userBilgi.token}}");
   }
 
   submessagelist(List tipler) async {

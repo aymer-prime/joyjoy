@@ -7,7 +7,7 @@ import 'package:tryt/pages/intro_page.dart';
 import 'package:tryt/pages/loading_page.dart';
 import 'package:tryt/pages/login_page.dart';
 import 'package:tryt/pages/main_page.dart';
-import 'package:tryt/pages/model_detay_page.dart';
+import 'package:tryt/pages/model_details/model_detay_page.dart';
 import 'package:tryt/pages/singup_page.dart';
 import 'package:tryt/services/prefservice.dart';
 import 'package:firebase_core/firebase_core.dart';

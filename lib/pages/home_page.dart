@@ -3,7 +3,7 @@ import 'package:tryt/components/story_avatar.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/controller/theme_controller.dart';
-import 'package:tryt/pages/model_detay_page.dart';
+import 'package:tryt/pages/model_details/model_detay_page.dart';
 import 'package:tryt/pages/story/new_story_detail.dart';
 import 'package:tryt/pages/story/story_detail.dart';
 import 'package:flutter/material.dart';
@@ -176,6 +176,7 @@ class _HomePageState extends State<HomePage> {
                                 onpress: () async {
                                   Get.to(
                                     transition: Transition.rightToLeft,
+                                    duration: const Duration(milliseconds: 300),
                                     ModelDetayPage(
                                         modelId: themeController
                                             .feedmodel[index].model!.modelId!),

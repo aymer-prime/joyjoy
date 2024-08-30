@@ -40,8 +40,7 @@ class _StoryDetailState extends State<StoryDetail> {
         '2----------------------------- ${indicatorAnimationController.value}');
     return Scaffold(
       body: SafeArea(
-        child: 
-        StoryPageView(
+        child: StoryPageView(
           indicatorAnimationController: indicatorAnimationController,
           initialPage: widget.storyPage,
           indicatorDuration: const Duration(seconds: 15),
@@ -54,7 +53,6 @@ class _StoryDetailState extends State<StoryDetail> {
                   child:
                       (storyList[pageIndex].stories![storyIndex].type == "mp4")
                           ? NewVideoPlayer(
-                              loadingNotifier: indicatorAnimationController,
                               url: storyList[pageIndex]
                                   .stories![storyIndex]
                                   .src

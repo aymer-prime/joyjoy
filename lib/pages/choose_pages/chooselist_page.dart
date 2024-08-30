@@ -6,7 +6,7 @@ import 'package:tryt/models/category_model.dart';
 import 'package:tryt/models/models_model.dart' as models;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tryt/pages/model_detay_page.dart';
+import 'package:tryt/pages/model_details/model_detay_page.dart';
 
 class ChooselistPage extends StatefulWidget {
   final String Function() getGenderId;

@@ -1,3 +1,4 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:story/story_page_view.dart';
 import 'package:video_player/video_player.dart';
@@ -8,10 +9,8 @@ class NewVideoPlayer extends StatefulWidget {
   const NewVideoPlayer({
     super.key,
     required this.url,
-    required this.loadingNotifier,
   });
   final String url;
-  final ValueNotifier<IndicatorAnimationCommand> loadingNotifier;
 
   @override
   State<NewVideoPlayer> createState() => _NewVideoPlayerState();
@@ -19,6 +18,7 @@ class NewVideoPlayer extends StatefulWidget {
 
 class _NewVideoPlayerState extends State<NewVideoPlayer> {
   late VideoPlayerController _controller;
+  late ChewieController chewieController;
 
   bool isLoading = true;
 
@@ -26,24 +26,21 @@ class _NewVideoPlayerState extends State<NewVideoPlayer> {
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(widget.url),
     );
-    print(
-        '3----------------------------- ${widget.loadingNotifier..value}');
     _controller.initialize().then((_) {
       setState(() {
-        print(
-        '4----------------------------- ${widget.loadingNotifier..value}');
-        widget.loadingNotifier.value = IndicatorAnimationCommand.resume;
         isLoading = false;
-        _controller.play();
+        chewieController = ChewieController(
+          videoPlayerController: _controller,
+          autoPlay: true,
+          looping: true,
+          showControls: false,
+        );
       });
     });
   }
 
   @override
   void initState() {
-    setState(() {
-      widget.loadingNotifier.value = IndicatorAnimationCommand.pause;
-    });
     initPlayer();
     super.initState();
   }
@@ -62,6 +59,8 @@ class _NewVideoPlayerState extends State<NewVideoPlayer> {
               color: ThemeColors.getColorTheme(Config.themType)["color10"],
             ),
           )
-        : VideoPlayer(_controller);
+        : Chewie(
+            controller: chewieController,
+          );
   }
 }

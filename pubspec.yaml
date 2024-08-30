@@ -61,6 +61,7 @@ dependencies:
   video_player: ^2.9.1
   story_view: ^0.16.5
   carousel_slider: ^5.0.0
+  chewie: ^1.8.3
 
 dev_dependencies:
   flutter_test:

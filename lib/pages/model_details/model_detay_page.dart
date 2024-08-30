@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:tryt/components/app_bar_back.dart';
 import 'package:tryt/components/loading_modal.dart';
-import 'package:tryt/components/video_player.dart';
+import 'package:tryt/components/video_player/new_video_player.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,9 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/typicons_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tryt/controller/theme_controller.dart';
+import 'package:tryt/models/feeed_model.dart';
 import 'package:tryt/models/modeldetail_model.dart';
+import 'package:video_player/video_player.dart';
 
 class ModelDetayPage extends StatefulWidget {
   final String modelId;
@@ -125,29 +127,31 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
                       ),
                     ),
                     Expanded(
-                      child: Column(
-                        children: [
-                          Text(
-                            modelbilgi.first.totalFollow ?? "0",
-                            style: GoogleFonts.firaSans(
-                              height: 1.25,
-                              fontSize: 17.6,
-                              color: ThemeColors.getColorTheme(
-                                  Config.themType)["color10"],
-                              fontWeight: FontWeight.w600,
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Text(
+                              modelbilgi.first.totalFollow ?? "0",
+                              style: GoogleFonts.firaSans(
+                                height: 1.25,
+                                fontSize: 17.6,
+                                color: ThemeColors.getColorTheme(
+                                    Config.themType)["color10"],
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                          Text(
-                            "Takip",
-                            style: GoogleFonts.firaSans(
-                              height: 1.25,
-                              fontSize: 14.4,
-                              color: ThemeColors.getColorTheme(
-                                  Config.themType)["color10"],
-                              fontWeight: FontWeight.w400,
+                            Text(
+                              "Takip",
+                              style: GoogleFonts.firaSans(
+                                height: 1.25,
+                                fontSize: 14.4,
+                                color: ThemeColors.getColorTheme(
+                                    Config.themType)["color10"],
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -334,28 +338,44 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
                 AlignedGridView.count(
                   crossAxisCount: 3,
                   mainAxisSpacing: 4,
-                  crossAxisSpacing: 4,
+                  crossAxisSpacing: 1.5,
                   shrinkWrap: true,
                   primary: false,
-                  itemCount: 15,
+                  itemCount: fakeFeed.length,
                   itemBuilder: (context, index) {
-                    if (index % 2 == 0) {
-                      return Container(
-                        height: MediaQuery.of(context).size.width / 2,
-                        color: Colors.white,
-                        child: Image.network(
-                            "https://joyjoy.ai/files/feed/26/4/4-500-orj.jpg"),
-                      );
-                    } else {
-                      return SizedBox(
-                        width: MediaQuery.of(context).size.width,
+                    return GestureDetector(
+                      onTap: () {
+                       
+                      },
+                      child: SizedBox(
                         height: 200,
-                        child: const VideoPlayer(
-                          url: "https://joyjoy.ai/files/feed/25/2/2.mp4",
-                          autoPlay: false,
-                        ),
-                      );
-                    }
+                        child: (fakeFeed[index].media![0].video == 0)
+                            ? Image.network(
+                                fakeFeed[index].media![0].src!,
+                              )
+                            : NewVideoPlayer(
+                                url: fakeFeed[index].media![0].src!,
+                              ),
+                      ),
+                    );
+
+                    // if (index % 2 == 0) {
+                    //   return Container(
+                    //     height: MediaQuery.of(context).size.width / 2,
+                    //     color: Colors.white,
+                    //     child: Image.network(
+                    //         "https://joyjoy.ai/files/feed/26/4/4-500-orj.jpg"),
+                    //   );
+                    // } else {
+                    //   return SizedBox(
+                    //     width: MediaQuery.of(context).size.width,
+                    //     height: 200,
+                    //     child: const VideoPlayer(
+                    //       url: "https://joyjoy.ai/files/feed/25/2/2.mp4",
+                    //       autoPlay: false,
+                    //     ),
+                    //   );
+                    // }
                   },
                 ),
               ],
@@ -363,3 +383,85 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
     );
   }
 }
+
+List<Feedmodel> fakeFeed = [
+  Feedmodel.fromJson(
+    {
+      "id": "26",
+      "text":
+          "Alanya sahillerinde güneş batarken fırçam ve ben günün son ışıklarını kovalıyoruz 🎨  Bisikletim ve atım da maceralarımda bana eşlik ediyor 😉  Sohbet ve yeni dostluklar için her zaman açığım!  🌺 #sanat #yağlıboya #alanya #doğa #bisiklet #atlar",
+      "total_like": "2",
+      "total_comment": "20",
+      "total_share": "0",
+      "date": "1 ay önce",
+      "media": [
+        {
+          "src": "https://joyjoy.ai/files/feed/26/4/4-500-orj.jpg?v=2.2.29",
+          "video": 0,
+          "video_thumb": null
+        }
+      ],
+      "user_like": false,
+      "model": {
+        "model_id": "32cef82f0f64ae85352fd47ba1141082543f555a",
+        "name": "Derya",
+        "subcategory": "Sevgili Adayı",
+        "img": "https://joyjoy.ai/files/model/8/57/derya-500-orj.jpg?v=2.2.29"
+      }
+    },
+  ),
+  Feedmodel.fromJson({
+    "id": "25",
+    "text":
+        "Ayy, şu kalbimin ritmi bir türlü normale dönmüyor! 🔥 Bisikletle eve dönerken bile rüzgar bana o şarkının melodisini fısıldıyor sanki...  😉🎶",
+    "total_like": "3",
+    "total_comment": "8",
+    "total_share": "0",
+    "date": "1 ay önce",
+    "media": [
+      {
+        "src": "https://joyjoy.ai/files/feed/25/2/2.mp4?v=2.2.29",
+        "video": 1,
+        "video_thumb": null
+      },
+      {
+        "src": "https://joyjoy.ai/files/feed/25/2/2.mp4?v=2.2.29",
+        "video": 0,
+        "video_thumb":
+            "https://joyjoy.ai/files/feed/25/3/3-500-orj.png?v=2.2.29"
+      }
+    ],
+    "user_like": false,
+    "model": {
+      "model_id": "150da3c6d1bc63fba9d7bfbebda984374a5a599b",
+      "name": "Banu",
+      "subcategory": "Sevgili Adayı",
+      "img": "https://joyjoy.ai/files/model/4/55/banu-500-orj.jpg?v=2.2.29"
+    }
+  }),
+  Feedmodel.fromJson(
+    {
+      "id": "26",
+      "text":
+          "Alanya sahillerinde güneş batarken fırçam ve ben günün son ışıklarını kovalıyoruz 🎨  Bisikletim ve atım da maceralarımda bana eşlik ediyor 😉  Sohbet ve yeni dostluklar için her zaman açığım!  🌺 #sanat #yağlıboya #alanya #doğa #bisiklet #atlar",
+      "total_like": "2",
+      "total_comment": "20",
+      "total_share": "0",
+      "date": "1 ay önce",
+      "media": [
+        {
+          "src": "https://joyjoy.ai/files/feed/26/4/4-500-orj.jpg?v=2.2.29",
+          "video": 0,
+          "video_thumb": null
+        }
+      ],
+      "user_like": false,
+      "model": {
+        "model_id": "32cef82f0f64ae85352fd47ba1141082543f555a",
+        "name": "Derya",
+        "subcategory": "Sevgili Adayı",
+        "img": "https://joyjoy.ai/files/model/8/57/derya-500-orj.jpg?v=2.2.29"
+      }
+    },
+  ),
+];
