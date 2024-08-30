@@ -10,6 +10,8 @@ import 'package:tryt/services/httpservices.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../language_pop_menu.dart';
+
 class SingupPage extends StatefulWidget {
   const SingupPage({super.key});
 
@@ -30,168 +32,173 @@ class _SingupPageState extends State<SingupPage> {
         .getTextSpansFromHtml(Config.langFulText.login!.privacyPolicyText!);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        minimum: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              Config.langFulText.register!.title!,
-              style: GoogleFonts.mukta(
-                fontSize: 32,
-                color: ThemeColors.getColorTheme(Config.themType)["color10"],
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              Config.langFulText.register!.subtitle!,
-              style: GoogleFonts.firaSans(
-                fontSize: 16,
-                color: ThemeColors.getColorTheme(Config.themType)["color7"],
-              ),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextFormField(
-                    controller: userName,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return Config.langFulText.register!.errorMessage!
-                            .username!.wrong!;
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      focusColor:
-                          ThemeColors.getColorTheme(Config.themType)["color2"],
-                      fillColor:
-                          ThemeColors.getColorTheme(Config.themType)["color2"],
-                      filled: true,
-                      hintText: Config.langFulText.register!.username!,
-                    ),
+      body: Stack(
+        children: [
+          SafeArea(
+            minimum: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  Config.langFulText.register!.title!,
+                  style: GoogleFonts.mukta(
+                    fontSize: 32,
+                    color: ThemeColors.getColorTheme(Config.themType)["color10"],
+                    fontWeight: FontWeight.w800,
                   ),
-                  const SizedBox(
-                    height: 8,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  Config.langFulText.register!.subtitle!,
+                  style: GoogleFonts.firaSans(
+                    fontSize: 16,
+                    color: ThemeColors.getColorTheme(Config.themType)["color7"],
                   ),
-                  TextFormField(
-                    controller: userEmail,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return Config
-                            .langFulText.register!.errorMessage!.email!.wrong!;
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      focusColor:
-                          ThemeColors.getColorTheme(Config.themType)["color2"],
-                      fillColor:
-                          ThemeColors.getColorTheme(Config.themType)["color2"],
-                      filled: true,
-                      hintText: Config.langFulText.register!.email!,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextFormField(
-                    controller: userPassword,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return Config.langFulText.register!.errorMessage!
-                            .password!.wrong!;
-                      }
-                      return null;
-                    },
-                    obscureText: obscureTextStatus,
-                    decoration: InputDecoration(
-                      hintText: Config.langFulText.register!.password!,
-                      focusColor:
-                          ThemeColors.getColorTheme(Config.themType)["color2"],
-                      fillColor:
-                          ThemeColors.getColorTheme(Config.themType)["color2"],
-                      filled: true,
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            obscureTextStatus = !obscureTextStatus;
-                          });
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextFormField(
+                        controller: userName,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return Config.langFulText.register!.errorMessage!
+                                .username!.wrong!;
+                          }
+                          return null;
                         },
-                        icon: Icon(
-                          Icons.remove_red_eye,
-                          color: ThemeColors.getColorTheme(
-                              Config.themType)["color10"],
+                        decoration: InputDecoration(
+                          focusColor:
+                              ThemeColors.getColorTheme(Config.themType)["color2"],
+                          fillColor:
+                              ThemeColors.getColorTheme(Config.themType)["color2"],
+                          filled: true,
+                          hintText: Config.langFulText.register!.username!,
                         ),
                       ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      TextFormField(
+                        controller: userEmail,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return Config
+                                .langFulText.register!.errorMessage!.email!.wrong!;
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          focusColor:
+                              ThemeColors.getColorTheme(Config.themType)["color2"],
+                          fillColor:
+                              ThemeColors.getColorTheme(Config.themType)["color2"],
+                          filled: true,
+                          hintText: Config.langFulText.register!.email!,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      TextFormField(
+                        controller: userPassword,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return Config.langFulText.register!.errorMessage!
+                                .password!.wrong!;
+                          }
+                          return null;
+                        },
+                        obscureText: obscureTextStatus,
+                        decoration: InputDecoration(
+                          hintText: Config.langFulText.register!.password!,
+                          focusColor:
+                              ThemeColors.getColorTheme(Config.themType)["color2"],
+                          fillColor:
+                              ThemeColors.getColorTheme(Config.themType)["color2"],
+                          filled: true,
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                obscureTextStatus = !obscureTextStatus;
+                              });
+                            },
+                            icon: Icon(
+                              Icons.remove_red_eye,
+                              color: ThemeColors.getColorTheme(
+                                  Config.themType)["color10"],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      ButtonText(
+                        onpress: () {
+                          if (_formKey.currentState!.validate()) {
+                            getCreateUser();
+                          }
+                        },
+                        btnText: Config.langFulText.register!.button!,
+                        bgColor: ThemeColors.getColorTheme(
+                            Config.themType)["colorprimary"]!,
+                        textColor: Colors.white,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/login");
+                  },
+                  child: Text(
+                    Config.langFulText.register!.membership!,
+                    style: GoogleFonts.firaSans(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: ThemeColors.getColorTheme(Config.themType)["color10"],
                     ),
                   ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  ButtonText(
-                    onpress: () {
-                      if (_formKey.currentState!.validate()) {
-                        getCreateUser();
-                      }
-                    },
-                    btnText: Config.langFulText.register!.button!,
-                    bgColor: ThemeColors.getColorTheme(
-                        Config.themType)["colorprimary"]!,
-                    textColor: Colors.white,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed("/login");
-              },
-              child: Text(
-                Config.langFulText.register!.membership!,
-                style: GoogleFonts.firaSans(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  color: ThemeColors.getColorTheme(Config.themType)["color10"],
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                style: GoogleFonts.firaSans(
-                  color: ThemeColors.getColorTheme(Config.themType)["color5"],
-                  fontSize: 12.8,
-                  fontWeight: FontWeight.w400,
+                const SizedBox(
+                  height: 32,
                 ),
-                children: spans,
-              ),
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: GoogleFonts.firaSans(
+                      color: ThemeColors.getColorTheme(Config.themType)["color5"],
+                      fontSize: 12.8,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    children: spans,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          LanguagePopMenu(),
+        ],
       ),
     );
   }
