@@ -62,6 +62,7 @@ dependencies:
   story_view: ^0.16.5
   carousel_slider: ^5.0.0
   chewie: ^1.8.3
+  scrollable_positioned_list: ^0.3.8
 
 dev_dependencies:
   flutter_test:

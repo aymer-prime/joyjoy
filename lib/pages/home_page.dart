@@ -5,9 +5,7 @@ import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/controller/theme_controller.dart';
 import 'package:tryt/pages/model_details/model_detay_page.dart';
 import 'package:tryt/pages/story/new_story_detail.dart';
-import 'package:tryt/pages/story/story_detail.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {

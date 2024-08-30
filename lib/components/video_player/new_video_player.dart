@@ -6,9 +6,11 @@ import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
 
 class NewVideoPlayer extends StatefulWidget {
+  final bool mute;
   const NewVideoPlayer({
     super.key,
     required this.url,
+    this.mute = false,
   });
   final String url;
 
@@ -26,6 +28,7 @@ class _NewVideoPlayerState extends State<NewVideoPlayer> {
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(widget.url),
     );
+
     _controller.initialize().then((_) {
       setState(() {
         isLoading = false;
@@ -35,6 +38,9 @@ class _NewVideoPlayerState extends State<NewVideoPlayer> {
           looping: true,
           showControls: false,
         );
+        if (widget.mute) {
+          chewieController.setVolume(0);
+        }
       });
     });
   }
@@ -48,6 +54,7 @@ class _NewVideoPlayerState extends State<NewVideoPlayer> {
   @override
   void dispose() {
     _controller.dispose();
+    chewieController.dispose();
     super.dispose();
   }
 

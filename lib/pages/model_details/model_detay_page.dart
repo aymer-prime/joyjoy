@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tryt/controller/theme_controller.dart';
 import 'package:tryt/models/feeed_model.dart';
 import 'package:tryt/models/modeldetail_model.dart';
+import 'package:tryt/pages/model_details/model_posts_page.dart';
 import 'package:video_player/video_player.dart';
 
 class ModelDetayPage extends StatefulWidget {
@@ -345,7 +346,14 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                       
+                        Get.to(
+                          ModelPostsPage(
+                            modelPostsList: fakeFeed,
+                            modelName: modelbilgi.first.name!,
+                            onFollow: () {},
+                            index: index,
+                          ),
+                        );
                       },
                       child: SizedBox(
                         height: 200,
@@ -355,6 +363,7 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
                               )
                             : NewVideoPlayer(
                                 url: fakeFeed[index].media![0].src!,
+                                mute: true,
                               ),
                       ),
                     );
