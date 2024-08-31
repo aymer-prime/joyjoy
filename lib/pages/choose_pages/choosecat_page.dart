@@ -41,79 +41,73 @@ class _ChoosecatPageState extends State<ChoosecatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 8,
-        right: 8,
-        bottom: 0,
-      ),
-      child: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-              children: [
-                InkWell(
-                  onTap: () {
-                    widget.onBack();
-                  },
-                  child: Icon(
-                    Icons.chevron_left,
-                    size: 32,
+    return ListView(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Row(
+            children: [
+              InkWell(
+                onTap: () {
+                  widget.onBack();
+                },
+                child: Icon(
+                  Icons.chevron_left,
+                  size: 32,
+                  color: ThemeColors.getColorTheme(Config.themType)["color10"],
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  textAlign: TextAlign.center,
+                  Config.langFulText.choose!.step2Title!,
+                  style: GoogleFonts.mukta(
+                    fontSize: 22,
+                    height: 1.1,
+                    letterSpacing: -0.8,
                     color:
                         ThemeColors.getColorTheme(Config.themType)["color10"],
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
-                Expanded(
-                  child: Text(
-                    textAlign: TextAlign.center,
-                    Config.langFulText.choose!.step2Title!,
-                    style: GoogleFonts.mukta(
-                      fontSize: 22,
-                      height: 1.1,
-                      letterSpacing: -0.8,
-                      color:
-                          ThemeColors.getColorTheme(Config.themType)["color10"],
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          GridView.builder(
-            primary: false,
-            shrinkWrap: true,
-            itemCount: genderCatList.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2),
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                padding: const EdgeInsets.all(5),
-                child: ChooseButton(
-                    fontsize: 16,
-                    fontWeights: FontWeight.w500,
-                    borderradius: 12.8,
-                    title: genderCatList[index].name!,
-                    imageUrl: genderCatList[index].img!,
-                    onpress: () {
-                      widget.onCatigoryChoose(genderCatList[index]);
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => ChooselistPage(
-                      //       genderId: genderId,
-                      //       genderCatId: genderCatList[index].id!,
-                      //       gendeCatDis: genderCatList[index].description!,
-                      //       genderCatTitle: genderCatList[index].name!,
-                      //     ),
-                      //   ),
-                      // );
-                    }),
-              );
-            },
-          )
-        ],
-      ),
+        ),
+        GridView.builder(
+          primary: false,
+          shrinkWrap: true,
+          itemCount: genderCatList.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 5,
+            crossAxisSpacing: 5,
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              child: ChooseButton(
+                  fontsize: 16,
+                  fontWeights: FontWeight.w500,
+                  borderradius: 12.8,
+                  title: genderCatList[index].name!,
+                  imageUrl: genderCatList[index].img!,
+                  onpress: () {
+                    widget.onCatigoryChoose(genderCatList[index]);
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => ChooselistPage(
+                    //       genderId: genderId,
+                    //       genderCatId: genderCatList[index].id!,
+                    //       gendeCatDis: genderCatList[index].description!,
+                    //       genderCatTitle: genderCatList[index].name!,
+                    //     ),
+                    //   ),
+                    // );
+                  }),
+            );
+          },
+        )
+      ],
     );
   }
 }

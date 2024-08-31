@@ -54,7 +54,6 @@ class _PostCartState extends State<PostCart> {
 
   @override
   void initState() {
-    print('post text:${widget.postText}');
     super.initState();
   }
 
@@ -206,11 +205,11 @@ class _PostCartState extends State<PostCart> {
                                       width: double.infinity,
                                       child: (media.video == 0)
                                           ? InstaImageViewer(
-                                            child: Image.network(
+                                              child: Image.network(
                                                 media.src!,
                                                 fit: BoxFit.cover,
                                               ),
-                                          )
+                                            )
                                           : VideoPlayer(
                                               url: widget.mediainfo![0].src!,
                                               autoPlay: playderStatus,

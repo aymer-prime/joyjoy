@@ -32,7 +32,6 @@ class _ChoosePageState extends State<ChoosePage> {
   getGender() async {
     var genderler = await getGenderList();
     genderId = genderler[1].id.toString();
-    print('gender0: ${genderId}');
     setState(() {
       genderList = genderler;
     });
@@ -68,7 +67,7 @@ class _ChoosePageState extends State<ChoosePage> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: (genderList.isNotEmpty)
               ? PageView(
                   controller: controller,

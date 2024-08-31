@@ -255,7 +255,6 @@ class _LoginPageState extends State<LoginPage> {
       "lang": "tr",
       'firebase_token': token,
     };
-    print('data: $data');
     var sonuc = await Httpservices().postMethod("login/index.php", data);
     var body = json.decode(sonuc);
     var deger = body["result"];

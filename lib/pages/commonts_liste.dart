@@ -72,7 +72,6 @@ class _CommentsListeState extends State<CommentsListe> {
         isLoading = false;
         hasError = true;
       });
-      print('error:$e');
     }
   }
 

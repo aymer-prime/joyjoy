@@ -416,7 +416,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     if (response.statusCode == 200) {
       var responsedata = await http.Response.fromStream(response);
       var body = json.decode(responsedata.body);
-      print(body);
       if (body["success"]) {
         themeController.getChatDetayAddData(
           ChatHistory(
