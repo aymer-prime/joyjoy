@@ -5,7 +5,7 @@ import 'package:tryt/components/button_text.dart';
 import 'package:tryt/components/loading_modal.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
-import 'package:tryt/language_pop_menu.dart';
+import 'package:tryt/components/language_pop_menu.dart';
 import 'package:tryt/services/httpservices.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

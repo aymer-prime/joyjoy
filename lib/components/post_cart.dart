@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:tryt/components/video_player.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/models/feeed_model.dart';
@@ -186,7 +187,7 @@ class _PostCartState extends State<PostCart> {
                           children: [
                             CarouselSlider(
                               options: CarouselOptions(
-                                height: 360.0,
+                                height: 450.0,
                                 enlargeCenterPage: true,
                                 aspectRatio: 2.0,
                                 enableInfiniteScroll: false,
@@ -204,10 +205,12 @@ class _PostCartState extends State<PostCart> {
                                     return SizedBox(
                                       width: double.infinity,
                                       child: (media.video == 0)
-                                          ? Image.network(
-                                              media.src!,
-                                              fit: BoxFit.cover,
-                                            )
+                                          ? InstaImageViewer(
+                                            child: Image.network(
+                                                media.src!,
+                                                fit: BoxFit.cover,
+                                              ),
+                                          )
                                           : VideoPlayer(
                                               url: widget.mediainfo![0].src!,
                                               autoPlay: playderStatus,

@@ -17,7 +17,7 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../language_pop_menu.dart';
+import '../components/language_pop_menu.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

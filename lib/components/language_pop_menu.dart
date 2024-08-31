@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
-import 'config/config.dart';
-import 'config/themecolors.dart';
-import 'models/languages_model.dart';
-import 'services/prefservice.dart';
-import '../models/lang_string_model.dart' as lang;
+import '../config/config.dart';
+import '../config/themecolors.dart';
+import '../models/languages_model.dart';
+import '../services/prefservice.dart';
+import '../../models/lang_string_model.dart' as lang;
 
 class LanguagePopMenu extends StatefulWidget {
   LanguagePopMenu({super.key});

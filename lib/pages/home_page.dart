@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                   ThemeColors.getColorTheme(Config.themType)["color1"],
               floating: true,
               centerTitle: false,
-              flexibleSpace: FlexibleSpaceBar(
+              flexibleSpace: FlexibleSpaceBar(centerTitle: false,
                 titlePadding: const EdgeInsets.symmetric(horizontal: 16),
                 title: Image.asset(
                   (Config.themType == "dark")

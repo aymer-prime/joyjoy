@@ -63,6 +63,9 @@ dependencies:
   carousel_slider: ^5.0.0
   chewie: ^1.8.3
   scrollable_positioned_list: ^0.3.8
+  #sucess
+  insta_image_viewer: ^1.0.4
+
 
 dev_dependencies:
   flutter_test:

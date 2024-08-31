@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marqueer/marqueer.dart';
-import 'package:tryt/language_pop_menu.dart';
+import 'package:tryt/components/language_pop_menu.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
