@@ -242,9 +242,10 @@ class _PostCartState extends State<PostCart> {
                                             shape: BoxShape.circle,
                                             color: _currentIndex == index
                                                 ? ThemeColors.getColorTheme(
-                                                    Config.themType)["colorprimary"]
+                                                        Config.themType)[
+                                                    "colorprimary"]
                                                 : Colors
-                                                    .grey, // Change colors as needed
+                                                    .white70, // Change colors as needed
                                           ),
                                         );
                                       }).toList(),
