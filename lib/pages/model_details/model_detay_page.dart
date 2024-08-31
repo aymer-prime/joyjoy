@@ -347,7 +347,7 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
                     return GestureDetector(
                       onTap: () {
                         Get.to(
-                          ModelPostsPage(
+                          () => ModelPostsPage(
                             modelPostsList: fakeFeed,
                             modelName: modelbilgi.first.name!,
                             onFollow: () {},
@@ -356,16 +356,15 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
                         );
                       },
                       child: SizedBox(
-                        height: 200,
-                        child: (fakeFeed[index].media![0].video == 0)
-                            ? Image.network(
-                                fakeFeed[index].media![0].src!,
-                              )
-                            : NewVideoPlayer(
-                                url: fakeFeed[index].media![0].src!,
-                                mute: true,
-                              ),
-                      ),
+                          height: 200,
+                          child: (fakeFeed[index].media![0].video == 0)
+                              ? Image.network(
+                                  fakeFeed[index].media![0].src!,
+                                )
+                              : NewVideoPlayer(
+                                  url: fakeFeed[index].media![0].src!,
+                                  mute: true,
+                                )),
                     );
 
                     // if (index % 2 == 0) {
