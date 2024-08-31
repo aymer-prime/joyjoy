@@ -36,8 +36,7 @@ class _ModelPostsPageState extends State<ModelPostsPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance
-        .addPostFrameCallback((_) => itemScrollController.scrollTo(
-              duration: const Duration(milliseconds: 200),
+        .addPostFrameCallback((_) => itemScrollController.jumpTo(
               index: widget.index,
             ));
   }
@@ -65,7 +64,7 @@ class _ModelPostsPageState extends State<ModelPostsPage> {
         actions: [
           TextButton(
             onPressed: widget.onFollow,
-            child: Text(
+            child: const Text(
               'Follow',
               style: TextStyle(
                 fontSize: 16,

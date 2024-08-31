@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:tryt/components/profil_image_edit.dart';
 import 'package:tryt/config/config.dart';
 import 'package:tryt/config/themecolors.dart';
@@ -198,9 +199,7 @@ class MyAccountMain extends StatelessWidget {
             await PrefService().setString("email", "");
             await PrefService().setString("password", "");
             // ignore: use_build_context_synchronously
-            Navigator.of(
-              context,
-            ).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+            Get.offAndToNamed('/');
           },
           leading: Icon(
             FontAwesome.logout,
