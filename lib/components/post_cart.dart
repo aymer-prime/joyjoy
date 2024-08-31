@@ -50,8 +50,10 @@ class PostCart extends StatefulWidget {
 class _PostCartState extends State<PostCart> {
   bool playderStatus = false;
   int _currentIndex = 0;
+
   @override
   void initState() {
+    print('post text:${widget.postText}');
     super.initState();
   }
 
@@ -176,96 +178,84 @@ class _PostCartState extends State<PostCart> {
             Visibility(
               visible: (widget.mediainfo == null) ? false : true,
               child: (widget.mediainfo != null)
-                  ? ClipRRect(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: double.infinity,
-                            child: Stack(
-                              children: [
-                                CarouselSlider(
-                                  options: CarouselOptions(
-                                    height: 450.0,
-                                    enlargeCenterPage: true,
-                                    aspectRatio: 2.0,
-                                    enableInfiniteScroll: false,
-                                    autoPlayCurve: Curves.fastOutSlowIn,
-                                    viewportFraction: 1.0,
-                                    onPageChanged: (index, reason) {
-                                      setState(() {
-                                        _currentIndex = index;
-                                      });
-                                    },
-                                  ),
-                                  items: widget.mediainfo?.map((media) {
-                                    return Builder(
-                                      builder: (BuildContext context) {
-                                        return (media.video == 0)
-                                            ? SizedBox(
-                                                width: double.infinity,
-                                                child: Image.network(
-                                                  media.src!,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              )
-                                            : SizedBox(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                height: 450,
-                                                child: VideoPlayer(
-                                                  url:
-                                                      widget.mediainfo![0].src!,
-                                                  autoPlay: playderStatus,
-                                                ),
-                                              );
-                                      },
-                                    );
-                                  }).toList(),
-                                ),
-                                Positioned.fill(
-                                  child: Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children:
-                                            widget.mediainfo!.map((media) {
-                                          int index =
-                                              widget.mediainfo!.indexOf(media);
-                                          return Container(
-                                            width: 8.0,
-                                            height: 8.0,
-                                            margin: const EdgeInsets.symmetric(
-                                                vertical: 0.0, horizontal: 2.0),
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: _currentIndex == index
-                                                  ? Colors.blue
-                                                  : Colors
-                                                      .grey, // Change colors as needed
+                  ? Padding(
+                      padding: const EdgeInsets.only(bottom: 11.2),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Stack(
+                          children: [
+                            CarouselSlider(
+                              options: CarouselOptions(
+                                height: 360.0,
+                                enlargeCenterPage: true,
+                                aspectRatio: 2.0,
+                                enableInfiniteScroll: false,
+                                autoPlayCurve: Curves.fastOutSlowIn,
+                                viewportFraction: 1.0,
+                                onPageChanged: (index, reason) {
+                                  setState(() {
+                                    _currentIndex = index;
+                                  });
+                                },
+                              ),
+                              items: widget.mediainfo?.map((media) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    return SizedBox(
+                                      width: double.infinity,
+                                      child: (media.video == 0)
+                                          ? Image.network(
+                                              media.src!,
+                                              fit: BoxFit.cover,
+                                            )
+                                          : VideoPlayer(
+                                              url: widget.mediainfo![0].src!,
+                                              autoPlay: playderStatus,
                                             ),
-                                          );
-                                        }).toList(),
-                                      ),
+                                    );
+                                  },
+                                );
+                              }).toList(),
+                            ),
+                            if (widget.mediainfo!.length > 1)
+                              Positioned.fill(
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: widget.mediainfo!.map((media) {
+                                        int index =
+                                            widget.mediainfo!.indexOf(media);
+                                        return Container(
+                                          width: 8.0,
+                                          height: 8.0,
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 0.0, horizontal: 2.0),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: _currentIndex == index
+                                                ? Colors.blue
+                                                : Colors
+                                                    .grey, // Change colors as needed
+                                          ),
+                                        );
+                                      }).toList(),
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 11.2),
-                        ],
+                              ),
+                          ],
+                        ),
                       ),
                     )
                   : const Text(""),
             ),
-          widget.postText.isEmpty
+          (widget.postText[0].isEmpty)
               ? SizedBox()
               : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),

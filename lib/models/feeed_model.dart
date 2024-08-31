@@ -115,6 +115,7 @@ Future<List<Feedmodel>> getFeedListe(int pageId) async {
   };
   var sonuc = await Httpservices().postMethod("feed/index.php", data);
   var body = json.decode(sonuc);
+  print('feed body:$body');
   var deger = body["result"] as List;
   return deger.map((e) => Feedmodel.fromJson(e)).toList();
 }

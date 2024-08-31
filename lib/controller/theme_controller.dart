@@ -24,7 +24,6 @@ class ThemeController extends GetxController {
   getFeedAdd(int page) async {
     var data = await getFeedListe(page);
     feedmodel.addAll(data);
-    print('feed Date: $data');
     update();
   }
 
