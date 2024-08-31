@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tryt/services/prefservice.dart';
 
-import '../language_pop_menu.dart';
+import '../components/language_pop_menu.dart';
 
 class SingupPage extends StatefulWidget {
   const SingupPage({super.key});
