@@ -241,7 +241,8 @@ class _PostCartState extends State<PostCart> {
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: _currentIndex == index
-                                                ? Colors.blue
+                                                ? ThemeColors.getColorTheme(
+                                                    Config.themType)["colorprimary"]
                                                 : Colors
                                                     .grey, // Change colors as needed
                                           ),
