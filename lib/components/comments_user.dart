@@ -18,17 +18,18 @@ class CommentsUser extends StatefulWidget {
       totalLike,
       totalReply;
   final bool userLike;
-  const CommentsUser(
-      {super.key,
-      required this.onReply,
-      required this.userImage,
-      required this.userName,
-      required this.addDate,
-      required this.commentsText,
-      required this.commentId,
-      required this.totalLike,
-      required this.totalReply,
-      required this.userLike});
+  const CommentsUser({
+    super.key,
+    required this.onReply,
+    required this.userImage,
+    required this.userName,
+    required this.addDate,
+    required this.commentsText,
+    required this.commentId,
+    required this.totalLike,
+    required this.totalReply,
+    required this.userLike,
+  });
 
   @override
   State<CommentsUser> createState() => CommentsUserState();
@@ -36,6 +37,7 @@ class CommentsUser extends StatefulWidget {
 
 class CommentsUserState extends State<CommentsUser> {
   List<SubCommentsmodel> subcommetListe = [];
+  List<String> commentParts = [];
   int pageId = 1;
   String totalLike = "0";
   bool userLike = false;
@@ -45,10 +47,34 @@ class CommentsUserState extends State<CommentsUser> {
     super.initState();
     totalLike = widget.totalLike;
     userLike = widget.userLike;
+    splitComment(widget.commentsText);
+  }
+
+  void splitComment(String input) {
+    RegExp regExp = RegExp(r'@\w+');
+    Iterable<RegExpMatch> matches = regExp.allMatches(input);
+
+    List<String> parts = [];
+
+    int lastMatchEnd = 0;
+
+    for (final match in matches) {
+      if (lastMatchEnd != match.start) {
+        parts.add(input.substring(lastMatchEnd, match.start));
+      }
+      parts.add(match.group(0)!);
+      lastMatchEnd = match.end;
+    }
+
+    if (lastMatchEnd < input.length) {
+      parts.add(input.substring(lastMatchEnd));
+    }
+
+    commentParts = parts;
   }
 
   getSubComments(String page, commentsId) async {
-    var subliste = await getSubCommentsListe(page, commentsId);
+    var subliste = await getSubCommentsList(page, commentsId);
     setState(() {
       subcommetListe.addAll(subliste);
     });
@@ -147,15 +173,32 @@ class CommentsUserState extends State<CommentsUser> {
               const SizedBox(
                 height: 4.8,
               ),
-              Text(
-                widget.commentsText,
-                style: GoogleFonts.firaSans(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14.4,
-                  color: ThemeColors.getColorTheme(Config.themType)["color10"],
-                  height: 1.26,
-                ),
+              RichText(
+                text: TextSpan(
+                    children: commentParts.map((part) {
+                  return TextSpan(
+                    text: part,
+                    style: GoogleFonts.firaSans(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.4,
+                      color: part.startsWith('@')
+                          ? Colors.blue
+                          : ThemeColors.getColorTheme(
+                              Config.themType)["color10"],
+                      height: 1.26,
+                    ),
+                  );
+                }).toList()),
               ),
+              // Text(
+              //   widget.commentsText,
+              //   style: GoogleFonts.firaSans(
+              //     fontWeight: FontWeight.w400,
+              //     fontSize: 14.4,
+              //     color: ThemeColors.getColorTheme(Config.themType)["color10"],
+              //     height: 1.26,
+              //   ),
+              // ),
               TextButton(
                 onPressed: widget.onReply,
                 child: Text(
@@ -172,12 +215,15 @@ class CommentsUserState extends State<CommentsUser> {
                       primary: false,
                       shrinkWrap: true,
                       itemBuilder: (context, index2) {
+                        var comment = subcommetListe[index2]
+                            .comment!
+                            .replaceAll(RegExp(r'<\/?span>'), '');
                         return CommentsUser(
-                          onReply: () {},
+                          onReply: widget.onReply,
                           userImage: subcommetListe[index2].user!.img!,
                           userName: subcommetListe[index2].user!.username!,
                           commentId: subcommetListe[index2].id!,
-                          commentsText: subcommetListe[index2].comment!,
+                          commentsText: comment,
                           totalLike: subcommetListe[index2].totalLike!,
                           totalReply: "0",
                           addDate: subcommetListe[index2].date!,

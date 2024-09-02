@@ -118,3 +118,21 @@ Future<List<Feedmodel>> getFeedListe(int pageId) async {
   var deger = body["result"] as List;
   return deger.map((e) => Feedmodel.fromJson(e)).toList();
 }
+
+Future<List<Feedmodel>> getModelFeedList(
+    String modelId, int listType, int pageId) async {
+  var data = {
+    "lang": Config.lang,
+    "user_id": Config.userBilgi.userId,
+    "token": Config.userBilgi.token,
+    "page": pageId.toString(),
+    "model_id": modelId.toString(),
+    "list_type": listType.toString(),
+  };
+  var sonuc = await Httpservices().postMethod("feed/index.php", data);
+  print('model feed data: $data');
+  print('model feed: $sonuc');
+  var body = json.decode(sonuc);
+  var deger = body["result"] as List;
+  return deger.map((e) => Feedmodel.fromJson(e)).toList();
+}

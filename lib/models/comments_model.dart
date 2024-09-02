@@ -124,7 +124,7 @@ Future<List<Commentsmodel>> getCommentsList(String page, feedId) async {
   return deger.map((e) => Commentsmodel.fromJson(e)).toList();
 }
 
-Future<List<SubCommentsmodel>> getSubCommentsListe(
+Future<List<SubCommentsmodel>> getSubCommentsList(
     String page, commentId) async {
   var data = {
     "user_id": Config.userBilgi.userId,

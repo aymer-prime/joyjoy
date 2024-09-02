@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:tryt/components/video_player.dart';
+import 'package:tryt/components/video_player/new_video_player.dart';
 import 'package:tryt/config/themecolors.dart';
 import 'package:tryt/models/feeed_model.dart';
 import 'package:tryt/pages/commonts_liste.dart';
@@ -203,6 +204,7 @@ class _PostCartState extends State<PostCart> {
                                   builder: (BuildContext context) {
                                     return SizedBox(
                                       width: double.infinity,
+                                      height: 450,
                                       child: (media.video == 0)
                                           ? InstaImageViewer(
                                               child: Image.network(
@@ -210,10 +212,11 @@ class _PostCartState extends State<PostCart> {
                                                 fit: BoxFit.cover,
                                               ),
                                             )
-                                          : VideoPlayer(
-                                              url: widget.mediainfo![0].src!,
-                                              autoPlay: playderStatus,
-                                            ),
+                                          : NewVideoPlayer(
+                                            url: widget.mediainfo![0].src!,
+                                            autoPlay: false,
+                                            showControls: true,
+                                          ),
                                     );
                                   },
                                 );

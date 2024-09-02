@@ -98,7 +98,7 @@ class _CommentsListeState extends State<CommentsListe> {
 
     final result = await Httpservices().postMethod(
       commentId.isNotEmpty
-          ? "feed/comments-replys.php"
+          ? "feed/send-comment-reply.php"
           : "feed/send-comment.php",
       body,
     );
@@ -109,12 +109,14 @@ class _CommentsListeState extends State<CommentsListe> {
 
     if (response["success"] == true) {
       commentController.text = "";
-      if (commentId.isNotEmpty) {
-        CommentsUserState().getSubComments("1", commentId);
-      } else {
-        commentsListe = [];
-        _loadComments();
-      }
+      // if (commentId.isNotEmpty) {
+      //   CommentsUserState().getSubComments("1", commentId);
+      // } else {
+      //   commentsListe = [];
+      //   _loadComments();
+      // }
+      commentsListe = [];
+      _loadComments();
     } else {
       // ignore: use_build_context_synchronously
       Config.genelModal(
@@ -305,7 +307,7 @@ class _CommentsListeState extends State<CommentsListe> {
                                     )),
                             child: Column(
                               children: [
-                               EmojiRow(chatMessage: commentController),
+                                EmojiRow(chatMessage: commentController),
                                 if (isReplaying)
                                   Container(
                                     //width: double.infinity,

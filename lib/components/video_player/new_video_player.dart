@@ -7,10 +7,14 @@ import 'package:tryt/config/themecolors.dart';
 
 class NewVideoPlayer extends StatefulWidget {
   final bool mute;
+  final bool autoPlay;
+  final bool showControls;
   const NewVideoPlayer({
     super.key,
     required this.url,
     this.mute = false,
+    this.autoPlay = true,
+    this.showControls = false,
   });
   final String url;
 
@@ -34,9 +38,9 @@ class _NewVideoPlayerState extends State<NewVideoPlayer> {
         isLoading = false;
         chewieController = ChewieController(
           videoPlayerController: _controller,
-          autoPlay: true,
+          autoPlay: widget.autoPlay,
           looping: true,
-          showControls: false,
+          showControls: widget.showControls,
         );
         if (widget.mute) {
           chewieController.setVolume(0);
@@ -66,8 +70,15 @@ class _NewVideoPlayerState extends State<NewVideoPlayer> {
               color: ThemeColors.getColorTheme(Config.themType)["color10"],
             ),
           )
-        : Chewie(
-            controller: chewieController,
+        : Container(
+            decoration: BoxDecoration(
+              color: ThemeColors.getColorTheme(Config.themType)["color10"],
+            ),
+            child: SizedBox(
+              child: Chewie(
+                controller: chewieController,
+              ),
+            ),
           );
   }
 }

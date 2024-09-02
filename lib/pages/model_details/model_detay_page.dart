@@ -25,13 +25,16 @@ class ModelDetayPage extends StatefulWidget {
 
 class _ModelDetayPageState extends State<ModelDetayPage> {
   List<Modeldetailmodel> modelbilgi = [];
+  List<Feedmodel> modelPosts = [];
   bool isLoading = true;
 
   loadPage() async {
     isLoading = true;
     var modelinfo = await getModalApi(widget.modelId, context);
+    var posts = await getModelFeedList(modelinfo.modelId!, 1, 1);
     setState(() {
       modelbilgi.add(modelinfo);
+      modelPosts.addAll(posts);
       isLoading = false;
     });
   }
@@ -342,13 +345,13 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
                   crossAxisSpacing: 1.5,
                   shrinkWrap: true,
                   primary: false,
-                  itemCount: fakeFeed.length,
+                  itemCount: modelPosts.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
                         Get.to(
                           () => ModelPostsPage(
-                            modelPostsList: fakeFeed,
+                            modelPostsList: modelPosts,
                             modelName: modelbilgi.first.name!,
                             onFollow: () {},
                             index: index,
@@ -356,15 +359,16 @@ class _ModelDetayPageState extends State<ModelDetayPage> {
                         );
                       },
                       child: SizedBox(
-                          height: 200,
-                          child: (fakeFeed[index].media![0].video == 0)
-                              ? Image.network(
-                                  fakeFeed[index].media![0].src!,
-                                )
-                              : NewVideoPlayer(
-                                  url: fakeFeed[index].media![0].src!,
-                                  mute: true,
-                                )),
+                        height: 200,
+                        child: (modelPosts[index].media![0].video == 0)
+                            ? Image.network(
+                                modelPosts[index].media![0].src!,
+                              )
+                            : NewVideoPlayer(
+                                url: modelPosts[index].media![0].src!,
+                                mute: true,
+                              ),
+                      ),
                     );
 
                     // if (index % 2 == 0) {
